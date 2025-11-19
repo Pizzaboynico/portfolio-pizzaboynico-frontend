@@ -1,29 +1,48 @@
 "use client";
 
-import Image from "next/image";
-import { useNextSanityImage } from "next-sanity-image";
-import { client } from "../lib/sanity.client";
+import Image, { type ImageProps } from "next/image";
+import { getImage } from "next-sanity-image";
+import { client } from "@/lib/sanity.client";
 
-interface Props {
+interface SanityImageProps {
   image: any;
   alt: string;
   className?: string;
   sizes?: string;
 }
 
-export default function SanityImage({ image, alt, className, sizes }: Props) {
-  const imageProps = useNextSanityImage(client, image);
+export default function SanityImage({
+  image,
+  alt,
+  className,
+  sizes = "100vw",
+}: SanityImageProps) {
+  if (!image) return null;
 
-  if (!imageProps) return null;
+  // Otteniamo dati immagine da Sanity
+  const imageData = getImage(client, image);
+
+  if (!imageData) return null;
+
+  const {
+    src,
+    width,
+    height,
+    loader,
+    blurDataURL,
+  } = imageData;
 
   return (
     <Image
-      {...imageProps}
+      src={src}
+      width={width}
+      height={height}
       alt={alt}
+      loader={loader}
+      blurDataURL={blurDataURL}
+      placeholder={blurDataURL ? "blur" : "empty"}
+      sizes={sizes}
       className={className}
-      sizes={sizes || "100vw"}
-      placeholder="blur"
-      blurDataURL={imageProps.src + "&blur=20"}
     />
   );
 }
