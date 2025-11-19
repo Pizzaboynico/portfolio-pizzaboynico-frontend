@@ -3,13 +3,7 @@
 import { useState } from "react";
 import SanityImage from "./SanityImage";
 import ProjectModal from "./ProjectModal";
-
-interface Project {
-  _id: string;
-  title: string;
-  category?: string;
-  mainImage: any;
-}
+import { Project } from "@/types/Project";
 
 interface MasonryGridProps {
   projects: Project[];
@@ -23,22 +17,25 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
 
   const goPrev = () => {
     if (selectedIndex === null) return;
-    setSelectedIndex((prev) => (prev! > 0 ? prev! - 1 : projects.length - 1));
+    setSelectedIndex((prev) =>
+      prev! > 0 ? prev! - 1 : projects.length - 1
+    );
   };
 
   const goNext = () => {
     if (selectedIndex === null) return;
-    setSelectedIndex((prev) => (prev! < projects.length - 1 ? prev! + 1 : 0));
+    setSelectedIndex((prev) =>
+      prev! < projects.length - 1 ? prev! + 1 : 0
+    );
   };
 
   return (
     <>
-      {/* GRID */}
-      <div className="masonry-grid">
+      <div className="grid-wrapper">
         {projects.map((project, index) => (
           <div
             key={project._id}
-            className={`masonry-item ${
+            className={`grid-item ${
               hovered && hovered !== project._id ? "faded" : ""
             }`}
             onMouseEnter={() => setHovered(project._id)}
@@ -48,26 +45,18 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
             <SanityImage
               image={project.mainImage}
               alt={project.title}
-              className="masonry-img"
+              className="masonry-img cursor-pointer"
             />
 
-            {/* Numero progressivo */}
-            <p className="masonry-number">
-              {String(index + 1).padStart(3, "0")}
-            </p>
+            <h3 className="grid-title">{project.title}</h3>
 
-            {/* Titolo */}
-            <h3 className="masonry-title">{project.title}</h3>
-
-            {/* Categoria opzionale */}
             {project.category && (
-              <p className="masonry-category">{project.category}</p>
+              <p className="grid-category">{project.category}</p>
             )}
           </div>
         ))}
       </div>
 
-      {/* MODAL */}
       <ProjectModal
         project={selected}
         onClose={() => setSelectedIndex(null)}
