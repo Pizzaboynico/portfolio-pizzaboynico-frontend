@@ -1,33 +1,33 @@
 /* ----------------------------------------------------
-   GRID LAYOUT — Portfolio
+   GRID LAYOUT — Masonry Portfolio
    ---------------------------------------------------- */
 
-/* --- WRAPPER PRINCIPALE --- */
-.grid-wrapper {
+/* --- WRAPPER --- */
+.masonry-grid {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
   padding: 80px 40px;
+
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   gap: 60px;
 }
 
 /* ----------------------------------------------------
-   GRID ITEM
+   ITEM
    ---------------------------------------------------- */
-.grid-item {
+.masonry-item {
   display: flex;
   flex-direction: column;
   gap: 12px;
   cursor: pointer;
 
-  /* transizioni per fade */
+  /* fade effect for non-hovered items */
   transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-/* Fade degli altri elementi quando uno è in hover */
-.grid-item.faded {
+.masonry-item.faded {
   opacity: 0.35;
   filter: blur(1px);
 }
@@ -35,32 +35,33 @@
 /* ----------------------------------------------------
    IMMAGINI
    ---------------------------------------------------- */
-.grid-item img {
+.masonry-img {
   width: 100%;
   height: auto;
   border-radius: 4px;
 
-  transition: 
+  transition:
     transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.3s ease;
 }
 
-/* Hover morbido stile Emelo */
-.grid-item:hover img {
+.masonry-item:hover .masonry-img {
   transform: scale(1.02);
 }
 
 /* ----------------------------------------------------
    TESTI
    ---------------------------------------------------- */
-.grid-title {
+
+.masonry-title {
   font-size: 18px;
   font-weight: 400;
   margin: 0;
   letter-spacing: -0.01em;
 }
 
-.grid-category {
+.masonry-number,
+.masonry-category {
   font-size: 14px;
   opacity: 0.6;
   margin: 0;
@@ -71,7 +72,7 @@
    RESPONSIVE
    ---------------------------------------------------- */
 @media (max-width: 1100px) {
-  .grid-wrapper {
+  .masonry-grid {
     padding: 60px 30px;
     gap: 40px;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -79,17 +80,13 @@
 }
 
 @media (max-width: 768px) {
-  .grid-wrapper {
+  .masonry-grid {
     padding: 40px 20px;
     gap: 30px;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 
-  .grid-title {
+  .masonry-title {
     font-size: 16px;
-  }
-
-  .grid-category {
-    font-size: 13px;
   }
 }

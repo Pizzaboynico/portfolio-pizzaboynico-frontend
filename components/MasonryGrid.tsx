@@ -33,11 +33,14 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
 
   return (
     <>
-      <div className="grid-wrapper">
+      {/* GRID */}
+      <div className="masonry-grid">
         {projects.map((project, index) => (
           <div
             key={project._id}
-            className={`grid-item ${hovered && hovered !== project._id ? "faded" : ""}`}
+            className={`masonry-item ${
+              hovered && hovered !== project._id ? "faded" : ""
+            }`}
             onMouseEnter={() => setHovered(project._id)}
             onMouseLeave={() => setHovered(null)}
             onClick={() => setSelectedIndex(index)}
@@ -45,18 +48,26 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
             <SanityImage
               image={project.mainImage}
               alt={project.title}
-              className="masonry-img cursor-pointer"
+              className="masonry-img"
             />
 
-            <h3 className="grid-title">{project.title}</h3>
+            {/* Numero progressivo */}
+            <p className="masonry-number">
+              {String(index + 1).padStart(3, "0")}
+            </p>
 
+            {/* Titolo */}
+            <h3 className="masonry-title">{project.title}</h3>
+
+            {/* Categoria opzionale */}
             {project.category && (
-              <p className="grid-category">{project.category}</p>
+              <p className="masonry-category">{project.category}</p>
             )}
           </div>
         ))}
       </div>
 
+      {/* MODAL */}
       <ProjectModal
         project={selected}
         onClose={() => setSelectedIndex(null)}
