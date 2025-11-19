@@ -4,12 +4,15 @@ import { useState } from "react";
 import SanityImage from "./SanityImage";
 import ProjectModal from "./ProjectModal";
 
+interface Project {
+  _id: string;
+  title: string;
+  category?: string;
+  mainImage: any;
+}
+
 interface MasonryGridProps {
-  projects: {
-    _id: string;
-    title: string;
-    mainImage: any;
-  }[];
+  projects: Project[];
 }
 
 export default function MasonryGrid({ projects }: MasonryGridProps) {
@@ -30,11 +33,11 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
 
   return (
     <>
-      <div className="masonry-grid">
+      <div className="grid-wrapper">
         {projects.map((project, index) => (
           <div
             key={project._id}
-            className={`masonry-item ${hovered && hovered !== project._id ? "faded" : ""}`}
+            className={`grid-item ${hovered && hovered !== project._id ? "faded" : ""}`}
             onMouseEnter={() => setHovered(project._id)}
             onMouseLeave={() => setHovered(null)}
             onClick={() => setSelectedIndex(index)}
@@ -44,11 +47,16 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
               alt={project.title}
               className="masonry-img cursor-pointer"
             />
+
+            <h3 className="grid-title">{project.title}</h3>
+
+            {project.category && (
+              <p className="grid-category">{project.category}</p>
+            )}
           </div>
         ))}
       </div>
 
-      {/* MODAL */}
       <ProjectModal
         project={selected}
         onClose={() => setSelectedIndex(null)}
