@@ -19,10 +19,18 @@ export default function SanityImage({
 }: SanityImageProps) {
   if (!image) return null;
 
-  const imageProps = useNextSanityImage(client, image);
+  // Forziamo il tipo per evitare l'errore "never"
+  const imageProps = useNextSanityImage(client, image) as
+    | {
+        src: string;
+        width: number;
+        height: number;
+        blurDataURL?: string;
+      }
+    | null;
 
-  // se fallisce mettiamo un fallback (così non crasha MAI)
   if (!imageProps || !imageProps.src) {
+    // FALLBACK sicuro (non crasha mai in build)
     return (
       <Image
         src="/fallback.png"
@@ -30,6 +38,7 @@ export default function SanityImage({
         height={600}
         alt={alt}
         className={className}
+        sizes={sizes}
       />
     );
   }
