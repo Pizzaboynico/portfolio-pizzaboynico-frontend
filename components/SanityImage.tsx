@@ -19,17 +19,30 @@ export default function SanityImage({
 }: SanityImageProps) {
   if (!image) return null;
 
-  // Ottieni props immagine da Sanity
   const imageProps = useNextSanityImage(client, image);
 
-  if (!imageProps) return null;
+  // se fallisce mettiamo un fallback (così non crasha MAI)
+  if (!imageProps || !imageProps.src) {
+    return (
+      <Image
+        src="/fallback.png"
+        width={800}
+        height={600}
+        alt={alt}
+        className={className}
+      />
+    );
+  }
 
   return (
     <Image
-      {...imageProps}
+      src={imageProps.src}
+      width={imageProps.width}
+      height={imageProps.height}
       alt={alt}
       className={className}
       sizes={sizes}
+      blurDataURL={imageProps.blurDataURL}
       placeholder={imageProps.blurDataURL ? "blur" : "empty"}
     />
   );
