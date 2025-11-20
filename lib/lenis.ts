@@ -1,15 +1,14 @@
-// lib/lenis.ts
 "use client";
 
-import Lenis from "@studio-freight/lenis";
+import Lenis from "lenis";
 import { useEffect } from "react";
 
-export function useLenis() {
+export default function useLenis() {
   useEffect(() => {
     const lenis = new Lenis({
-      smooth: true,
-      lerp: 0.08,
-      wheelMultiplier: 0.9,
+      lerp: 0.08,          // smussatura scroll
+      wheelMultiplier: 1,  // sensibilità
+      infinite: false,     // no loop
     });
 
     function raf(time: number) {
@@ -19,8 +18,6 @@ export function useLenis() {
 
     requestAnimationFrame(raf);
 
-    return () => {
-      lenis.destroy();
-    };
+    return () => lenis.destroy();
   }, []);
 }
