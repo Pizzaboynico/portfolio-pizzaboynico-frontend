@@ -19,12 +19,9 @@ export default async function HomePage() {
   }
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      <div className="container mx-auto p-10">
-        <h1 className="site-title">NICOLA CORTINOVIS</h1>
-
-        <MasonryGrid projects={projects} />
-      </div>
-    </main>
+    <div className="page-content">
+      {/* Griglia portfolio */}
+      <MasonryGrid projects={projects} />
+    </div>
   );
 }
