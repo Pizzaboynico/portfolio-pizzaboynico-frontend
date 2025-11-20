@@ -3,30 +3,21 @@
 import { useState } from "react";
 import SanityImage from "./SanityImage";
 import ProjectModal from "./ProjectModal";
-import { Project } from "@/types/Project";
 
-interface MasonryGridProps {
-  projects: Project[];
-}
-
-export default function MasonryGrid({ projects }: MasonryGridProps) {
-  const [hovered, setHovered] = useState<string | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+export default function MasonryGrid({ projects }) {
+  const [hovered, setHovered] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const selected = selectedIndex !== null ? projects[selectedIndex] : null;
 
   const goPrev = () => {
     if (selectedIndex === null) return;
-    setSelectedIndex((prev) =>
-      prev! > 0 ? prev! - 1 : projects.length - 1
-    );
+    setSelectedIndex((prev) => (prev > 0 ? prev - 1 : projects.length - 1));
   };
 
   const goNext = () => {
     if (selectedIndex === null) return;
-    setSelectedIndex((prev) =>
-      prev! < projects.length - 1 ? prev! + 1 : 0
-    );
+    setSelectedIndex((prev) => (prev < projects.length - 1 ? prev + 1 : 0));
   };
 
   return (
@@ -35,9 +26,7 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
         {projects.map((project, index) => (
           <div
             key={project._id}
-            className={`grid-item ${
-              hovered && hovered !== project._id ? "faded" : ""
-            }`}
+            className={`grid-item ${hovered && hovered !== project._id ? "faded" : ""}`}
             onMouseEnter={() => setHovered(project._id)}
             onMouseLeave={() => setHovered(null)}
             onClick={() => setSelectedIndex(index)}
@@ -49,10 +38,6 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
             />
 
             <h3 className="grid-title">{project.title}</h3>
-
-            {project.category && (
-              <p className="grid-category">{project.category}</p>
-            )}
           </div>
         ))}
       </div>
