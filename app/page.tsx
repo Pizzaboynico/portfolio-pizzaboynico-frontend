@@ -1,14 +1,16 @@
 import { client } from "@/lib/sanity.client";
 import MasonryGrid from "@/components/MasonryGrid";
 
-const PROJECTS_QUERY = `*[_type == "project"]{
+const PROJECTS_QUERY = `*[_type == "project"] | order(projectNumber asc) {
   _id,
   title,
-  mainImage
+  mainImage,
+  year,
+  projectNumber
 }`;
 
 export default async function HomePage() {
-  let projects = [];
+  let projects: any[] = [];
 
   try {
     projects = await client.fetch(PROJECTS_QUERY);

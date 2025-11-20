@@ -1,67 +1,82 @@
 /* ----------------------------------------------------
-   GRID LAYOUT — Masonry Portfolio
+   GRID LAYOUT — Portfolio
    ---------------------------------------------------- */
 
-/* --- WRAPPER --- */
-.masonry-grid {
+/* --- WRAPPER PRINCIPALE --- */
+.grid-wrapper {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
   padding: 80px 40px;
-
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   gap: 60px;
 }
 
 /* ----------------------------------------------------
-   ITEM
+   GRID ITEM
    ---------------------------------------------------- */
-.masonry-item {
+.grid-item {
   display: flex;
   flex-direction: column;
   gap: 12px;
   cursor: pointer;
 
-  /* fade effect for non-hovered items */
+  /* transizioni fade */
   transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-.masonry-item.faded {
-  opacity: 0.35;
+/* Fade degli altri elementi */
+.grid-item.faded {
+  opacity: 0.3;
   filter: blur(1px);
 }
 
 /* ----------------------------------------------------
-   IMMAGINI
+   IMMAGINI — EFFETTO BIANCO/NERO + HOVER
    ---------------------------------------------------- */
+
+/* Tutte le immagini partono in bianco e nero */
+.grid-item img,
 .masonry-img {
   width: 100%;
   height: auto;
   border-radius: 4px;
 
+  filter: grayscale(1);
+  opacity: 0.6;
+
   transition:
     transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.3s ease;
+    filter 0.4s ease,
+    opacity 0.4s ease;
 }
 
-.masonry-item:hover .masonry-img {
+/* SOLO l'item hoverato diventa a colori */
+.grid-item:hover img,
+.grid-item:hover .masonry-img {
+  filter: grayscale(0);
+  opacity: 1;
   transform: scale(1.02);
+}
+
+/* Gli altri item (con classe faded) restano in B/N + blur */
+.grid-item.faded img {
+  filter: grayscale(1) blur(1px);
+  opacity: 0.25;
 }
 
 /* ----------------------------------------------------
    TESTI
    ---------------------------------------------------- */
-
-.masonry-title {
+.grid-title {
   font-size: 18px;
   font-weight: 400;
   margin: 0;
   letter-spacing: -0.01em;
 }
 
-.masonry-number,
-.masonry-category {
+.grid-category {
   font-size: 14px;
   opacity: 0.6;
   margin: 0;
@@ -72,7 +87,7 @@
    RESPONSIVE
    ---------------------------------------------------- */
 @media (max-width: 1100px) {
-  .masonry-grid {
+  .grid-wrapper {
     padding: 60px 30px;
     gap: 40px;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -80,13 +95,123 @@
 }
 
 @media (max-width: 768px) {
-  .masonry-grid {
+  .grid-wrapper {
     padding: 40px 20px;
     gap: 30px;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 
-  .masonry-title {
+  .grid-title {
     font-size: 16px;
   }
+
+  .grid-category {
+    font-size: 13px;
+  }
+}
+/* ----------------------------------------------------
+   MODAL — Overlay + Contenuto
+   ---------------------------------------------------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: #111;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 90%;
+  position: relative;
+  animation: modalFade 0.25s ease-out;
+}
+
+@keyframes modalFade {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.modal-close:hover {
+  opacity: 1;
+}
+
+/* Immagine modale */
+.modal-img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Testi */
+.modal-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+}
+
+.modal-year {
+  font-size: 14px;
+  opacity: 0.7;
+}
+/* ----------------------------------------------------
+   ZOOM-IN MODALE ANIMATA
+   ---------------------------------------------------- */
+
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.zoom-image-wrapper {
+  max-width: 80vw;
+  max-height: 80vh;
+  animation: zoomIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+.zoomed-image {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

@@ -4,37 +4,10 @@ import { useState } from "react";
 import SanityImage from "./SanityImage";
 import ProjectModal from "./ProjectModal";
 
-interface MasonryProject {
-  _id: string;
-  title: string;
-  mainImage?: any;
-  category?: string;
-}
-
-interface MasonryGridProps {
-  projects: MasonryProject[];
-}
-
-export default function MasonryGrid({ projects }: MasonryGridProps) {
-  const [hovered, setHovered] = useState<string | null>(null);
+export default function MasonryGrid({ projects }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  const selected =
-    selectedIndex !== null ? projects[selectedIndex] : null;
-
-  const goPrev = () => {
-    if (selectedIndex === null) return;
-    setSelectedIndex(prev =>
-      prev! > 0 ? prev! - 1 : projects.length - 1
-    );
-  };
-
-  const goNext = () => {
-    if (selectedIndex === null) return;
-    setSelectedIndex(prev =>
-      prev! < projects.length - 1 ? prev! + 1 : 0
-    );
-  };
+  const selected = selectedIndex !== null ? projects[selectedIndex] : null;
 
   return (
     <>
@@ -42,11 +15,7 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
         {projects.map((project, index) => (
           <div
             key={project._id}
-            className={`grid-item ${
-              hovered && hovered !== project._id ? "faded" : ""
-            }`}
-            onMouseEnter={() => setHovered(project._id)}
-            onMouseLeave={() => setHovered(null)}
+            className="grid-item"
             onClick={() => setSelectedIndex(index)}
           >
             <SanityImage
@@ -55,10 +24,14 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
               className="masonry-img cursor-pointer"
             />
 
+            <p className="grid-category">
+              {String(index + 1).padStart(2, "0")}
+            </p>
+
             <h3 className="grid-title">{project.title}</h3>
 
-            {project.category && (
-              <p className="grid-category">{project.category}</p>
+            {project.year && (
+              <p className="grid-category">{project.year}</p>
             )}
           </div>
         ))}
@@ -67,8 +40,6 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
       <ProjectModal
         project={selected}
         onClose={() => setSelectedIndex(null)}
-        onPrev={goPrev}
-        onNext={goNext}
       />
     </>
   );
