@@ -85,7 +85,6 @@ function Header() {
   );
 }
 
-"use client";
 import { useState, useEffect } from "react";
 
 function Clock() {
