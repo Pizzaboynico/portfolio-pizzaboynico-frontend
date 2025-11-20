@@ -1,6 +1,6 @@
 import { client } from "@/lib/sanity.client";
 import MasonryGrid from "@/components/MasonryGrid";
-import { Project } from "@/types/Project";
+import { Project } from "@/types/project";
 
 const PROJECTS_QUERY = `*[_type == "project"]{
   _id,
