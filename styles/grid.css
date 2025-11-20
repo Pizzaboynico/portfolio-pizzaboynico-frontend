@@ -9,8 +9,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   gap: 60px;
-  justify-items: start; /* 👈 allinea gli elementi a sinistra */
-  margin: 0;           /* 👈 rimuove centratura */
+  justify-items: start; 
+  margin: 0;
 }
 
 /* ----------------------------------------------------
@@ -21,8 +21,6 @@
   flex-direction: column;
   gap: 12px;
   cursor: pointer;
-
-  /* transizioni fade */
   transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
@@ -108,110 +106,4 @@
   .grid-category {
     font-size: 13px;
   }
-}
-/* ----------------------------------------------------
-   MODAL — Overlay + Contenuto
-   ---------------------------------------------------- */
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-}
-
-.modal-content {
-  background: #111;
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 800px;
-  width: 90%;
-  position: relative;
-  animation: modalFade 0.25s ease-out;
-}
-
-@keyframes modalFade {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.modal-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
-}
-
-.modal-close:hover {
-  opacity: 1;
-}
-
-/* Immagine modale */
-.modal-img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-/* Testi */
-.modal-title {
-  font-size: 24px;
-  font-weight: 500;
-  margin: 0 0 6px 0;
-}
-
-.modal-year {
-  font-size: 14px;
-  opacity: 0.7;
-}
-/* ----------------------------------------------------
-   ZOOM-IN MODALE ANIMATA
-   ---------------------------------------------------- */
-
-.zoom-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  animation: fadeIn 0.3s ease forwards;
-}
-
-.zoom-image-wrapper {
-  max-width: 80vw;
-  max-height: 80vh;
-  animation: zoomIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
-}
-
-.zoomed-image {
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-}
-
-@keyframes zoomIn {
-  from {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
 }

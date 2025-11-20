@@ -1,0 +1,38 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px 24px;
+
+  color: white;
+  mix-blend-mode: difference; /* EFFETTO MAGLA */
+}
+
+.header a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+}
+
+.header a:hover {
+  text-decoration: underline;
+}
+
+.header-right {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.header-clock {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+}

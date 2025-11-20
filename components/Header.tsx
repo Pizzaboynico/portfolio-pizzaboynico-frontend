@@ -1,39 +1,36 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const [time, setTime] = useState("");
 
   useEffect(() => {
-    const update = () => {
+    const tick = () => {
       const now = new Date();
-      const t =
-        now.getHours().toString().padStart(2, "0") +
-        ":" +
-        now.getMinutes().toString().padStart(2, "0") +
-        ":" +
-        now.getSeconds().toString().padStart(2, "0");
-      setTime(t);
+      setTime(
+        now.toLocaleTimeString("it-IT", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        })
+      );
     };
 
-    update();
-    const interval = setInterval(update, 1000);
+    tick();
+    const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <header
-      className="fixed top-0 left-0 w-full flex items-center justify-between px-6 py-4 z-[99999]"
-      style={{ mixBlendMode: "difference" }}
-    >
-      <div className="text-white tracking-wide text-sm">
-        PIZZABOYNICO
+    <header className="header">
+      <div className="header-left">
+        <a href="/">PIZZABOYNICO</a>
       </div>
 
-      <div className="flex items-center gap-8 text-white text-sm tracking-wide">
-        <span style={{ opacity: 0.3 }}>SEIZO (COMING SOON)</span>
-        <span>{time}</span>
+      <div className="header-right">
+        <span style={{ opacity: 0.6 }}>SEIZO (COMING SOON)</span>
+        <span className="header-clock">{time}</span>
       </div>
     </header>
   );
