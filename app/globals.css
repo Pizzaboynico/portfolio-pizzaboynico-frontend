@@ -40,3 +40,29 @@ a {
     color-scheme: dark;
   }
 }
+.header {
+  position: fixed;
+  top: 20px;
+  left: 25px;
+  right: 25px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  z-index: 1000;
+  mix-blend-mode: difference;
+  color: white;
+  pointer-events: none;
+}
+
+.header-item {
+  pointer-events: auto;
+}
+
+.header-item.faded {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.header-item:hover {
+  text-decoration: underline;
+}
