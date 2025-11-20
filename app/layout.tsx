@@ -4,7 +4,6 @@ import "./globals.css";
 import "@/styles/grid.css";
 import "@/styles/modal.css";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,8 +29,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable}`}
         style={{
-          backgroundColor: "#4B61D1",   // 🔵 sfondo pagina
-          color: "#ffffff",             // ✨ testo bianco
+          backgroundColor: "#4B61D1",
+          color: "#ffffff",
         }}
       >
         {children}

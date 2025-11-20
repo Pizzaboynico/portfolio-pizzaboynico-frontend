@@ -6,9 +6,8 @@ import { useEffect } from "react";
 export default function useLenis() {
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.08,          // smussatura scroll
-      wheelMultiplier: 1,  // sensibilità
-      infinite: false,     // no loop
+      lerp: 0.08,          // smorzamento
+      wheelMultiplier: 0.9 // sensibilità dello scroll
     });
 
     function raf(time: number) {
@@ -18,6 +17,8 @@ export default function useLenis() {
 
     requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 }
