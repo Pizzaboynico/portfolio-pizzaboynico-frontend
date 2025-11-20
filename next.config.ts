@@ -1,5 +1,3 @@
-// next.config.ts
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -13,11 +11,10 @@ const nextConfig = {
     ],
   },
   
-  // 🔥 FIX 1: Ignora i risultati di ESLint per sbloccare la build
+  // FIX: Ignora ESLint durante il build per risolvere l'errore "next is not a function..."
   eslint: {
     ignoreDuringBuilds: true,
   },
 };
 
-// FIX 2: Usa export default per i file .ts
 export default nextConfig;

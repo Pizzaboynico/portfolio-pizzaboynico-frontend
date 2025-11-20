@@ -22,10 +22,12 @@
         "name": "next"
       }
     ],
+    // FIX: Mappatura esplicita dei percorsi per Vercel
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/types/*": ["types/*"],
+      "@/*": ["./*"]
     }
   },
   "include": [

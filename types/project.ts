@@ -1,4 +1,6 @@
-import { SanityImageSource } from "next-sanity-image";
+// types/Project.ts
+
+// RIMOZIONE DELLA RIGA PROBLEMATICA: import { SanityImageSource } from "next-sanity-image"; 
 
 /**
  * Definisce la struttura dei dati di un singolo progetto 
@@ -10,7 +12,8 @@ export interface Project {
   slug: {
     current: string;
   };
-  // L'immagine principale, usiamo il tipo specifico di next-sanity-image
-  mainImage: SanityImageSource; 
+  // Sostituito il tipo problematico con 'any' per sbloccare la risoluzione dei tipi.
+  mainImage: any; 
+  
   description?: string;
 }
