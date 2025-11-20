@@ -1,68 +1,143 @@
-:root {
-  --background: #4B61D1;
-  --foreground: #ffffff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #4B61D1;
-    --foreground: #ffffff;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* -------------------------------------------------------
+   RESET DI BASE
+------------------------------------------------------- */
 * {
-  box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background: #4B61D1;
+  color: #ffffff;
+  font-family: var(--font-geist-sans), sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* -------------------------------------------------------
+   BODY E TIPOGRAFIA
+------------------------------------------------------- */
+body {
+  line-height: 1.5;
+  cursor: none; /* nasconde il cursore default */
 }
-.header {
+
+/* -------------------------------------------------------
+   CURSORE PERSONALIZZATO
+------------------------------------------------------- */
+#cursor-dot {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
   position: fixed;
-  top: 20px;
-  left: 25px;
-  right: 25px;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+}
+
+/* -------------------------------------------------------
+   HEADER STICKY
+------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 18px 26px;
+  z-index: 9999;
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  z-index: 1000;
+  align-items: center;
+
   mix-blend-mode: difference;
   color: white;
+}
+
+.site-header nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+/* -------------------------------------------------------
+   LINK HEADER
+------------------------------------------------------- */
+.header-link {
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: white;
+  opacity: 0.9;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.header-link:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.header-disabled {
+  opacity: 0.4;
+  cursor: default;
   pointer-events: none;
 }
 
-.header-item {
-  pointer-events: auto;
+/* Sottolineatura animata */
+.header-link.underline {
+  position: relative;
 }
 
-.header-item.faded {
-  opacity: 0.4;
-  cursor: default;
+.header-link.underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 1px;
+  background: white;
+  transition: width 0.25s ease;
 }
 
-.header-item:hover {
-  text-decoration: underline;
+.header-link.underline:hover::after {
+  width: 100%;
+}
+
+/* -------------------------------------------------------
+   TITOLONE HOME
+------------------------------------------------------- */
+.site-title {
+  margin-top: 120px;
+  margin-bottom: 40px;
+  font-weight: 700;
+  font-size: 60px;
+  letter-spacing: -0.04em;
+}
+
+/* -------------------------------------------------------
+   SCROLLBEHAVIOR OVERRIDE (LENIS)
+------------------------------------------------------- */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }

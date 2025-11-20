@@ -5,9 +5,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/lib/sanity.client";
 
 const builder = imageUrlBuilder(client);
-function urlFor(src: any) {
-  return builder.image(src).url();
-}
+const urlFor = (src: any) => builder.image(src).url();
 
 interface ProjectModalProps {
   project: any;
@@ -16,28 +14,31 @@ interface ProjectModalProps {
   onNext: () => void;
 }
 
-export default function ProjectModal({ project, onClose, onPrev, onNext }: ProjectModalProps) {
-  // chiude con ESC
+export default function ProjectModal({
+  project,
+  onClose,
+  onPrev,
+  onNext,
+}: ProjectModalProps) {
+  
+  // ESC to close
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
+    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onEsc);
+    return () => window.removeEventListener("keydown", onEsc);
   }, [onClose]);
 
   if (!project) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div
-        className="modal-content"
-        onClick={(e) => e.stopPropagation()} // evita chiusura clic interno
-      >
+      
+      <div className="modal-inner" onClick={(e) => e.stopPropagation()}>
+        
         <img
           src={urlFor(project.mainImage)}
           alt={project.title}
-          className="modal-image"
+          className="modal-img"
         />
 
         <div className="modal-caption">
@@ -47,6 +48,7 @@ export default function ProjectModal({ project, onClose, onPrev, onNext }: Proje
         <button className="modal-close" onClick={onClose}>×</button>
         <button className="modal-prev" onClick={onPrev}>←</button>
         <button className="modal-next" onClick={onNext}>→</button>
+
       </div>
     </div>
   );
