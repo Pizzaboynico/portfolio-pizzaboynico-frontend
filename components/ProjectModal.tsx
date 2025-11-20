@@ -22,23 +22,24 @@ export default function ProjectModal({
   onPrev,
   onNext,
 }: ProjectModalProps) {
-  // ESC per chiudere
+
+  // 🔥 Keybindings: ESC, freccia SX, freccia DX
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
+    const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") onPrev();
+      if (e.key === "ArrowRight") onNext();
     };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, [onClose]);
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onClose, onPrev, onNext]);
 
   if (!project) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div
-        className="modal-inner"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="modal-inner" onClick={(e) => e.stopPropagation()}>
         <img
           src={urlFor(project.mainImage)}
           alt={project.title}
@@ -47,21 +48,12 @@ export default function ProjectModal({
 
         <div className="modal-caption">
           <h3>{project.title}</h3>
-          {project.year && <p>{project.year}</p>}
         </div>
 
-        {/* CHIUDI */}
+        {/* 🔥 Manteniamo solo il bottone close visibile */}
         <button className="modal-close" onClick={onClose}>×</button>
 
-        {/* PRECEDENTE */}
-        <button className="modal-prev" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
-          ←
-        </button>
-
-        {/* SUCCESSIVO */}
-        <button className="modal-next" onClick={(e) => { e.stopPropagation(); onNext(); }}>
-          →
-        </button>
+        {/* 🔥 NESSUN BOTTONE PREV/NEXT VISIBILE */}
       </div>
     </div>
   );

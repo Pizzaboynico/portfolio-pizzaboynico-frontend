@@ -1,33 +1,40 @@
-.main-header {
-  position: fixed;
-  top: 0;
-  left: 0;
+/* HEADER WRAPPER */
+.site-header {
   width: 100%;
-  padding: 14px 22px;
-  z-index: 4000;
-
+  padding: 20px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  mix-blend-mode: difference;
 
+  /* ❌ RIMOSSO mix-blend-mode */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+}
+
+/* COLONNE */
+.header-left,
+.header-center,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* STILI TESTO */
+.header-left a,
+.header-center span,
+.header-right span {
+  color: white;
   font-size: 14px;
   letter-spacing: 0.03em;
-}
-
-.main-header a,
-.main-header span {
-  color: white;
   text-decoration: none;
-  cursor: pointer;
 }
 
-.header-center .coming-soon {
-  opacity: 0.7;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
+/* LINK HOVER */
 .header-left a:hover {
   opacity: 0.7;
 }
+
+/* ORA È TUTTO SU UNA RIGA BEN DISTRIBUITO */
