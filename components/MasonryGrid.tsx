@@ -7,58 +7,76 @@ import ProjectModal from "./ProjectModal";
 
 const builder = imageUrlBuilder(client);
 function urlFor(src: any) {
-  return builder.image(src).width(800).url();
+  return builder.image(src).url();
 }
 
 interface Project {
   _id: string;
   title: string;
+  year?: string;
   mainImage: any;
 }
 
 export default function MasonryGrid({ projects }: { projects: Project[] }) {
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  const selected = selectedIndex !== null ? projects[selectedIndex] : null;
+  const selectedProject =
+    selectedIndex !== null ? projects[selectedIndex] : null;
 
   const openModal = (index: number) => setSelectedIndex(index);
+  const closeModal = () => setSelectedIndex(null);
 
   const goPrev = () => {
     if (selectedIndex === null) return;
-    setSelectedIndex((prev) => (prev! > 0 ? prev! - 1 : projects.length - 1));
+    setSelectedIndex((prev) =>
+      prev! > 0 ? prev! - 1 : projects.length - 1
+    );
   };
 
   const goNext = () => {
     if (selectedIndex === null) return;
-    setSelectedIndex((prev) => (prev! < projects.length - 1 ? prev! + 1 : 0));
+    setSelectedIndex((prev) =>
+      prev! < projects.length - 1 ? prev! + 1 : 0
+    );
   };
 
   return (
     <>
-      <div className="masonry-grid">
-        {projects.map((project, index) => (
+      <div className="grid-wrapper">
+        {projects.map((project, i) => (
           <div
             key={project._id}
-            className="masonry-item"
-            onClick={() => openModal(index)}
+            className={`grid-item ${
+              hoverIndex !== null && hoverIndex !== i ? "faded" : ""
+            }`}
+            onMouseEnter={() => setHoverIndex(i)}
+            onMouseLeave={() => setHoverIndex(null)}
+            onClick={() => openModal(i)}
           >
             <img
               src={urlFor(project.mainImage)}
               alt={project.title}
+              className="masonry-img"
             />
 
-            <div className="meta">
-              <span className="index">{String(index + 1).padStart(2, "0")}</span>
-              <span className="title">{project.title}</span>
-            </div>
+            <span className="grid-title">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+
+            <span className="grid-title">{project.title}</span>
+
+            {project.year && (
+              <span className="grid-category">{project.year}</span>
+            )}
           </div>
         ))}
       </div>
 
-      {selected && (
+      {selectedProject && (
         <ProjectModal
-          project={selected}
-          onClose={() => setSelectedIndex(null)}
+          project={selectedProject}
+          onClose={closeModal}
           onPrev={goPrev}
           onNext={goNext}
         />

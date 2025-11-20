@@ -141,3 +141,21 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+/* CURSORE PALLINO */
+body {
+  cursor: none;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  z-index: 8000;
+  transform: translate(-50%, -50%);
+}

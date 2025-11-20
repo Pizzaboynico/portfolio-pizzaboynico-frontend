@@ -5,7 +5,9 @@ import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/lib/sanity.client";
 
 const builder = imageUrlBuilder(client);
-const urlFor = (src: any) => builder.image(src).url();
+function urlFor(src: any) {
+  return builder.image(src).url();
+}
 
 interface ProjectModalProps {
   project: any;
@@ -20,21 +22,23 @@ export default function ProjectModal({
   onPrev,
   onNext,
 }: ProjectModalProps) {
-  
-  // ESC to close
+  // ESC per chiudere
   useEffect(() => {
-    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onEsc);
-    return () => window.removeEventListener("keydown", onEsc);
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
   if (!project) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      
-      <div className="modal-inner" onClick={(e) => e.stopPropagation()}>
-        
+      <div
+        className="modal-inner"
+        onClick={(e) => e.stopPropagation()}
+      >
         <img
           src={urlFor(project.mainImage)}
           alt={project.title}
@@ -43,12 +47,21 @@ export default function ProjectModal({
 
         <div className="modal-caption">
           <h3>{project.title}</h3>
+          {project.year && <p>{project.year}</p>}
         </div>
 
+        {/* CHIUDI */}
         <button className="modal-close" onClick={onClose}>×</button>
-        <button className="modal-prev" onClick={onPrev}>←</button>
-        <button className="modal-next" onClick={onNext}>→</button>
 
+        {/* PRECEDENTE */}
+        <button className="modal-prev" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
+          ←
+        </button>
+
+        {/* SUCCESSIVO */}
+        <button className="modal-next" onClick={(e) => { e.stopPropagation(); onNext(); }}>
+          →
+        </button>
       </div>
     </div>
   );

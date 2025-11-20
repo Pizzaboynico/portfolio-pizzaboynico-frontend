@@ -1,38 +1,33 @@
-.header {
+.main-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 9999;
+  padding: 14px 22px;
+  z-index: 4000;
 
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
+  mix-blend-mode: difference;
 
-  padding: 16px 24px;
-
-  color: white;
-  mix-blend-mode: difference; /* EFFETTO MAGLA */
-}
-
-.header a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 500;
-}
-
-.header a:hover {
-  text-decoration: underline;
-}
-
-.header-right {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-}
-
-.header-clock {
   font-size: 14px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03em;
+}
+
+.main-header a,
+.main-header span {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header-center .coming-soon {
+  opacity: 0.7;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.header-left a:hover {
   opacity: 0.7;
 }

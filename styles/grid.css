@@ -1,109 +1,59 @@
-/* ----------------------------------------------------
-   GRID LAYOUT — Portfolio
-   ---------------------------------------------------- */
-
-/* --- WRAPPER PRINCIPALE --- */
+/* WRAPPER */
 .grid-wrapper {
   width: 100%;
-  padding: 80px 40px;
+  padding: 100px 40px 60px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 60px;
-  justify-items: start; 
-  margin: 0;
+  justify-items: start;
 }
 
-/* ----------------------------------------------------
-   GRID ITEM
-   ---------------------------------------------------- */
+/* ITEM */
 .grid-item {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   cursor: pointer;
   transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-/* Fade degli altri elementi */
 .grid-item.faded {
   opacity: 0.3;
   filter: blur(1px);
 }
 
-/* ----------------------------------------------------
-   IMMAGINI — EFFETTO BIANCO/NERO + HOVER
-   ---------------------------------------------------- */
-
-/* Tutte le immagini partono in bianco e nero */
-.grid-item img,
-.masonry-img {
+/* IMMAGINI */
+.grid-item img {
   width: 100%;
   height: auto;
-  border-radius: 4px;
-
   filter: grayscale(1);
   opacity: 0.6;
-
-  transition:
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.4s ease,
-    opacity 0.4s ease;
+  transition: all 0.4s ease;
 }
 
-/* SOLO l'item hoverato diventa a colori */
-.grid-item:hover img,
-.grid-item:hover .masonry-img {
+.grid-item:hover img {
   filter: grayscale(0);
   opacity: 1;
   transform: scale(1.02);
 }
 
-/* Gli altri item (con classe faded) restano in B/N + blur */
-.grid-item.faded img {
-  filter: grayscale(1) blur(1px);
-  opacity: 0.25;
-}
-
-/* ----------------------------------------------------
-   TESTI
-   ---------------------------------------------------- */
+/* TESTI */
 .grid-title {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 16px;
   margin: 0;
-  letter-spacing: -0.01em;
 }
 
 .grid-category {
   font-size: 14px;
-  opacity: 0.6;
+  opacity: 0.7;
   margin: 0;
-  letter-spacing: 0.03em;
 }
 
-/* ----------------------------------------------------
-   RESPONSIVE
-   ---------------------------------------------------- */
-@media (max-width: 1100px) {
-  .grid-wrapper {
-    padding: 60px 30px;
-    gap: 40px;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  }
-}
-
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .grid-wrapper {
-    padding: 40px 20px;
-    gap: 30px;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
-
-  .grid-title {
-    font-size: 16px;
-  }
-
-  .grid-category {
-    font-size: 13px;
+    gap: 30px;
+    padding: 80px 20px;
   }
 }
