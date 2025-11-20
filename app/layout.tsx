@@ -1,11 +1,14 @@
+"use client";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "@/styles/grid.css";
 import "@/styles/modal.css";
 
-import Header from "@/components/Header";
-import Providers from "@/app/providers";
+import Providers from "./providers"; // Lenis wrapper
+import Header from "@/components/Header"; // header
+import CustomCursor from "@/components/CustomCursor"; // cursor
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,14 +39,17 @@ export default function RootLayout({
           color: "#ffffff",
         }}
       >
-        <Providers /> {/* Lenis */}
-        <Header /> {/* Header sempre visibile */}
+        {/* Smooth scroll */}
+        <Providers>
+          {/* Mouse pointer */}
+          <CustomCursor />
 
-        {/* CONTENUTO DEL SITO */}
-        {children}
+          {/* Header fisso */}
+          <Header />
 
-        {/* CURSORE PERSONALIZZATO */}
-        <div id="cursor-dot"></div>
+          {/* Contenuto del sito */}
+          {children}
+        </Providers>
       </body>
     </html>
   );
