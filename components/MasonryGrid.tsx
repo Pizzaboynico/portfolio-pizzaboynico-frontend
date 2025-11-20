@@ -1,25 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import SanityImage from "./SanityImage";
+import imageUrlBuilder from "@sanity/image-url";
+import { client } from "@/lib/sanity.client";
 import ProjectModal from "./ProjectModal";
+
+const builder = imageUrlBuilder(client);
+function urlFor(src: any) {
+  return builder.image(src).width(800).url();
+}
 
 interface Project {
   _id: string;
   title: string;
   mainImage: any;
-  year?: string;
 }
 
-interface MasonryGridProps {
-  projects: Project[];
-}
-
-export default function MasonryGrid({ projects }: MasonryGridProps) {
-  const [hovered, setHovered] = useState<string | null>(null);
+export default function MasonryGrid({ projects }: { projects: Project[] }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const selected = selectedIndex !== null ? projects[selectedIndex] : null;
+
+  const openModal = (index: number) => setSelectedIndex(index);
 
   const goPrev = () => {
     if (selectedIndex === null) return;
@@ -33,41 +35,34 @@ export default function MasonryGrid({ projects }: MasonryGridProps) {
 
   return (
     <>
-      <div className="grid-wrapper">
+      <div className="masonry-grid">
         {projects.map((project, index) => (
           <div
             key={project._id}
-            className={`grid-item ${hovered && hovered !== project._id ? "faded" : ""}`}
-            onMouseEnter={() => setHovered(project._id)}
-            onMouseLeave={() => setHovered(null)}
-            onClick={() => setSelectedIndex(index)}
+            className="masonry-item"
+            onClick={() => openModal(index)}
           >
-            <SanityImage
-              image={project.mainImage}
+            <img
+              src={urlFor(project.mainImage)}
               alt={project.title}
-              className="masonry-img cursor-pointer"
             />
 
-            {/* NUMERO */}
-            <p className="grid-number">{String(index + 1).padStart(2, "0")}</p>
-
-            {/* TITOLO */}
-            <h3 className="grid-title">{project.title}</h3>
-
-            {/* ANNO */}
-            {project.year && (
-              <p className="grid-category">{project.year}</p>
-            )}
+            <div className="meta">
+              <span className="index">{String(index + 1).padStart(2, "0")}</span>
+              <span className="title">{project.title}</span>
+            </div>
           </div>
         ))}
       </div>
 
-      <ProjectModal
-        project={selected}
-        onClose={() => setSelectedIndex(null)}
-        onPrev={goPrev}
-        onNext={goNext}
-      />
+      {selected && (
+        <ProjectModal
+          project={selected}
+          onClose={() => setSelectedIndex(null)}
+          onPrev={goPrev}
+          onNext={goNext}
+        />
+      )}
     </>
   );
 }
