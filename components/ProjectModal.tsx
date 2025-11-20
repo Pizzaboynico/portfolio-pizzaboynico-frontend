@@ -1,41 +1,73 @@
 "use client";
 
-import { X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import SanityImage from "./SanityImage";
 
-interface ProjectModalProps {
-  project: any | null;
-  onClose: () => void;
+interface Project {
+  _id: string;
+  title: string;
+  mainImage: any;
+  year?: string;
 }
 
-export default function ProjectModal({ project, onClose }: ProjectModalProps) {
-  if (!project) return null;
+interface ProjectModalProps {
+  project: Project | null;
+  onClose: () => void;
+  onPrev: () => void;  // ✅ AGGIUNTO
+  onNext: () => void;  // ✅ AGGIUNTO
+}
 
+export default function ProjectModal({
+  project,
+  onClose,
+  onPrev,
+  onNext
+}: ProjectModalProps) {
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div
-        className="modal-content"
-        onClick={(e) => e.stopPropagation()} // impedisce chiusura clic interno
-      >
-        {/* Chiudi */}
-        <button className="modal-close" onClick={onClose}>
-          <X size={22} />
-        </button>
+    <AnimatePresence>
+      {project && (
+        <motion.div
+          className="modal-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+        >
+          <motion.div
+            className="modal-content"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Freccia Prev */}
+            <button className="modal-prev" onClick={onPrev}>
+              ←
+            </button>
 
-        {/* Immagine */}
-        <SanityImage
-          image={project.mainImage}
-          alt={project.title}
-          className="modal-img"
-        />
+            {/* Immagine */}
+            <SanityImage
+              image={project.mainImage}
+              alt={project.title}
+              className="modal-img"
+            />
 
-        {/* Testi */}
-        <h2 className="modal-title">{project.title}</h2>
+            {/* Freccia Next */}
+            <button className="modal-next" onClick={onNext}>
+              →
+            </button>
 
-        {project.year && (
-          <p className="modal-year">{project.year}</p>
-        )}
-      </div>
-    </div>
+            {/* Info */}
+            <h2 className="modal-title">{project.title}</h2>
+            {project.year && <p className="modal-year">{project.year}</p>}
+
+            {/* Close */}
+            <button className="modal-close" onClick={onClose}>
+              ✕
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
