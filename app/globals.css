@@ -7,21 +7,26 @@
   box-sizing: border-box;
 }
 
+/* -------------------------------------------------------
+   HTML / BODY
+------------------------------------------------------- */
 html, body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+
   color: #ffffff;
-  font-family: var(--font-geist-sans), sans-serif;
-  background: #4B61D1; /* fallback per quando NON è attiva la pizza-mode */
+  background: #4B61D1; /* fallback quando pizza-mode è OFF */
+
+  font-family: "AeonikMono", monospace;
 }
 
-/* -------------------------------------------------------
-   BODY
-------------------------------------------------------- */
-body {
-  line-height: 1.5;
-  cursor: none; /* nasconde cursore originale */
+/* Caricamento custom font */
+@font-face {
+  font-family: "AeonikMono";
+  src: url("/fonts/AeonikMono-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* -------------------------------------------------------
@@ -42,24 +47,21 @@ body {
 }
 
 /* -------------------------------------------------------
-   HEADER STICKY (senza blend mode)
+   HEADER
 ------------------------------------------------------- */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 10px 20px;
 
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   background: transparent;
-  color: white;
   z-index: 9000;
-  font-size: 16px;
-  letter-spacing: -0.02em;
 }
 
 .header-left,
@@ -67,7 +69,7 @@ body {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .header-center {
@@ -77,20 +79,20 @@ body {
 
 .clock {
   font-variant-numeric: tabular-nums;
-  opacity: 0.9;
 }
 
-/* Pulsante Pizza */
+/* PULSANTE PIZZA */
 .pizza-btn {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid white;
-  cursor: pointer;
-  background: none;
+
   padding: 0;
-  position: relative;
+  background: none;
 }
 
 .pizza-btn img {
@@ -104,7 +106,6 @@ body {
 ------------------------------------------------------- */
 .header-link {
   font-size: 16px;
-  letter-spacing: -0.02em;
   color: white;
   text-decoration: none;
   opacity: 0.9;
@@ -118,7 +119,6 @@ body {
 
 .header-disabled {
   opacity: 0.4;
-  cursor: default;
   pointer-events: none;
 }
 
@@ -143,17 +143,17 @@ body {
 }
 
 /* -------------------------------------------------------
-   PIZZA MODE GLOBAL (ripetizione infinita)
+   PIZZA MODE — ripete la texture all’infinito
 ------------------------------------------------------- */
 body.pizza-mode {
   background-image: url("/pizza-texture.jpg");
   background-repeat: repeat;
-  background-size: 300px;
+  background-size: 250px;
   background-position: top left;
 }
 
 /* -------------------------------------------------------
-   SCROLLBEHAVIOR OVERRIDE (LENIS)
+   LENIS
 ------------------------------------------------------- */
 html.lenis, html.lenis body {
   height: auto;
@@ -163,25 +163,11 @@ html.lenis, html.lenis body {
   scroll-behavior: auto !important;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
-}
-
 /* -------------------------------------------------------
    TITOLO HOME
 ------------------------------------------------------- */
 .site-title {
-  margin-top: 120px;
-  margin-bottom: 40px;
-  font-weight: 700;
-  font-size: 60px;
-  letter-spacing: -0.04em;
+  margin-top: 110px;
+  font-size: 48px;
+  font-weight: 600;
 }

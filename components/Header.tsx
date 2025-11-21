@@ -1,51 +1,50 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "@/styles/header.css";
 
 export default function Header() {
   const [time, setTime] = useState("");
-  const [pizzaMode, setPizzaMode] = useState(false);
 
-  // 🔵 ORARIO LIVE
+  // OROLOGIO
   useEffect(() => {
-    const updateClock = () => {
+    const tick = () => {
       const now = new Date();
-      setTime(now.toLocaleTimeString("it-IT"));
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mm = String(now.getMinutes()).padStart(2, "0");
+      const ss = String(now.getSeconds()).padStart(2, "0");
+      setTime(`${hh}:${mm}:${ss}`);
     };
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
+
+    tick();
+    const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  // 🔥 TOGGLE MODALITÀ PIZZA
+  // TOGGLE PIZZA MODE
   const togglePizza = () => {
-    setPizzaMode((prev) => {
-      const next = !prev;
-      document.body.classList.toggle("pizza-mode", next);
-      return next;
-    });
+    document.body.classList.toggle("pizza-mode");
   };
 
   return (
     <header className="site-header">
-      {/* SX: Nome */}
+      {/* SX */}
       <div className="header-left">
-        <a href="/" className="header-link underline">Pizzaboynico</a>
+        <a className="header-link underline" href="/">
+          PIZZABOYNICO
+        </a>
       </div>
 
-      {/* CENTER: Seizo */}
-      <nav className="header-center">
-        <span className="header-link header-disabled">Seizo (coming soon)</span>
-      </nav>
+      {/* CENTRO */}
+      <div className="header-center">
+        <span className="header-link header-disabled">SEIZO (COMING SOON)</span>
+      </div>
 
-      {/* RIGHT: Orario + Bergamo + Pizza Button */}
+      {/* DX */}
       <div className="header-right">
-        <span className="header-clock">{time}</span>
-        <span className="header-location">Bergamo</span>
+        <span className="clock">Bergamo&nbsp;&nbsp;{time}</span>
 
-        <button className="pizza-button" onClick={togglePizza}>
-          <img src="/pizza-icon.png" alt="Pizza mode toggle" />
+        <button className="pizza-btn" onClick={togglePizza}>
+          <img src="/pizza-texture.jpg" alt="pizza texture" />
         </button>
       </div>
     </header>

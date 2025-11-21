@@ -60,15 +60,16 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
               className="masonry-img"
             />
 
-            <span className="grid-title">
-              {String(i + 1).padStart(2, "0")}
-            </span>
+            {/* --- NUOVA RIGA META --- */}
+            <div className="grid-meta-row">
+              <span className="grid-title">
+                {String(i + 1).padStart(2, "0")} {project.title}
+              </span>
 
-            <span className="grid-title">{project.title}</span>
-
-            {project.year && (
-              <span className="grid-category">{project.year}</span>
-            )}
+              {project.year && (
+                <span className="grid-year">{project.year}</span>
+              )}
+            </div>
           </div>
         ))}
       </div>

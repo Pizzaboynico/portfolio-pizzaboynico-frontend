@@ -1,22 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import "@/styles/grid.css";
-import "@/styles/modal.css";
 import "@/styles/header.css";
-import "@/styles/cursor.css";
+import "@/styles/modal.css";
 
 import Providers from "./providers";
 import Header from "@/components/Header";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// FONT LOCALE — Aeonik Mono
+const AeonikMono = localFont({
+  src: "/fonts/AeonikMono-Regular.otf",
+  variable: "--font-aeonikmono",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -31,28 +27,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable}`}
-        style={{
-          backgroundColor: "#4B61D1",
-          color: "#ffffff",
-        }}
-      >
-        {/* Cursor DOT */}
+      <body className={`${AeonikMono.variable}`}>
+        {/* cursore custom */}
         <div id="cursor-dot" className="cursor-dot"></div>
-
-        {/* Script cursor */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              const dot = document.getElementById('cursor-dot');
-              window.addEventListener('mousemove', (e) => {
-                dot.style.top = e.clientY + 'px';
-                dot.style.left = e.clientX + 'px';
-              });
-            `,
-          }}
-        />
 
         <Providers>
           <Header />
