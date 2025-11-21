@@ -1,19 +1,4 @@
 /* -------------------------------------------------------
-   FONT CUSTOM
-------------------------------------------------------- */
-@font-face {
-  font-family: "AeonikMono";
-  src: url("/fonts/AeonikMono-Regular.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-.aeonik-mono {
-  font-family: "AeonikMono", monospace;
-}
-
-/* -------------------------------------------------------
    RESET DI BASE
 ------------------------------------------------------- */
 * {
@@ -27,7 +12,9 @@ html, body {
   height: 100%;
   overflow-x: hidden;
   color: #ffffff;
+  font-family: AeonikMono, monospace;
   background: #4B61D1;
+  font-size: 13px; /* 🔥 TUTTO IL SITO BASE 13PX */
 }
 
 /* -------------------------------------------------------
@@ -35,42 +22,28 @@ html, body {
 ------------------------------------------------------- */
 body {
   line-height: 1.5;
-  cursor: none;
+  cursor: auto; /* cursore normale */
+  text-transform: capitalize; /* 🔥 tutte le parole capitalizzate */
 }
 
 /* -------------------------------------------------------
-   CURSORE PERSONALIZZATO
-------------------------------------------------------- */
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: white;
-  pointer-events: none;
-  mix-blend-mode: difference;
-  z-index: 999999;
-  transform: translate(-50%, -50%);
-}
-
-/* -------------------------------------------------------
-   HEADER
+   HEADER STICKY
 ------------------------------------------------------- */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 12px 20px;
+  padding: 10px 20px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 
+  background: transparent;
+  color: white;
   z-index: 9000;
-  font-size: 16px;
+  font-size: 13px; /* 🔥 header 13px */
 }
 
 .header-left,
@@ -78,7 +51,7 @@ body {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .header-center {
@@ -86,20 +59,21 @@ body {
   opacity: 0.7;
 }
 
+/* orologio */
 .clock {
   font-variant-numeric: tabular-nums;
 }
 
-/* bottone pizza */
+/* Pulsante Pizza */
 .pizza-btn {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid white;
   cursor: pointer;
-  padding: 0;
   background: none;
+  padding: 0;
 }
 
 .pizza-btn img {
@@ -112,21 +86,26 @@ body {
    LINK HEADER
 ------------------------------------------------------- */
 .header-link {
+  font-size: 13px; /* 🔥 link header 13px */
+  letter-spacing: -0.02em;
   color: white;
-  opacity: 0.9;
   text-decoration: none;
-  transition: opacity 0.25s;
+  opacity: 0.9;
+  transition: opacity 0.25s, transform 0.25s;
 }
 
 .header-link:hover {
   opacity: 1;
+  transform: translateY(-2px);
 }
 
 .header-disabled {
   opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
 }
 
-/* underline */
+/* underline animata */
 .header-link.underline {
   position: relative;
 }
@@ -134,12 +113,12 @@ body {
 .header-link.underline::after {
   content: "";
   position: absolute;
-  bottom: -2px;
   left: 0;
+  bottom: -2px;
   width: 0%;
   height: 1px;
   background: white;
-  transition: width 0.25s;
+  transition: width 0.25s ease;
 }
 
 .header-link.underline:hover::after {
@@ -147,20 +126,23 @@ body {
 }
 
 /* -------------------------------------------------------
-   PIZZA MODE BACKGROUND
+   PIZZA MODE — ripetizione infinita
 ------------------------------------------------------- */
 body.pizza-mode {
   background-image: url("/pizza-texture.jpg");
   background-repeat: repeat;
-  background-size: 200px;
+  background-size: 300px;
+  background-position: top left;
 }
 
 /* -------------------------------------------------------
-   TITOLO HOMEPAGE
+   TITOLO HOME — ora 13px
 ------------------------------------------------------- */
 .site-title {
-  margin-top: 140px;
+  margin-top: 120px;
   margin-bottom: 40px;
-  font-size: 54px;
   font-weight: 700;
+  font-size: 13px; /* 🔥 anche il titolo */
+  letter-spacing: -0.04em;
+  text-transform: capitalize;
 }
