@@ -1,10 +1,10 @@
 /* WRAPPER */
 .grid-wrapper {
   width: 100%;
-  padding: 100px 40px 60px;
+  padding: 60px 20px 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 60px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 40px;
   justify-items: start;
 }
 
@@ -54,6 +54,6 @@
   .grid-wrapper {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
-    padding: 80px 20px;
+    padding: 40px 10px;
   }
 }

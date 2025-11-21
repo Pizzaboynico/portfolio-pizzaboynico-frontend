@@ -40,6 +40,12 @@
   letter-spacing: 0.03em;
 }
 
+.location {
+  font-family: monospace;
+  opacity: 0.9;
+  margin-right: 8px;
+}
+
 /* pulsante pizza */
 .pizza-button {
   width: 24px;

@@ -11,9 +11,9 @@ html, body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  background: #4B61D1;
   color: #ffffff;
   font-family: var(--font-geist-sans), sans-serif;
+  background: #4B61D1; /* fallback per quando NON è attiva la pizza-mode */
 }
 
 /* -------------------------------------------------------
@@ -31,8 +31,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 15px;       /* più grande */
-  height: 15px;      /* più grande */
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background: white;
   pointer-events: none;
@@ -62,7 +62,6 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* Layout SX – CENTRO – DX */
 .header-left,
 .header-center,
 .header-right {
@@ -94,7 +93,9 @@ body {
   position: relative;
 }
 
-.pizza-img {
+.pizza-btn img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -142,14 +143,14 @@ body {
 }
 
 /* -------------------------------------------------------
-   PIZZA MODE GLOBAL
+   PIZZA MODE GLOBAL (ripetizione infinita)
 ------------------------------------------------------- */
 body.pizza-mode {
   background-image: url("/pizza-texture.jpg");
   background-repeat: repeat;
-  background-size: 200px;
+  background-size: 300px;
+  background-position: top left;
 }
-
 
 /* -------------------------------------------------------
    SCROLLBEHAVIOR OVERRIDE (LENIS)
@@ -175,7 +176,7 @@ html.lenis, html.lenis body {
 }
 
 /* -------------------------------------------------------
-   TITOLO HOME (solo se ti serve)
+   TITOLO HOME
 ------------------------------------------------------- */
 .site-title {
   margin-top: 120px;
@@ -184,4 +185,3 @@ html.lenis, html.lenis body {
   font-size: 60px;
   letter-spacing: -0.04em;
 }
-
