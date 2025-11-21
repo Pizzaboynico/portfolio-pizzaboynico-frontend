@@ -49,7 +49,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 20px 28px;
+  padding: 10px 20px;
 
   display: flex;
   justify-content: space-between;
@@ -146,9 +146,10 @@ body {
 ------------------------------------------------------- */
 body.pizza-mode {
   background-image: url("/pizza-texture.jpg");
-  background-size: 400px;
   background-repeat: repeat;
+  background-size: 200px;
 }
+
 
 /* -------------------------------------------------------
    SCROLLBEHAVIOR OVERRIDE (LENIS)
@@ -183,3 +184,4 @@ html.lenis, html.lenis body {
   font-size: 60px;
   letter-spacing: -0.04em;
 }
+

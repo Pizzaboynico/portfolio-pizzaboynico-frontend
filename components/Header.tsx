@@ -1,60 +1,51 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import "@/styles/header.css";
 
 export default function Header() {
   const [time, setTime] = useState("");
-  const [pizza, setPizza] = useState(false);
+  const [pizzaMode, setPizzaMode] = useState(false);
 
-  // CLOCK LIVE
+  // 🔵 ORARIO LIVE
   useEffect(() => {
     const updateClock = () => {
       const now = new Date();
-      setTime(
-        now.toLocaleTimeString("it-IT", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        })
-      );
+      setTime(now.toLocaleTimeString("it-IT"));
     };
-
     updateClock();
     const interval = setInterval(updateClock, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  // TOGGLE PIZZA MODE
+  // 🔥 TOGGLE MODALITÀ PIZZA
   const togglePizza = () => {
-    const body = document.body;
-    const newState = !pizza;
-    setPizza(newState);
-
-    if (newState) body.classList.add("pizza-mode");
-    else body.classList.remove("pizza-mode");
+    setPizzaMode((prev) => {
+      const next = !prev;
+      document.body.classList.toggle("pizza-mode", next);
+      return next;
+    });
   };
 
   return (
     <header className="site-header">
-      {/* LEFT */}
+      {/* SX: Nome */}
       <div className="header-left">
-        <a href="/" className="header-link underline">
-          PIZZABOYNICO
-        </a>
+        <a href="/" className="header-link underline">Pizzaboynico</a>
       </div>
 
-      {/* CENTER */}
-      <div className="header-center">
-        <span className="header-link header-disabled">SEIZO (COMING SOON)</span>
-      </div>
+      {/* CENTER: Seizo */}
+      <nav className="header-center">
+        <span className="header-link header-disabled">Seizo (coming soon)</span>
+      </nav>
 
-      {/* RIGHT */}
-      <div className="header-right" style={{ display: "flex", gap: "18px", alignItems: "center" }}>
-        <span className="clock">{time}</span>
+      {/* RIGHT: Orario + Bergamo + Pizza Button */}
+      <div className="header-right">
+        <span className="header-clock">{time}</span>
+        <span className="header-location">Bergamo</span>
 
-        {/* PULSANTE PIZZA */}
-        <button className="pizza-btn" onClick={togglePizza}>
-          <img src="/pizza-texture.jpg" className="pizza-img" style={{ width: "100%", height: "100%" }} />
+        <button className="pizza-button" onClick={togglePizza}>
+          <img src="/pizza-icon.png" alt="Pizza mode toggle" />
         </button>
       </div>
     </header>
