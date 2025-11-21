@@ -1,18 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function Header() {
   const [time, setTime] = useState("");
+  const [pizza, setPizza] = useState(false);
 
+  // CLOCK LIVE
   useEffect(() => {
     const updateClock = () => {
       const now = new Date();
-      const hh = String(now.getHours()).padStart(2, "0");
-      const mm = String(now.getMinutes()).padStart(2, "0");
-      const ss = String(now.getSeconds()).padStart(2, "0");
-      setTime(`${hh}:${mm}:${ss}`);
+      setTime(
+        now.toLocaleTimeString("it-IT", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        })
+      );
     };
 
     updateClock();
@@ -20,18 +24,38 @@ export default function Header() {
     return () => clearInterval(interval);
   }, []);
 
+  // TOGGLE PIZZA MODE
+  const togglePizza = () => {
+    const body = document.body;
+    const newState = !pizza;
+    setPizza(newState);
+
+    if (newState) body.classList.add("pizza-mode");
+    else body.classList.remove("pizza-mode");
+  };
+
   return (
-    <header className="main-header">
+    <header className="site-header">
+      {/* LEFT */}
       <div className="header-left">
-        <Link href="/">PIZZABOYNICO</Link>
+        <a href="/" className="header-link underline">
+          PIZZABOYNICO
+        </a>
       </div>
 
+      {/* CENTER */}
       <div className="header-center">
-        <span className="coming-soon">SEIZO (COMING SOON)</span>
+        <span className="header-link header-disabled">SEIZO (COMING SOON)</span>
       </div>
 
-      <div className="header-right">
-        <span>{time}</span>
+      {/* RIGHT */}
+      <div className="header-right" style={{ display: "flex", gap: "18px", alignItems: "center" }}>
+        <span className="clock">{time}</span>
+
+        {/* PULSANTE PIZZA */}
+        <button className="pizza-btn" onClick={togglePizza}>
+          <img src="/pizza-texture.jpg" className="pizza-img" style={{ width: "100%", height: "100%" }} />
+        </button>
       </div>
     </header>
   );

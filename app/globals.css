@@ -17,52 +17,85 @@ html, body {
 }
 
 /* -------------------------------------------------------
-   BODY E TIPOGRAFIA
+   BODY
 ------------------------------------------------------- */
 body {
   line-height: 1.5;
-  cursor: none; /* nasconde il cursore default */
+  cursor: none; /* nasconde cursore originale */
 }
 
 /* -------------------------------------------------------
    CURSORE PERSONALIZZATO
 ------------------------------------------------------- */
-#cursor-dot {
-  width: 12px;
-  height: 12px;
-  background: white;
-  border-radius: 50%;
+.cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
+  width: 15px;       /* più grande */
+  height: 15px;      /* più grande */
+  border-radius: 50%;
+  background: white;
   pointer-events: none;
-  z-index: 999999;
   mix-blend-mode: difference;
+  z-index: 999999;
   transform: translate(-50%, -50%);
 }
 
 /* -------------------------------------------------------
-   HEADER STICKY
+   HEADER STICKY (senza blend mode)
 ------------------------------------------------------- */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 18px 26px;
-  z-index: 9999;
+  padding: 20px 28px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  mix-blend-mode: difference;
+  background: transparent;
   color: white;
+  z-index: 9000;
+  font-size: 16px;
+  letter-spacing: -0.02em;
 }
 
-.site-header nav {
+/* Layout SX – CENTRO – DX */
+.header-left,
+.header-center,
+.header-right {
   display: flex;
-  gap: 28px;
   align-items: center;
+  gap: 12px;
+}
+
+.header-center {
+  margin: 0 auto;
+  opacity: 0.7;
+}
+
+.clock {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.9;
+}
+
+/* Pulsante Pizza */
+.pizza-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid white;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+  position: relative;
+}
+
+.pizza-img {
+  object-fit: cover;
 }
 
 /* -------------------------------------------------------
@@ -71,10 +104,10 @@ body {
 .header-link {
   font-size: 16px;
   letter-spacing: -0.02em;
-  text-decoration: none;
   color: white;
+  text-decoration: none;
   opacity: 0.9;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: opacity 0.25s, transform 0.25s;
 }
 
 .header-link:hover {
@@ -88,7 +121,7 @@ body {
   pointer-events: none;
 }
 
-/* Sottolineatura animata */
+/* underline animata */
 .header-link.underline {
   position: relative;
 }
@@ -109,14 +142,12 @@ body {
 }
 
 /* -------------------------------------------------------
-   TITOLONE HOME
+   PIZZA MODE GLOBAL
 ------------------------------------------------------- */
-.site-title {
-  margin-top: 120px;
-  margin-bottom: 40px;
-  font-weight: 700;
-  font-size: 60px;
-  letter-spacing: -0.04em;
+body.pizza-mode {
+  background-image: url("/pizza-texture.jpg");
+  background-size: 400px;
+  background-repeat: repeat;
 }
 
 /* -------------------------------------------------------
@@ -141,21 +172,14 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
-/* CURSORE PALLINO */
-body {
-  cursor: none;
-}
 
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: white;
-  pointer-events: none;
-  mix-blend-mode: difference;
-  z-index: 8000;
-  transform: translate(-50%, -50%);
+/* -------------------------------------------------------
+   TITOLO HOME (solo se ti serve)
+------------------------------------------------------- */
+.site-title {
+  margin-top: 120px;
+  margin-bottom: 40px;
+  font-weight: 700;
+  font-size: 60px;
+  letter-spacing: -0.04em;
 }
