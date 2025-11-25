@@ -30,13 +30,13 @@ export default function Header() {
       {/* SX */}
       <div className="header-left">
         <a className="header-link underline" href="/">
-          PIZZABOYNICO
+          Pizzaboynico
         </a>
       </div>
 
       {/* CENTRO */}
       <div className="header-center">
-        <span className="header-link header-disabled">SEIZO (COMING SOON)</span>
+        <span className="header-link header-disabled">Seizo (coming soon)</span>
       </div>
 
       {/* DX */}

@@ -9,9 +9,9 @@
   align-items: center;
   justify-content: space-between;
 
-  background: transparent;   /* niente blend mode */
+  background: transparent;
   color: white;
-  font-size: 16px;
+  font-size: 13px; /* 🔥 */
   z-index: 9999;
 }
 
@@ -33,17 +33,23 @@
 
 .coming-soon {
   opacity: 0.7;
+  font-size: 13px; /* 🔥 */
+  text-transform: capitalize; /* 🔥 */
 }
 
 .clock {
   font-family: monospace;
   letter-spacing: 0.03em;
+  font-size: 13px; /* 🔥 */
+  text-transform: none; /* 🔥 no caps per l'orologio */
 }
 
 .location {
   font-family: monospace;
   opacity: 0.9;
   margin-right: 8px;
+  font-size: 13px; /* 🔥 */
+  text-transform: capitalize; /* 🔥 */
 }
 
 /* pulsante pizza */
@@ -70,7 +76,7 @@
 }
 
 /* -----------------------------------------------------
-   🍕 PIZZA MODE — Texture full screen
+   🍕 PIZZA MODE – Texture full screen
 ----------------------------------------------------- */
 body.pizza-mode {
   background-image: url("/pizza-texture.jpg");

@@ -37,6 +37,13 @@
   color: white;
 }
 
+.modal-caption h3 {
+  font-size: 13px; /* 🔥 */
+  font-weight: 500;
+  text-transform: capitalize; /* 🔥 solo prima lettera maiuscola */
+  margin: 0;
+}
+
 /* SOLO close rimane */
 .modal-close {
   position: absolute;
@@ -53,5 +60,3 @@
 .modal-close:hover {
   opacity: 0.6;
 }
-
-/* 🔥 Tolto completamente prev/next */
