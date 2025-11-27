@@ -149,3 +149,32 @@ body.pizza-mode {
   letter-spacing: -0.04em;
   text-transform: capitalize; /* 🔥 solo prima lettera */
 }
+/* -------------------------------------------------------
+   CURSOR
+------------------------------------------------------- */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  /* Use transform for performance, centered by margin or translate */
+  margin-top: -6px;
+  margin-left: -6px;
+  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease-out;
+  will-change: transform, width, height;
+}
+
+.cursor-dot.active {
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid white;
+}

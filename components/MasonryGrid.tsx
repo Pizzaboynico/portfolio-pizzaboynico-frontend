@@ -4,6 +4,7 @@ import { useState } from "react";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/lib/sanity.client";
 import ProjectModal from "./ProjectModal";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 const builder = imageUrlBuilder(client);
 function urlFor(src: any) {
@@ -16,6 +17,21 @@ interface Project {
   year?: string;
   mainImage: any;
 }
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] } },
+};
 
 export default function MasonryGrid({ projects }: { projects: Project[] }) {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
@@ -43,24 +59,31 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
 
   return (
     <>
-      <div className="grid-wrapper">
+      <motion.div
+        className="grid-wrapper"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
         {projects.map((project, i) => (
-          <div
+          <motion.div
             key={project._id}
-            className={`grid-item ${
-              hoverIndex !== null && hoverIndex !== i ? "faded" : ""
-            }`}
+            variants={itemVariants}
+            className={`grid-item ${hoverIndex !== null && hoverIndex !== i ? "faded" : ""
+              }`}
             onMouseEnter={() => setHoverIndex(i)}
             onMouseLeave={() => setHoverIndex(null)}
             onClick={() => openModal(i)}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <img
+            <motion.img
               src={urlFor(project.mainImage)}
               alt={project.title}
               className="masonry-img"
+              layoutId={`image-${project._id}`}
             />
 
-            {/* --- NUOVA RIGA META --- */}
             <div className="grid-meta-row">
               <span className="grid-title">
                 {String(i + 1).padStart(2, "0")} {project.title}
@@ -70,18 +93,20 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
                 <span className="grid-year">{project.year}</span>
               )}
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={closeModal}
-          onPrev={goPrev}
-          onNext={goNext}
-        />
-      )}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            onClose={closeModal}
+            onPrev={goPrev}
+            onNext={goNext}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }
