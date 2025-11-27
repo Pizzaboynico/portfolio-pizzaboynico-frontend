@@ -62,7 +62,7 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
       <motion.div
         className="grid-wrapper"
         variants={containerVariants}
-        initial="hidden"
+        initial="show"
         animate="show"
       >
         {projects.map((project, i) => (

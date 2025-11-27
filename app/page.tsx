@@ -4,7 +4,7 @@ import { client } from "@/lib/sanity.client";
 import MasonryGrid from "@/components/MasonryGrid";
 import { useState, useEffect } from "react";
 
-const PROJECTS_QUERY = `*[_type == "project"] | order(projectNumber asc) {
+const PROJECTS_QUERY = `*[_type == "project"] {
   _id,
   title,
   mainImage,
