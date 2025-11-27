@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 40px 40px; /* 🔥 Aumentato da 20px a 40px */
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -22,7 +22,7 @@
 .logo-banner {
   width: 100%;
   padding: 0 40px 40px;
-  margin-top: 60px;
+  margin-top: 120px; /* 🔥 Aumentato da 60px a 120px per compensare l'header più alto */
 }
 
 .logo-banner svg {
@@ -34,7 +34,11 @@
 @media (max-width: 768px) {
   .logo-banner {
     padding: 0 20px 20px;
-    margin-top: 60px;
+    margin-top: 100px; /* 🔥 Aumentato anche per mobile */
+  }
+  
+  .site-header {
+    padding: 30px 20px; /* 🔥 Padding ridotto per mobile */
   }
 }
 
@@ -65,9 +69,7 @@
   opacity: 0.9;
   margin-right: 8px;
   font-size: 13px;
-  /* 🔥 */
   text-transform: capitalize;
-  /* 🔥 */
 }
 
 /* pulsante pizza */
