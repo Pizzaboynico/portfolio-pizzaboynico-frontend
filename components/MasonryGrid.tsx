@@ -88,10 +88,6 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
               <span className="grid-title">
                 {String(i + 1).padStart(2, "0")} {project.title}
               </span>
-
-              {project.year && (
-                <span className="grid-year">{project.year}</span>
-              )}
             </div>
           </motion.div>
         ))}

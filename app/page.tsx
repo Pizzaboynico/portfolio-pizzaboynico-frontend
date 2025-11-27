@@ -7,9 +7,7 @@ import { useState, useEffect } from "react";
 const PROJECTS_QUERY = `*[_type == "project"] {
   _id,
   title,
-  mainImage,
-  year,
-  projectNumber
+  mainImage
 }`;
 
 export default function HomePage() {
@@ -39,6 +37,12 @@ export default function HomePage() {
       {!loading && !error && projects.length === 0 && (
         <div style={{ padding: 20 }}>No projects found.</div>
       )}
+
+      {/* DEBUG DATA DUMP */}
+      <div style={{ padding: 20, background: '#000', color: '#0f0', fontSize: 10, overflow: 'auto', maxHeight: 200 }}>
+        <pre>{JSON.stringify(projects, null, 2)}</pre>
+      </div>
+
       <MasonryGrid projects={projects} />
     </div>
   );
