@@ -2,6 +2,7 @@
 
 import { client } from "@/lib/sanity.client";
 import MasonryGrid from "@/components/MasonryGrid";
+import HeroHeader from "@/components/HeroHeader";
 import { useState, useEffect } from "react";
 
 const PROJECTS_QUERY = `*[_type == "project"] {
@@ -19,6 +20,7 @@ export default function HomePage() {
 
   return (
     <div className="page-content">
+      <HeroHeader />
       <MasonryGrid projects={projects} />
     </div>
   );
