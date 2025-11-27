@@ -16,6 +16,28 @@
   letter-spacing: 0.05em;
 }
 
+/* -------------------------------------------------------
+   LOGO BANNER
+------------------------------------------------------- */
+.logo-banner {
+  width: 100%;
+  padding: 80px 40px 40px;
+  margin-top: 60px;
+}
+
+.logo-banner svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .logo-banner {
+    padding: 60px 20px 20px;
+    margin-top: 50px;
+  }
+}
+
 .header-left,
 .header-center,
 .header-right {
