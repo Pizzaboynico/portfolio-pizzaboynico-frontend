@@ -1,21 +1,21 @@
+/* -------------------------------------------------------
+   HEADER
+------------------------------------------------------- */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  padding: 18px 26px;
-
+  right: 0;
+  z-index: 1000;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-
-  background: transparent;
-  color: white;
-  font-size: 13px; /* 🔥 */
-  z-index: 9999;
+  align-items: center;
+  padding: 20px 40px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-/* colonne */
 .header-left,
 .header-center,
 .header-right {
@@ -24,32 +24,28 @@
   gap: 20px;
 }
 
-/* centra perfettamente il blocco centrale */
-.header-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+.header-link {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.3s;
 }
 
-.coming-soon {
+.header-link:hover {
   opacity: 0.7;
-  font-size: 13px; /* 🔥 */
-  text-transform: capitalize; /* 🔥 */
 }
 
+.header-disabled {
+  opacity: 0.5;
+}
+
+.location,
 .clock {
-  font-family: monospace;
-  letter-spacing: 0.03em;
-  font-size: 13px; /* 🔥 */
-  text-transform: none; /* 🔥 no caps per l'orologio */
-}
-
-.location {
-  font-family: monospace;
   opacity: 0.9;
   margin-right: 8px;
-  font-size: 13px; /* 🔥 */
-  text-transform: capitalize; /* 🔥 */
+  font-size: 13px;
+  /* 🔥 */
+  text-transform: capitalize;
+  /* 🔥 */
 }
 
 /* pulsante pizza */
@@ -91,6 +87,7 @@ body.pizza-mode {
     opacity: 0;
     filter: blur(10px);
   }
+
   to {
     opacity: 1;
     filter: blur(0);
