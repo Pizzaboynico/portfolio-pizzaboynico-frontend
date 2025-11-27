@@ -6,10 +6,16 @@ export default function HeroHeader() {
             <div className="hero-content">
                 {/* Top info bar */}
                 <div className="hero-info-bar">
-                    <span className="hero-info-left">Pizzaboynico</span>
+                    <a
+                        href="https://www.instagram.com/pizzaboynico/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hero-info-left"
+                    >
+                        Pizzaboynico
+                    </a>
                     <div className="hero-info-right">
-                        <span>Sede Firenze (SOON)</span>
-                        <span>Instagram</span>
+                        <span>Seize Fanzine (SOON)</span>
                         <span className="hero-counter">+ 1358/25</span>
                     </div>
                 </div>
@@ -32,9 +38,10 @@ export default function HeroHeader() {
                     </svg>
                 </div>
 
-                {/* Decorative circles */}
-                <div className="hero-circle hero-circle-left"></div>
-                <div className="hero-circle hero-circle-right"></div>
+                {/* Decorative circles - positioned as dots of the "i"s */}
+                <div className="hero-circle hero-circle-i1"></div>
+                <div className="hero-circle hero-circle-i2"></div>
+                <div className="hero-circle hero-circle-o"></div>
             </div>
         </div>
     );

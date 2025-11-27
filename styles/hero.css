@@ -2,10 +2,14 @@
    HERO HEADER
 ------------------------------------------------------- */
 .hero-header {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     min-height: 60vh;
-    padding: 80px 40px 60px;
-    position: relative;
+    padding: 20px 40px 60px;
+    background: #4B61D1;
+    z-index: 100;
     overflow: hidden;
 }
 
@@ -13,6 +17,7 @@
     max-width: 1400px;
     margin: 0 auto;
     position: relative;
+    height: 100%;
 }
 
 /* Info bar */
@@ -29,6 +34,13 @@
 
 .hero-info-left {
     font-weight: 500;
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.hero-info-left:hover {
+    opacity: 1;
 }
 
 .hero-info-right {
@@ -47,6 +59,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 0;
+    position: relative;
 }
 
 .hero-logo svg {
@@ -55,31 +68,39 @@
     height: auto;
 }
 
-/* Decorative circles */
+/* Decorative circles - positioned as dots of the "i"s in pizzaboynico */
 .hero-circle {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: white;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
-.hero-circle-left {
-    top: 120px;
-    left: 10%;
-}
-
-.hero-circle-right {
+/* First "i" in pizzaboynico - around 13% from left */
+.hero-circle-i1 {
     top: 100px;
-    right: 15%;
+    left: 13%;
+}
+
+/* Second "i" in pizzaboynico - around 80% from left */
+.hero-circle-i2 {
+    top: 100px;
+    left: 80%;
+}
+
+/* "o" in pizzaboynico - around 40% from left */
+.hero-circle-o {
+    top: 120px;
+    left: 40%;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .hero-header {
         min-height: 40vh;
-        padding: 60px 20px 40px;
+        padding: 15px 20px 40px;
     }
 
     .hero-info-bar {
@@ -95,7 +116,24 @@
     }
 
     .hero-circle {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
     }
+
+    .hero-circle-i1 {
+        top: 80px;
+    }
+
+    .hero-circle-i2 {
+        top: 80px;
+    }
+
+    .hero-circle-o {
+        top: 95px;
+    }
+}
+
+/* Add padding to page content to account for fixed header */
+.page-content {
+    padding-top: 60vh;
 }
