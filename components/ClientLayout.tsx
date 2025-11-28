@@ -46,6 +46,16 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             </div>
 
             {children}
+
+            {/* Footer fixed at bottom */}
+            <footer className="site-footer">
+                <div className="footer-left">
+                    <a href="mailto:nicola@pizzaboynico.it" className="footer-link underline">Contact Me</a>
+                </div>
+                <div className="footer-right">
+                    <a href="#" className="footer-link underline">Seizō</a>
+                </div>
+            </footer>
         </>
     );
 }
