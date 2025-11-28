@@ -14,7 +14,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
             <header className="site-header">
                 <div className="header-left">
-                    <a href="https://www.instagram.com/pizzaboynico/" target="_blank" rel="noopener noreferrer" className="header-link underline">Pizzaboynico</a>
+                    <a href="https://www.instagram.com/pizzaboynico/" target="_blank" rel="noopener noreferrer" className="header-link underline">Instagram</a>
                 </div>
 
                 <div className="header-right">
