@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import SanityImageComponent from './SanityImage';
+import { motion, Variants } from 'framer-motion';
 import { X } from 'lucide-react'; 
 
 // Interfaccia Project (copiata da page.tsx)
@@ -15,6 +16,17 @@ interface Project {
 interface InteractiveGridProps {
   projects: Project[];
 }
+
+// Animation variants for first-load fade / upward motion
+const containerVariants: Variants = {
+  hidden: { opacity: 0, y: 36 },
+  show: { opacity: 1, y: 0, transition: { staggerChildren: 0.08, when: 'beforeChildren' } },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.33, 1, 0.68, 1] } },
+};
 
 // -------------------------------------------------------------
 // Componente Modale per lo Zoom e il Dettaglio
@@ -95,7 +107,12 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
   return (
     <>
       {/* GRIGLIA Responsive */}
-      <div className="grid gap-8 sm:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <motion.div
+        className="grid gap-8 sm:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
         {projects.map((project, index) => {
           
           // Logica Bianco & Nero/Opacità (tutti gli altri diventano opachi/bianco e nero)
@@ -105,9 +122,10 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
           const isZoomed = hoveredProjectId === project._id;
 
           return (
-            <div 
+            <motion.div 
               key={project._id} 
-              className={`
+                variants={itemVariants}
+                className={`
                 group cursor-pointer transition-all duration-300 ease-in-out 
                 ${isDimmed ? 'opacity-30' : 'opacity-100'} 
               `}
@@ -148,7 +166,7 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
                   {project.title}
                 </h2>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
