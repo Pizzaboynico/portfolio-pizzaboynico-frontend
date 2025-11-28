@@ -32,8 +32,6 @@
   height: auto;
   filter: grayscale(1);
   opacity: 0.6;
-  transform: scale(0.75);
-  transform-origin: center;
   transition: all 0.4s ease;
 }
 
@@ -61,7 +59,7 @@
 .grid-item:hover img {
   filter: grayscale(0);
   opacity: 1;
-  transform: scale(0.78);
+  transform: scale(1.02);
 }
 
 /* 🔥 META ROW - contenitore per titolo e anno */
