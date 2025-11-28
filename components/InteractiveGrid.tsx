@@ -129,8 +129,8 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
                       image={project.mainImage} 
                       alt={project.title} 
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                      // Applica il filtro bianco e nero quando il progetto è "dimmed"
-                      className={isDimmed ? 'grayscale' : 'grayscale-0'}
+                      /* keep the grayscale logic, but force images to fully cover the container */
+                      className={`${isDimmed ? 'grayscale' : 'grayscale-0'} object-cover w-full h-full`} 
                     />
                   </div>
                 ) : (

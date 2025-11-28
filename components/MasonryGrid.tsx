@@ -81,6 +81,7 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
               src={urlFor(project.mainImage)}
               alt={project.title}
               className="masonry-img"
+              loading="lazy"
               layoutId={`image-${project._id}`}
             />
 

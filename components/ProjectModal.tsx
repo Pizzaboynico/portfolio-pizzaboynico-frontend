@@ -59,6 +59,7 @@ export default function ProjectModal({
           src={urlFor(project.mainImage)}
           alt={project.title}
           className="modal-img"
+          loading="lazy"
           layoutId={`image-${project._id}`}
         />
 

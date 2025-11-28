@@ -34,15 +34,16 @@
 
 .masonry-img {
   width: 100%;
-  height: auto;
+  /* give a maximum visual height so masonry items don't become huge */
+  height: 300px;
+  object-fit: cover; /* crop nicely */
   display: block;
-  transform: scale(0.75);
-  transform-origin: center;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .masonry-item:hover .masonry-img {
-  transform: scale(0.78);
+  transform: scale(1.03);
 }
 
 /* ----------------------------------------------------
@@ -75,5 +76,8 @@
   .masonry-wrapper {
     column-count: 1;
     padding: 25px 10px;
+  }
+  .masonry-img {
+    height: 220px; /* make images smaller on narrow screens */
   }
 }
