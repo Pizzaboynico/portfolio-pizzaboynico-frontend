@@ -1,10 +1,10 @@
 /* WRAPPER */
 .grid-wrapper {
   width: 100%;
-  padding: 60px 20px 40px;
+  padding: 60px 10px 40px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 40px;
+  gap: 20px;
   justify-items: start;
 }
 
@@ -32,6 +32,8 @@
   height: auto;
   filter: grayscale(1);
   opacity: 0.6;
+  transform: scale(0.75);
+  transform-origin: center;
   transition: all 0.4s ease;
 }
 
@@ -59,7 +61,7 @@
 .grid-item:hover img {
   filter: grayscale(0);
   opacity: 1;
-  transform: scale(1.02);
+  transform: scale(0.78);
 }
 
 /* 🔥 META ROW - contenitore per titolo e anno */
@@ -102,7 +104,7 @@
 @media (max-width: 768px) {
   .grid-wrapper {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
+    gap: 20px;
     padding: 40px 10px;
   }
 
