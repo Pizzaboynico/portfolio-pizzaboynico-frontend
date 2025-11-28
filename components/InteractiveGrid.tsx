@@ -169,7 +169,7 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
       
       {/* Inseriamo la Modale. Verrà mostrata solo se selectedProject NON è null */}
       <ProjectModal project={selectedProject} onClose={handleCloseModal} />
