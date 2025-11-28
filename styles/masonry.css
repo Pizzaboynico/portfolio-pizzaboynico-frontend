@@ -78,6 +78,6 @@
     padding: 25px 10px;
   }
   .masonry-img {
-    height: 260px; /* keep mobile masonry images a bit larger */
+    height: 200px; /* slightly smaller on mobile so header doesn't feel cramped */
   }
 }

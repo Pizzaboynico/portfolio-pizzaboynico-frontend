@@ -122,6 +122,6 @@
 
 @media (max-width: 480px) {
   .grid-item img {
-    height: 240px; /* keep images noticeably larger even on small screens */
+    height: 200px; /* reduce a bit so header/margins have breathing room on small phones */
   }
 }

@@ -143,4 +143,26 @@
     .hero-circle-o {
         top: 95px;
     }
+
+    /* MOBILE ONLY: center the main SVG logo and keep it fixed so header layout is clean */
+    .hero-logo {
+        position: fixed;
+        top: 8px; /* keep near top but allow space for site header */
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 360px; /* keep the SVG reasonably sized on phones */
+        width: 90%;
+        z-index: 1000; /* above hero/header content */
+        margin-top: 0; /* remove top spacing when fixed */
+        pointer-events: none; /* avoid interfering with header clicks */
+    }
+
+    /* ensure the svg scales nicely inside the fixed wrapper */
+    .hero-logo svg {
+        width: 100%;
+        height: auto;
+    }
+
+    /* hide decorative circles on small screens so logo stays clean */
+    .hero-circle { display: none; }
 }
