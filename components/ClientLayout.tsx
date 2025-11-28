@@ -1,19 +1,16 @@
 "use client";
 
-import { useCursor } from "@/hooks/useCursor";
 import { usePizzaMode } from "@/hooks/usePizzaMode";
 import { useClock } from "@/hooks/useClock";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
-    useCursor();
     const { togglePizzaMode } = usePizzaMode();
     const time = useClock();
 
     return (
         <>
             <SmoothScroll />
-            <div className="cursor-dot" />
 
             <header className="site-header">
                 <div className="header-left">
