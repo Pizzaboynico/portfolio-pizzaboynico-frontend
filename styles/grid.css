@@ -3,8 +3,8 @@
   width: 100%;
   padding: 20px 10px 40px;
   display: grid;
-  /* reduce the minimum column width so cards can shrink on smaller screens */
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  /* increase min column width a bit so cards stay larger */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   justify-items: start;
 }
@@ -31,7 +31,8 @@
 .grid-item img {
   width: 100%;
   /* fix the visual size so images never dominate the page — object-fit keeps crop clean */
-  height: 260px;
+  /* slightly larger visual height so images are more noticeable */
+  height: 320px;
   object-fit: cover;
   display: block;
   filter: grayscale(1);
@@ -105,7 +106,7 @@
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .grid-wrapper {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
     padding: 40px 10px;
   }
@@ -121,6 +122,6 @@
 
 @media (max-width: 480px) {
   .grid-item img {
-    height: 180px; /* further reduce image height on very narrow screens */
+    height: 240px; /* keep images noticeably larger even on small screens */
   }
 }

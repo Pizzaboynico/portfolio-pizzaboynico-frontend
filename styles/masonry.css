@@ -34,8 +34,8 @@
 
 .masonry-img {
   width: 100%;
-  /* give a maximum visual height so masonry items don't become huge */
-  height: 300px;
+  /* give a slightly larger visual height so masonry items are more prominent */
+  height: 360px;
   object-fit: cover; /* crop nicely */
   display: block;
   transform: none;
@@ -78,6 +78,6 @@
     padding: 25px 10px;
   }
   .masonry-img {
-    height: 220px; /* make images smaller on narrow screens */
+    height: 260px; /* keep mobile masonry images a bit larger */
   }
 }
