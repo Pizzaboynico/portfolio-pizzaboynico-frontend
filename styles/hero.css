@@ -7,7 +7,7 @@
     left: 0;
     width: 100%;
     min-height: 60vh;
-    padding: 20px 40px 60px;
+    padding: 0 40px 60px;
     background: #4B61D1;
     z-index: 100;
     overflow: hidden;
@@ -22,14 +22,24 @@
 
 /* Info bar */
 .hero-info-bar {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 0;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     opacity: 0.7;
+    z-index: 10;
+    pointer-events: none; /* Allow clicks to pass through to SVG if needed, though links inside need pointer-events: auto */
+}
+
+.hero-info-left, .hero-info-right {
+    pointer-events: auto;
 }
 
 .hero-info-left {
@@ -58,8 +68,10 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 0;
+    padding: 0;
     position: relative;
+    /* Adjust top margin to push it down slightly if needed, or keep 0 for flush top */
+    margin-top: 0; 
 }
 
 .hero-logo svg {

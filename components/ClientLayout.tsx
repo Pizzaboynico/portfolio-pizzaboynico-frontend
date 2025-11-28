@@ -20,10 +20,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                     <a href="https://www.instagram.com/pizzaboynico/" target="_blank" rel="noopener noreferrer" className="header-link underline">Pizzaboynico</a>
                 </div>
 
-                <div className="header-center">
-                    <span className="header-disabled">Seize Fanzine (SOON)</span>
-                </div>
-
                 <div className="header-right">
                     <span className="location">Bergamo</span>
                     <span className="clock">{time}</span>

@@ -15,7 +15,7 @@ export default function HeroHeader() {
                         Pizzaboynico
                     </a>
                     <div className="hero-info-right">
-                        <span>Seize Fanzine (SOON)</span>
+
                         <span className="hero-counter">+ 1358/25</span>
                     </div>
                 </div>
