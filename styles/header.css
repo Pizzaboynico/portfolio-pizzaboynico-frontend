@@ -10,8 +10,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 40px;
-  /* 🔥 Aumentato da 20px a 40px */
+  padding: 10px;
+  /* 🔥 Ridotto a 10px come richiesto */
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -22,7 +22,7 @@
 ------------------------------------------------------- */
 .logo-banner {
   width: 100%;
-  padding: 10px 40px;
+  padding: 10px;
   margin-top: 120px;
   /* 🔥 Aumentato da 60px a 120px per compensare l'header più alto */
 }
