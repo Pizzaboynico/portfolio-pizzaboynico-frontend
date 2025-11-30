@@ -11,6 +11,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  /* expose a header height variable so the grid can position relative to it */
+  --site-header-height: 68px; /* reasonable default used to calculate spacing on mobile */
   /* 🔥 Ridotto a 10px come richiesto */
   font-size: 11px;
   text-transform: uppercase;
@@ -21,8 +23,11 @@
    LOGO BANNER
 ------------------------------------------------------- */
 .logo-banner {
-  width: 100%;
-  padding: 10px;
+  /* make banner full-bleed across the viewport (edge-to-edge) */
+  width: 100vw;
+  max-width: none;
+  padding: 10px 0; /* vertical padding only so svg can stretch horizontally */
+  margin-left: calc(50% - 50vw); /* center across the viewport */
   margin-top: -10px;
 }
 

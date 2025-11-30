@@ -62,6 +62,52 @@
   opacity: 0.6;
 }
 
+/* Mobile layout tweaks: put title above the image and description below
+   with at least 10px spacing. Also hide any close button on small screens
+   (we use backdrop-click / ESC for closing on mobile) */
+@media (max-width: 900px) {
+  .modal-inner {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px;
+    max-width: 94vw;
+    max-height: 92vh;
+  }
+
+  /* Make label span full width and sit above image */
+  .modal-label {
+    order: 0;
+    width: 100%;
+    text-align: center;
+    padding: 6px 10px;
+    margin-bottom: 10px; /* 10px distance from image */
+  }
+
+  .modal-image-wrap {
+    order: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Description below the image */
+  .modal-desc {
+    order: 2;
+    width: 100%;
+    padding: 8px 10px 18px; /* some breathing room */
+    text-align: center;
+    margin-top: 10px; /* ensure at least 10px from image */
+    overflow-y: auto;
+    max-height: 28vh;
+  }
+
+  /* hide any visual close button on mobile (backdrop click + ESC is used) */
+  .modal-close {
+    display: none;
+  }
+}
+
 /* Desktop: place a left description column, center image and a right label column */
 @media (min-width: 900px) {
   .modal-inner {

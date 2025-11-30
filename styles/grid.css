@@ -138,10 +138,11 @@ body.pizza-mode .grid-item::before {
     padding: 40px 10px;
     justify-items: center; /* center cards horizontally on mobile */
   }
-  
-  /* Sposta la griglia verso il basso su mobile per non stare troppo sotto l'header fisso */
+
+  /* Sposta la griglia verso il basso su mobile per non stare troppo sotto l'header fisso
+     use the header CSS variable so the grid always starts 20px below the header */
   .grid-wrapper {
-    padding-top: 88px; /* lascia spazio per header + spaziatura */
+    padding-top: calc(var(--site-header-height, 68px) + 20px); /* header height + 20px */
   }
 
   .grid-title {
