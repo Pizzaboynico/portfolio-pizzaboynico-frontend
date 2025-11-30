@@ -82,7 +82,6 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
               alt={project.title}
               className="masonry-img"
               loading="lazy"
-              layoutId={`image-${project._id}`}
             />
 
             {/* labels removed from the grid — they'll be shown in the modal */}

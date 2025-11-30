@@ -39,22 +39,8 @@ export default function ProjectModal({
   if (!project) return null;
 
   return (
-    <motion.div
-      className="modal-overlay"
-      onClick={onClose}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <motion.div
-        className="modal-inner"
-        onClick={(e) => e.stopPropagation()}
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
-      >
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-inner" onClick={(e) => e.stopPropagation()}>
         {/* Left: description (editable in Sanity) */}
         <div className="modal-desc">
           {(() => {
@@ -85,12 +71,11 @@ export default function ProjectModal({
               src={urlFor(project.mainVideo)}
             />
           ) : (
-            <motion.img
+            <img
               src={urlFor(project.mainImage)}
               alt={project.title}
               className="modal-img"
               loading="lazy"
-              layoutId={`image-${project._id}`}
             />
           )}
         </div>
@@ -106,7 +91,7 @@ export default function ProjectModal({
         </div>
 
         {/* 🔥 Manteniamo solo il bottone close visibile */}
-        <button className="modal-close" onClick={onClose}>×</button>
+        {/* close button removed — click on backdrop or press ESC to close */}
 
         {/* 🔥 NESSUN BOTTONE PREV/NEXT VISIBILE */}
       </motion.div>

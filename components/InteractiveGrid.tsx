@@ -44,7 +44,7 @@ const ProjectModal = ({ project, onClose }: { project: Project | null, onClose: 
     >
       {/* Contenitore Immagine ingrandita e Dettagli */}
       <div 
-        className="relative w-full max-w-4xl max-h-[90vh] bg-gray-900 rounded-lg shadow-2xl overflow-hidden"
+        className="relative w-full max-w-4xl max-h-[90vh] bg-gray-900 shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()} // Impedisce la chiusura cliccando sull'immagine
       >
         
@@ -104,14 +104,7 @@ const ProjectModal = ({ project, onClose }: { project: Project | null, onClose: 
           </div>
         </div>
         
-        {/* Pulsante di Chiusura */}
-        <button 
-          onClick={onClose}
-          className="absolute top-4 right-4 text-white hover:text-red-500 transition-colors p-2 bg-black/50 rounded-full"
-          aria-label="Chiudi Modale"
-        >
-          <X size={24} />
-        </button>
+        {/* Close X removed — use outside click or ESC to close */}
       </div>
     </div>
   );
