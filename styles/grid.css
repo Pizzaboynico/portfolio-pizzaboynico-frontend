@@ -109,6 +109,7 @@
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 10px;
     padding: 40px 10px;
+    justify-items: center; /* center cards horizontally on mobile */
   }
 
   .grid-title {
@@ -123,5 +124,15 @@
 @media (max-width: 480px) {
   .grid-item img {
     height: 420px; /* larger posters on small phones */
+  }
+
+  /* center card contents and meta row on small screens */
+  .grid-item {
+    align-items: center;
+    text-align: center;
+  }
+
+  .grid-meta-row {
+    justify-content: center;
   }
 }

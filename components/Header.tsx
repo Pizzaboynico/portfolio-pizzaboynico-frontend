@@ -37,7 +37,8 @@ export default function Header() {
         
         {/* COLONNA SINISTRA (SX): Link principale */}
         <div className="flex-1 text-left">
-          <a className="font-bold hover:underline" href="/">
+          {/* hide the header brand on small screens because the centered SVG overlay replaces it */}
+          <a className="hidden sm:inline-block font-bold hover:underline" href="/">
             Pizzaboynico
           </a>
         </div>
