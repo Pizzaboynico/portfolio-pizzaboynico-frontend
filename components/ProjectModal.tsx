@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/lib/sanity.client";
-import { motion } from "framer-motion";
+// no motion animation here (modal uses plain divs)
 
 const builder = imageUrlBuilder(client);
 function urlFor(src: any) {
@@ -93,8 +93,8 @@ export default function ProjectModal({
         {/* 🔥 Manteniamo solo il bottone close visibile */}
         {/* close button removed — click on backdrop or press ESC to close */}
 
-        {/* 🔥 NESSUN BOTTONE PREV/NEXT VISIBILE */}
-      </motion.div>
-    </motion.div>
+          {/* 🔥 NESSUN BOTTONE PREV/NEXT VISIBILE */}
+        </div>
+      </div>
   );
 }
