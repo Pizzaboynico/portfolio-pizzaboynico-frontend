@@ -53,7 +53,8 @@
   }
 
   .site-header {
-    padding: 30px 20px;
+    /* keep top/bottom spacing but match the horizontal margin used elsewhere (10px) */
+    padding: 30px 10px;
     /* 🔥 Padding ridotto per mobile */
   }
 }
