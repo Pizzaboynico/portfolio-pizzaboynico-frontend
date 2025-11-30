@@ -36,9 +36,9 @@
     /* Force exactly 4 columns on large desktops and center the grid content
        so items are distributed evenly even when there are fewer than 4 items */
     /* Fixed width columns on desktop so layout behaves like Pinterest (variable heights) */
-    grid-template-columns: repeat(4, 280px);
+    grid-template-columns: repeat(4, 360px);
     gap: 10px;
-    max-width: 1600px; /* avoid stretching too far on ultrawide screens */
+    max-width: 1500px; /* keep layout centered and avoid overflow */
     margin: 0 auto;
     justify-items: center; /* center items inside each cell */
   }
