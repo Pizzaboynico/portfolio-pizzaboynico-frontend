@@ -55,22 +55,35 @@ export default function ProjectModal({
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
       >
-        <motion.img
-          src={urlFor(project.mainImage)}
-          alt={project.title}
-          className="modal-img"
-          loading="lazy"
-          layoutId={`image-${project._id}`}
-        />
+        {/* Left: description (editable in Sanity) */}
+        <div className="modal-desc">
+          {project?.description ? (
+            <div dangerouslySetInnerHTML={{ __html: project.description }} />
+          ) : (
+            <p className="text-gray-300">No description provided.</p>
+          )}
+        </div>
 
-        <motion.div
-          className="modal-caption"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <h3>{project.title}</h3>
-        </motion.div>
+        {/* Center: image */}
+        <div className="modal-image-wrap">
+          <motion.img
+            src={urlFor(project.mainImage)}
+            alt={project.title}
+            className="modal-img"
+            loading="lazy"
+            layoutId={`image-${project._id}`}
+          />
+        </div>
+
+        {/* Right: label — compact, vertically centered */}
+        <div className="modal-label">
+          <div>
+            {project?.projectNumber ? (
+              <div className="text-xs opacity-80">{project.projectNumber}</div>
+            ) : null}
+            <div className="text-sm tracking-widest uppercase">{project.title}</div>
+          </div>
+        </div>
 
         {/* 🔥 Manteniamo solo il bottone close visibile */}
         <button className="modal-close" onClick={onClose}>×</button>

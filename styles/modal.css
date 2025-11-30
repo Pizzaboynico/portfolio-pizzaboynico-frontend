@@ -60,3 +60,48 @@
 .modal-close:hover {
   opacity: 0.6;
 }
+
+/* Desktop: place a left description column, center image and a right label column */
+@media (min-width: 900px) {
+  .modal-inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+    padding: 20px;
+  }
+
+  .modal-desc {
+    width: 260px;
+    max-height: 75vh;
+    overflow-y: auto;
+    padding: 0 12px;
+    text-align: left;
+  }
+
+  .modal-image-wrap {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 75vh;
+  }
+
+  .modal-img {
+    max-height: 75vh;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .modal-label {
+    width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    text-align: center;
+    font-weight: 700;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+  }
+}

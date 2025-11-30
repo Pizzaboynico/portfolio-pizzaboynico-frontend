@@ -85,11 +85,7 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
               layoutId={`image-${project._id}`}
             />
 
-            <div className="grid-meta-row">
-              <span className="grid-title">
-                {String(i + 1).padStart(2, "0")} {project.title}
-              </span>
-            </div>
+            {/* labels removed from the grid — they'll be shown in the modal */}
           </motion.div>
         ))}
       </motion.div>

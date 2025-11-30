@@ -46,20 +46,31 @@ const ProjectModal = ({ project, onClose }: { project: Project | null, onClose: 
         onClick={(e) => e.stopPropagation()} // Impedisce la chiusura cliccando sull'immagine
       >
         
-        {/* Area Immagine */}
-        <div className="w-full aspect-video relative">
-            <SanityImageComponent 
-              image={project.mainImage} 
-              alt={project.title} 
-              sizes="80vw"
-              className="object-contain" 
-            />
+        {/* Left: description */}
+        <div className="modal-desc text-white p-4 sm:p-6">
+          {project && (project as any).description ? (
+            <div dangerouslySetInnerHTML={{ __html: (project as any).description }} />
+          ) : (
+            <p className="text-gray-400">No description provided</p>
+          )}
         </div>
-        
-        {/* Info del Progetto */}
-        <div className="p-4 sm:p-6 text-white">
-          <h2 className="text-2xl font-bold">{project.title}</h2>
-          <p className="text-gray-400 mt-1">Slug: /{project.slug.current}</p>
+
+        {/* Center: image */}
+        <div className="modal-image-wrap">
+          <SanityImageComponent 
+            image={project.mainImage} 
+            alt={project.title} 
+            sizes="80vw"
+            className="object-contain" 
+          />
+        </div>
+
+        {/* Right: label */}
+        <div className="modal-label text-white">
+          <div>
+            <div className="text-xs opacity-80">{project?.slug?.current || ''}</div>
+            <div className="text-sm tracking-widest uppercase">{project.title}</div>
+          </div>
         </div>
         
         {/* Pulsante di Chiusura */}
@@ -157,15 +168,7 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
 
               </div>
               
-              {/* Nome e Numero sotto l'asset */}
-              <div className="mt-3">
-                <p className="text-xs text-gray-400">
-                  {String(index + 1).padStart(3, '0')}
-                </p> 
-                <h2 className="text-base font-medium uppercase mt-1 group-hover:underline">
-                  {project.title}
-                </h2>
-              </div>
+              {/* labels removed from inline grid view — shown only in modal */}
             </motion.div>
           );
         })}
