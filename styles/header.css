@@ -36,6 +36,18 @@
   .logo-banner {
     padding: 0 20px 20px;
     margin-top: -10px;
+
+    /* MOBILE: center the logo as a fixed overlay so it visually sits above the grid
+       keeping interactions possible underneath (pointer-events: none) */
+    position: fixed;
+    top: 50vh; /* vertical reference for viewport center */
+    left: 50%;
+    transform: translate(-50%, -40%);
+    max-width: 420px;
+    width: 92vw;
+    z-index: 10000; /* above header/grid */
+    margin-top: 0; /* remove margin when fixed */
+    pointer-events: none; /* allow interactions for items underneath */
   }
 
   .site-header {

@@ -57,6 +57,11 @@
   z-index: 1;
 }
 
+/* Overlay rosso in pizza mode */
+body.pizza-mode .grid-item::before {
+  background-color: #FF2D2D;
+}
+
 .grid-item:hover::before {
   opacity: 0;
 }
