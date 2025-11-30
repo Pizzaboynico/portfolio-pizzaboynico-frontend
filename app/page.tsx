@@ -7,7 +7,11 @@ import { useState, useEffect } from "react";
 const PROJECTS_QUERY = `*[_type == "project"] {
   _id,
   title,
-  mainImage
+  slug,
+  projectNumber,
+  descrizioneBreve,
+  mainImage,
+  mainVideo
 }`;
 
 export default function HomePage() {

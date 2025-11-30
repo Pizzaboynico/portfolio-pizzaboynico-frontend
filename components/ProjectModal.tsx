@@ -57,8 +57,9 @@ export default function ProjectModal({
       >
         {/* Left: description (editable in Sanity) */}
         <div className="modal-desc">
-          {project?.description ? (
-            <div dangerouslySetInnerHTML={{ __html: project.description }} />
+          {project?.descrizioneBreve ? (
+            // assume plain text / small html from sanity
+            <div dangerouslySetInnerHTML={{ __html: project.descrizioneBreve }} />
           ) : (
             <p className="text-gray-300">No description provided.</p>
           )}
@@ -66,13 +67,22 @@ export default function ProjectModal({
 
         {/* Center: image */}
         <div className="modal-image-wrap">
-          <motion.img
-            src={urlFor(project.mainImage)}
-            alt={project.title}
-            className="modal-img"
-            loading="lazy"
-            layoutId={`image-${project._id}`}
-          />
+          {/* Video support: if mainVideo exists, render <video> */}
+          {project?.mainVideo ? (
+            <video
+              className="modal-img"
+              controls
+              src={urlFor(project.mainVideo)}
+            />
+          ) : (
+            <motion.img
+              src={urlFor(project.mainImage)}
+              alt={project.title}
+              className="modal-img"
+              loading="lazy"
+              layoutId={`image-${project._id}`}
+            />
+          )}
         </div>
 
         {/* Right: label — compact, vertically centered */}

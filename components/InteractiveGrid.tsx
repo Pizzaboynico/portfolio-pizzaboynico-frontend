@@ -48,8 +48,8 @@ const ProjectModal = ({ project, onClose }: { project: Project | null, onClose: 
         
         {/* Left: description */}
         <div className="modal-desc text-white p-4 sm:p-6">
-          {project && (project as any).description ? (
-            <div dangerouslySetInnerHTML={{ __html: (project as any).description }} />
+          {project && (project as any).descrizioneBreve ? (
+            <div dangerouslySetInnerHTML={{ __html: (project as any).descrizioneBreve }} />
           ) : (
             <p className="text-gray-400">No description provided</p>
           )}
@@ -57,12 +57,16 @@ const ProjectModal = ({ project, onClose }: { project: Project | null, onClose: 
 
         {/* Center: image */}
         <div className="modal-image-wrap">
-          <SanityImageComponent 
-            image={project.mainImage} 
-            alt={project.title} 
-            sizes="80vw"
-            className="object-contain" 
-          />
+          {project?.mainVideo ? (
+            <video className="modal-img" controls src={urlFor((project as any).mainVideo)} />
+          ) : (
+            <SanityImageComponent 
+              image={project.mainImage} 
+              alt={project.title} 
+              sizes="80vw"
+              className="object-contain" 
+            />
+          )}
         </div>
 
         {/* Right: label */}
