@@ -145,12 +145,16 @@
     }
 
     /* MOBILE ONLY: center the main SVG logo and keep it fixed so header layout is clean */
-    /* Center the logo in the middle of the viewport so it behaves like a page overlay */
+    /* Center the logo in the middle of the viewport so it behaves like a page overlay.
+       Use a slightly smaller upward translation so the *visible* logo sits visually centered
+       (some SVG viewBoxes can include extra whitespace, so tuning the translate value
+       visually centers the label within the viewport). */
     .hero-logo {
         position: fixed;
-        top: 50%;
+        top: 50vh; /* ensure we reference the viewport vertical center */
         left: 50%;
-        transform: translate(-50%, -50%);
+        /* move the graphic slightly less upwards so it visually sits in the viewport center */
+        transform: translate(-50%, -40%);
         max-width: 420px; /* slightly larger to make the logo prominent */
         width: 92vw;
         z-index: 10000; /* sit above grid images and header */
