@@ -19,8 +19,9 @@
 }
 
 .grid-item.faded {
-  opacity: 0.3;
-  filter: blur(1px);
+  /* when item is "spento" we set a softer dimming (80% opacity) */
+  opacity: 0.8;
+  filter: blur(0px);
 }
 
 /* IMMAGINI */
