@@ -34,8 +34,8 @@
 
 .masonry-img {
   width: 100%;
-  /* give a slightly larger visual height so masonry items are more prominent */
-  height: 360px;
+  /* default desktop height */
+  height: 300px;
   object-fit: cover; /* crop nicely */
   display: block;
   transform: none;
@@ -76,8 +76,9 @@
   .masonry-wrapper {
     column-count: 1;
     padding: 25px 10px;
+    column-gap: 10px; /* smaller gap on mobile */
   }
   .masonry-img {
-    height: 200px; /* slightly smaller on mobile so header doesn't feel cramped */
+    height: 420px; /* mobile-only larger posters */
   }
 }

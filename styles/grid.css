@@ -5,7 +5,7 @@
   display: grid;
   /* increase min column width a bit so cards stay larger */
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 20px; /* default desktop gap */
   justify-items: start;
 }
 
@@ -32,7 +32,7 @@
   width: 100%;
   /* fix the visual size so images never dominate the page — object-fit keeps crop clean */
   /* slightly larger visual height so images are more noticeable */
-  height: 320px;
+  height: 320px; /* default desktop poster height */
   object-fit: cover;
   display: block;
   filter: grayscale(1);
@@ -107,7 +107,7 @@
 @media (max-width: 768px) {
   .grid-wrapper {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
+    gap: 10px;
     padding: 40px 10px;
   }
 
@@ -122,6 +122,6 @@
 
 @media (max-width: 480px) {
   .grid-item img {
-    height: 200px; /* reduce a bit so header/margins have breathing room on small phones */
+    height: 420px; /* larger posters on small phones */
   }
 }

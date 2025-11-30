@@ -145,16 +145,19 @@
     }
 
     /* MOBILE ONLY: center the main SVG logo and keep it fixed so header layout is clean */
+    /* Center the logo in the middle of the viewport so it behaves like a page overlay */
     .hero-logo {
         position: fixed;
-        top: 8px; /* keep near top but allow space for site header */
+        top: 50%;
         left: 50%;
-        transform: translateX(-50%);
-        max-width: 360px; /* keep the SVG reasonably sized on phones */
-        width: 90%;
-        z-index: 1000; /* above hero/header content */
+        transform: translate(-50%, -50%);
+        max-width: 420px; /* slightly larger to make the logo prominent */
+        width: 92vw;
+        z-index: 10000; /* sit above grid images and header */
         margin-top: 0; /* remove top spacing when fixed */
-        pointer-events: none; /* avoid interfering with header clicks */
+        pointer-events: none; /* allow interactions under the logo (grid) */
+        -webkit-font-smoothing: antialiased;
+        will-change: transform;
     }
 
     /* ensure the svg scales nicely inside the fixed wrapper */
