@@ -10,6 +10,8 @@ const PROJECTS_QUERY = `*[_type == "project"] {
   slug,
   projectNumber,
   descrizioneBreve,
+  description,
+  _rawDescrizioneBreve,
   mainImage,
   mainVideo
 }`;

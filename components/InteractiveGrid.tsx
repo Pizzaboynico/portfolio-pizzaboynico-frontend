@@ -50,11 +50,18 @@ const ProjectModal = ({ project, onClose }: { project: Project | null, onClose: 
         
         {/* Left: description */}
         <div className="modal-desc text-white p-4 sm:p-6">
-          {project && (project as any).descrizioneBreve ? (
-            <div dangerouslySetInnerHTML={{ __html: (project as any).descrizioneBreve }} />
-          ) : (
-            <p className="text-gray-400">No description provided</p>
-          )}
+          {(() => {
+            const p = project as any;
+            const raw = p?.descrizioneBreve || p?.description;
+            if (raw) return <div dangerouslySetInnerHTML={{ __html: raw }} />;
+
+            if (Array.isArray(p?._rawDescrizioneBreve)) {
+              const text = p._rawDescrizioneBreve.map((b: any) => (b.children || []).map((c: any) => c.text).join('')).join('\n');
+              return <div style={{ whiteSpace: 'pre-wrap' }}>{text}</div>;
+            }
+
+            return <p className="text-gray-400">No description provided</p>;
+          })()}
         </div>
 
         {/* Center: image */}

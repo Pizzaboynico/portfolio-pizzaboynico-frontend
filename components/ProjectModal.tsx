@@ -57,12 +57,22 @@ export default function ProjectModal({
       >
         {/* Left: description (editable in Sanity) */}
         <div className="modal-desc">
-          {project?.descrizioneBreve ? (
-            // assume plain text / small html from sanity
-            <div dangerouslySetInnerHTML={{ __html: project.descrizioneBreve }} />
-          ) : (
-            <p className="text-gray-300">No description provided.</p>
-          )}
+          {(() => {
+            // handle multiple possible fields in Sanity
+            const raw = project?.descrizioneBreve || project?.description;
+            if (raw) return <div dangerouslySetInnerHTML={{ __html: raw }} />;
+
+            // if _rawDescrizioneBreve is portable text, try a simple join of children text
+            const rawPortable = project?._rawDescrizioneBreve;
+            if (Array.isArray(rawPortable)) {
+              const text = rawPortable
+                .map((block: any) => (block.children || []).map((c: any) => c.text).join(''))
+                .join('\n');
+              return <div style={{ whiteSpace: 'pre-wrap' }}>{text}</div>;
+            }
+
+            return <p className="text-gray-300">No description provided.</p>;
+          })()}
         </div>
 
         {/* Center: image */}
