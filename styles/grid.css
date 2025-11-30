@@ -35,7 +35,8 @@
   .grid-wrapper {
     /* Force exactly 4 columns on large desktops and center the grid content
        so items are distributed evenly even when there are fewer than 4 items */
-    grid-template-columns: repeat(4, 1fr);
+    /* Fixed width columns on desktop so layout behaves like Pinterest (variable heights) */
+    grid-template-columns: repeat(4, 280px);
     gap: 10px;
     max-width: 1600px; /* avoid stretching too far on ultrawide screens */
     margin: 0 auto;
@@ -51,9 +52,9 @@
 
 .grid-item img {
   width: 100%;
-  /* fix the visual size so images never dominate the page — object-fit keeps crop clean */
-  /* slightly larger visual height so images are more noticeable */
-  height: 320px; /* default desktop poster height */
+    /* Images should keep their natural aspect ratio so items can have variable heights
+      (Pinterest-style). We set width:100% and let height auto scale. */
+    height: auto;
   object-fit: cover;
   display: block;
   filter: grayscale(1);

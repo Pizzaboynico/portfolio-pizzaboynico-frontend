@@ -40,8 +40,8 @@
 
 .masonry-img {
   width: 100%;
-  /* default desktop height */
-  height: 300px;
+  /* let masonry images adapt to their native height so columns vary vertically */
+  height: auto;
   object-fit: cover; /* crop nicely */
   display: block;
   transform: none;
