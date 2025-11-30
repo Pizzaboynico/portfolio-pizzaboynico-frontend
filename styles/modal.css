@@ -76,9 +76,9 @@
     overflow-y: auto;
     padding: 0 12px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center; /* center text horizontally inside column */
+    align-items: center; /* vertical center */
+    justify-content: flex-start; /* keep text left-aligned */
+    text-align: left; /* left aligned text */
     font-family: inherit; /* match site font */
     font-size: 13px; /* match modal text size */
   }

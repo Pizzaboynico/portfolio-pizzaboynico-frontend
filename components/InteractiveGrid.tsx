@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import SanityImageComponent from './SanityImage';
+import imageUrlBuilder from '@sanity/image-url';
+import { client } from '@/lib/sanity.client';
 import { motion, Variants } from 'framer-motion';
 import { X } from 'lucide-react'; 
 
@@ -57,16 +59,34 @@ const ProjectModal = ({ project, onClose }: { project: Project | null, onClose: 
 
         {/* Center: image */}
         <div className="modal-image-wrap">
-          {project?.mainVideo ? (
-            <video className="modal-img" controls src={urlFor((project as any).mainVideo)} />
-          ) : (
-            <SanityImageComponent 
-              image={project.mainImage} 
-              alt={project.title} 
-              sizes="80vw"
-              className="object-contain" 
-            />
-          )}
+          {/* Build URLs for assets when needed */}
+          {(() => {
+            const builder = imageUrlBuilder(client);
+            const urlFor = (src: any) => builder.image(src).url();
+
+            if ((project as any)?.mainVideo) {
+              return (
+                <video className="modal-img" controls src={urlFor((project as any).mainVideo)} />
+              );
+            }
+
+            const imgUrl = project?.mainImage ? urlFor(project.mainImage) : null;
+            const isGif = imgUrl && imgUrl.toLowerCase().includes('.gif');
+
+            if (isGif && imgUrl) {
+              // use native <img> to preserve gif animation
+              return <img src={imgUrl} alt={project.title} className="modal-img" />;
+            }
+
+            return (
+              <SanityImageComponent
+                image={project.mainImage}
+                alt={project.title}
+                sizes="80vw"
+                className="object-contain"
+              />
+            );
+          })()}
         </div>
 
         {/* Right: label */}
