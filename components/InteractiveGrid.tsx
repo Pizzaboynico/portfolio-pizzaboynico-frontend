@@ -126,9 +126,9 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
               key={project._id} 
                 variants={itemVariants}
                 className={`
-                group cursor-pointer transition-all duration-300 ease-in-out 
-                ${isDimmed ? 'opacity-30' : 'opacity-100'} 
-              `}
+                  group cursor-pointer transition-all duration-300 ease-in-out 
+                  ${isDimmed ? 'faded' : ''}
+                `}
               onMouseEnter={() => handleMouseEnter(project._id)}
               onMouseLeave={handleMouseLeave}
               onClick={() => handleProjectClick(project)}

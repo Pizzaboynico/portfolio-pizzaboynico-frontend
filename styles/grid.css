@@ -24,6 +24,13 @@
   filter: blur(0px);
 }
 
+/* Generic faded utility for JS-driven dim states (used by InteractiveGrid) */
+.faded {
+  opacity: 0.8 !important;
+  filter: blur(0px) !important;
+  transition: opacity 0.25s ease;
+}
+
 /* IMMAGINI */
 .grid-item {
   position: relative;
