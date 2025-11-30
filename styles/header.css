@@ -46,7 +46,8 @@
     max-width: 420px;
     /* leave 10px margin both sides to match header spacing */
     width: calc(100% - 20px);
-    z-index: 10000; /* above header/grid */
+    /* place logo above images/grid but below the modal overlay (modal uses z-index: 9999) */
+    z-index: 9500;
     margin-top: 0; /* remove margin when fixed */
     pointer-events: none; /* allow interactions for items underneath */
   }

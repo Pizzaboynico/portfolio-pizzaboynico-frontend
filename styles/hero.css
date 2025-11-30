@@ -157,7 +157,8 @@
         transform: translate(-50%, -40%);
         max-width: 420px; /* slightly larger to make the logo prominent */
         width: 92vw;
-        z-index: 10000; /* sit above grid images and header */
+        /* place hero-logo above grid/images but below modal overlay (modal uses z-index: 9999) */
+        z-index: 9500;
         margin-top: 0; /* remove top spacing when fixed */
         pointer-events: none; /* allow interactions under the logo (grid) */
         -webkit-font-smoothing: antialiased;
