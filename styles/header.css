@@ -44,7 +44,8 @@
     left: 50%;
     transform: translate(-50%, -40%);
     max-width: 420px;
-    width: 92vw;
+    /* leave 10px margin both sides to match header spacing */
+    width: calc(100% - 20px);
     z-index: 10000; /* above header/grid */
     margin-top: 0; /* remove margin when fixed */
     pointer-events: none; /* allow interactions for items underneath */
