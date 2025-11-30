@@ -4,11 +4,10 @@
   padding: 20px 10px 40px;
   display: grid;
   /* increase min column width a bit so cards stay larger */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px; /* default desktop gap */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px; /* default gap */
   justify-items: start;
 }
-    gap: 10px; /* default desktop gap */
 /* ITEM */
 .grid-item {
   display: flex;
@@ -29,19 +28,20 @@
   opacity: 0.8 !important;
   filter: blur(0px) !important;
   transition: opacity 0.25s ease;
-  /* Desktop: show exactly 4 columns on wide screens */
-  @media (min-width: 1100px) {
-    .grid-wrapper {
-      /* Force exactly 4 columns on large desktops and center the grid content
-         so items are distributed evenly even when there are fewer than 4 items */
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      max-width: 1600px; /* avoid stretching too far on ultrawide screens */
-      margin: 0 auto;
-      justify-items: center; /* center items inside each cell */
-    }
-    .grid-item { width: 100%; }
+}
+
+/* Desktop: show exactly 4 columns on wide screens */
+@media (min-width: 1100px) {
+  .grid-wrapper {
+    /* Force exactly 4 columns on large desktops and center the grid content
+       so items are distributed evenly even when there are fewer than 4 items */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 1600px; /* avoid stretching too far on ultrawide screens */
+    margin: 0 auto;
+    justify-items: center; /* center items inside each cell */
   }
+  .grid-item { width: 100%; }
 }
 
 /* IMMAGINI */
