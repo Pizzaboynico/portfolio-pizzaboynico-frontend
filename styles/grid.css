@@ -8,7 +8,7 @@
   gap: 20px; /* default desktop gap */
   justify-items: start;
 }
-
+    gap: 10px; /* default desktop gap */
 /* ITEM */
 .grid-item {
   display: flex;
@@ -29,6 +29,13 @@
   opacity: 0.8 !important;
   filter: blur(0px) !important;
   transition: opacity 0.25s ease;
+  /* Desktop: show exactly 4 columns on wide screens */
+  @media (min-width: 1100px) {
+    .grid-wrapper {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+  }
 }
 
 /* IMMAGINI */
