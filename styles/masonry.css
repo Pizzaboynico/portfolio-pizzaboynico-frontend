@@ -3,7 +3,7 @@
 ---------------------------------------------------- */
 .masonry-wrapper {
   /* use column-width to create fixed-width columns and let browser determine count */
-  column-width: 360px;
+  column-width: 320px;
   column-gap: 10px;
   padding: 60px 10px;
   max-width: 1500px;

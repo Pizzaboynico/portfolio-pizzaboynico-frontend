@@ -35,8 +35,8 @@
   .grid-wrapper {
     /* Force exactly 4 columns on large desktops and center the grid content
        so items are distributed evenly even when there are fewer than 4 items */
-    /* Fixed width columns on desktop so layout behaves like Pinterest (variable heights) */
-    grid-template-columns: repeat(4, 360px);
+    /* Fixed width columns on desktop: set to 320px so 4 columns fit common laptop widths (e.g. 1366) */
+    grid-template-columns: repeat(4, 320px);
     gap: 10px;
     max-width: 1500px; /* keep layout centered and avoid overflow */
     margin: 0 auto;
