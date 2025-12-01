@@ -190,17 +190,21 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
       items.forEach(it => io?.observe(it));
     };
 
-    init();
+    // Delay observer initialization to ensure DOM is ready
+    const timer = setTimeout(() => {
+      init();
+    }, 100);
 
     const onChange = () => {
       if (io) { io.disconnect(); io = null; }
-      init();
+      setTimeout(init, 100);
     };
 
     if ((media as any).addEventListener) media.addEventListener('change', onChange);
     else (media as any).addListener(onChange);
 
     return () => {
+      clearTimeout(timer);
       if (io) io.disconnect();
       if ((media as any).removeEventListener) media.removeEventListener('change', onChange);
       else (media as any).removeListener(onChange);

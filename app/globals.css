@@ -146,6 +146,26 @@ body.pizza-mode {
   background-size: 300px !important;
   background-position: top left !important;
   background-attachment: fixed !important;
+  /* Disable smooth scroll completely */
+  overflow: auto !important;
+}
+
+/* Force header and footer to stay fixed */
+body.pizza-mode .site-header,
+body.pizza-mode .site-footer {
+  position: fixed !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+/* Force logo to stay fixed and centered on mobile */
+@media (max-width: 768px) {
+  body.pizza-mode .logo-banner {
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50% !important;
+    transform: translate(-50%, -40%) !important;
+  }
 }
 
 /* -------------------------------------------------------

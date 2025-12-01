@@ -141,29 +141,6 @@
   transform: scale(1.1);
 }
 
-/* -----------------------------------------------------
-   🍕 PIZZA MODE – Texture full screen
------------------------------------------------------ */
-body.pizza-mode {
-  background-image: url("/pizza-texture.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: repeat;
-  animation: pizzaFade 0.4s ease-out forwards;
-}
-
-@keyframes pizzaFade {
-  from {
-    opacity: 0;
-    filter: blur(10px);
-  }
-
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-
 /* evidenzia il pulsante se attivo */
 body.pizza-mode .pizza-button {
   outline: 2px solid #fff;

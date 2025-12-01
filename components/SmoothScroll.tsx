@@ -11,22 +11,25 @@ export default function SmoothScroll() {
 
         function raf(time: number) {
             // If pizza-mode is active we want native scrolling (header/logo should
-            // stay fixed) — don't call lenis.raf while the class is present and
-            // remove any transform it might have applied so elements behave
-            // normally. When pizza-mode is removed lenis resumes applying smooth scroll.
+            // stay fixed) — stop Lenis entirely and clear all transforms
             if (document.body.classList.contains("pizza-mode")) {
-                // Clear transform on the scrolling element in case Lenis left it set
+                // Stop Lenis and clear transforms
                 try {
-                    // lenis normally applies transforms to document.documentElement or body
-                    (document.documentElement as HTMLElement).style.transform = "none";
+                    lenis.stop();
+                    (document.documentElement as HTMLElement).style.transform = "";
+                    (document.documentElement as HTMLElement).style.removeProperty('transform');
                     const scrollingEl = document.scrollingElement as HTMLElement | null;
-                    if (scrollingEl) scrollingEl.style.transform = "none";
-                    // Also clear from body to be defensive
-                    document.body.style.transform = "none";
+                    if (scrollingEl) {
+                        scrollingEl.style.transform = "";
+                        scrollingEl.style.removeProperty('transform');
+                    }
+                    document.body.style.transform = "";
+                    document.body.style.removeProperty('transform');
                 } catch (e) {
                     // noop — defensive
                 }
             } else {
+                lenis.start();
                 lenis.raf(time);
             }
 
