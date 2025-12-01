@@ -23,12 +23,12 @@
    LOGO BANNER
 ------------------------------------------------------- */
 .logo-banner {
-  /* make banner full-bleed across the viewport (edge-to-edge) */
-  width: 100vw;
+  /* Keep the logo constrained to match the header horizontal padding
+     so it aligns with header items on both desktop and mobile. */
+  width: calc(100% - 20px); /* leaves 10px on both sides */
   max-width: none;
-  padding: 10px 0; /* vertical padding only so svg can stretch horizontally */
-  margin-left: calc(50% - 50vw); /* center across the viewport */
-  margin-top: -10px;
+  padding: 10px 0; /* vertical padding only */
+  margin: -10px auto 0; /* preserve visual offset and center horizontally */
 }
 
 .logo-banner svg {
