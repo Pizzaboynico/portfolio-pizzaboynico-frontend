@@ -127,7 +127,11 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
     };
   }, []);
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768);
+  }, []);
 
   return (
     <>
