@@ -64,6 +64,8 @@
   /* Allow vertical panning on touch devices to avoid touch being captured by the image
      which prevents smooth scrolling while swiping. */
   touch-action: pan-y;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
 }
 
 /* Blue tint overlay */
@@ -105,6 +107,7 @@ body.pizza-mode .grid-item::before {
   filter: grayscale(0);
   opacity: 1;
   transform: scale(1.02);
+  transition: transform 0.24s ease, opacity 0.24s ease, filter 0.24s ease;
 }
 
 /* 🔥 META ROW - contenitore per titolo e anno */
@@ -147,7 +150,7 @@ body.pizza-mode .grid-item::before {
 @media (max-width: 768px) {
   .grid-wrapper {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 10px;
+    gap: 20px; /* doubled vertical spacing on mobile */
     padding: 40px 10px;
     justify-items: center; /* center cards horizontally on mobile */
   }

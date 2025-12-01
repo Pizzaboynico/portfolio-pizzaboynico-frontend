@@ -158,16 +158,29 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
     const media = window.matchMedia('(max-width: 768px)');
     let io: IntersectionObserver | null = null;
 
+    const getHeaderHeight = () => {
+      try {
+        const val = getComputedStyle(document.documentElement).getPropertyValue('--site-header-height');
+        return parseInt(val) || 68;
+      } catch {
+        return 68;
+      }
+    };
+
     const init = () => {
       if (!media.matches) return;
       const items = document.querySelectorAll('.grid .grid-item');
+      const headerHeight = getHeaderHeight();
+      
       io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const el = entry.target as HTMLElement;
-          if (entry.intersectionRatio >= 1) el.classList.add('in-view');
+          const rect = el.getBoundingClientRect();
+          const fullyVisible = rect.top >= headerHeight && rect.bottom <= window.innerHeight;
+          if (fullyVisible) el.classList.add('in-view');
           else el.classList.remove('in-view');
         });
-      }, { threshold: [1] });
+      }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
 
       items.forEach(it => io?.observe(it));
     };
