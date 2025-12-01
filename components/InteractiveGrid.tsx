@@ -170,30 +170,30 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
     const init = () => {
       if (!media.matches) return;
       const items = document.querySelectorAll('.grid .grid-item');
-      const headerHeight = getHeaderHeight();
+      console.log('InteractiveGrid observer init, found items:', items.length);
       
       io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const el = entry.target as HTMLElement;
-          // Activate when at least 60% of item is visible
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+          // Activate when at least 40% of item is visible
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+            console.log('Activating item:', el, 'ratio:', entry.intersectionRatio);
             el.classList.add('in-view');
           } else {
             el.classList.remove('in-view');
           }
         });
       }, { 
-        threshold: [0, 0.25, 0.5, 0.6, 0.75, 1],
-        rootMargin: `-${headerHeight}px 0px 0px 0px`
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1]
       });
 
       items.forEach(it => io?.observe(it));
     };
 
-    // Delay observer initialization to ensure DOM is ready
+    // Delay observer initialization to wait for animations
     const timer = setTimeout(() => {
       init();
-    }, 100);
+    }, 500);
 
     const onChange = () => {
       if (io) { io.disconnect(); io = null; }
