@@ -150,6 +150,45 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
     setSelectedProject(null);
   }
 
+  // Auto highlight via IntersectionObserver on small devices
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!('IntersectionObserver' in window)) return;
+
+    const media = window.matchMedia('(max-width: 768px)');
+    let io: IntersectionObserver | null = null;
+
+    const init = () => {
+      if (!media.matches) return;
+      const items = document.querySelectorAll('.grid .grid-item');
+      io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+          if (entry.intersectionRatio >= 1) el.classList.add('in-view');
+          else el.classList.remove('in-view');
+        });
+      }, { threshold: [1] });
+
+      items.forEach(it => io?.observe(it));
+    };
+
+    init();
+
+    const onChange = () => {
+      if (io) { io.disconnect(); io = null; }
+      init();
+    };
+
+    if ((media as any).addEventListener) media.addEventListener('change', onChange);
+    else (media as any).addListener(onChange);
+
+    return () => {
+      if (io) io.disconnect();
+      if ((media as any).removeEventListener) media.removeEventListener('change', onChange);
+      else (media as any).removeListener(onChange);
+    };
+  }, []);
+
   return (
     <>
       {/* GRIGLIA Responsive */}
@@ -173,46 +212,7 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
                 variants={itemVariants}
                   className={`grid-item group cursor-pointer transition-all duration-300 ease-in-out ${isDimmed ? 'faded' : ''}`}
                   data-project-id={project._id}
-                // Auto highlight via IntersectionObserver on small devices
-                useEffect(() => {
-                  if (typeof window === 'undefined') return;
-                  if (!('IntersectionObserver' in window)) return;
-
-                  const media = window.matchMedia('(max-width: 768px)');
-                  let io: IntersectionObserver | null = null;
-
-                  const init = () => {
-                    if (!media.matches) return;
-                    const items = document.querySelectorAll('.grid .grid-item');
-                    io = new IntersectionObserver((entries) => {
-                      entries.forEach((entry) => {
-                        const el = entry.target as HTMLElement;
-                        if (entry.intersectionRatio >= 1) el.classList.add('in-view');
-                        else el.classList.remove('in-view');
-                      });
-                    }, { threshold: [1] });
-
-                    items.forEach(it => io?.observe(it));
-                  };
-
-                  init();
-
-                  const onChange = () => {
-                    if (io) { io.disconnect(); io = null; }
-                    init();
-                  };
-
-                  if ((media as any).addEventListener) media.addEventListener('change', onChange);
-                  else (media as any).addListener(onChange);
-
-                  return () => {
-                    if (io) io.disconnect();
-                    if ((media as any).removeEventListener) media.removeEventListener('change', onChange);
-                    else (media as any).removeListener(onChange);
-                  };
-                }, []);
-
-                return (
+                
               onMouseEnter={() => handleMouseEnter(project._id)}
               onMouseLeave={handleMouseLeave}
               onClick={() => handleProjectClick(project)}
@@ -253,41 +253,4 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
   );
 }
 
-// Auto highlight via IntersectionObserver on small devices
-useEffect(() => {
-  if (typeof window === 'undefined') return;
-  if (!('IntersectionObserver' in window)) return;
-
-  const media = window.matchMedia('(max-width: 768px)');
-  let io: IntersectionObserver | null = null;
-
-  const init = () => {
-    if (!media.matches) return;
-    const items = document.querySelectorAll('.grid .grid-item');
-    io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const el = entry.target as HTMLElement;
-        if (entry.intersectionRatio >= 1) el.classList.add('in-view');
-        else el.classList.remove('in-view');
-      });
-    }, { threshold: [1] });
-
-    items.forEach(it => io?.observe(it));
-  };
-
-  init();
-
-  const onChange = () => {
-    if (io) { io.disconnect(); io = null; }
-    init();
-  };
-
-  if ((media as any).addEventListener) media.addEventListener('change', onChange);
-  else (media as any).addListener(onChange);
-
-  return () => {
-    if (io) io.disconnect();
-    if ((media as any).removeEventListener) media.removeEventListener('change', onChange);
-    else (media as any).removeListener(onChange);
-  };
-}, []);
+  
