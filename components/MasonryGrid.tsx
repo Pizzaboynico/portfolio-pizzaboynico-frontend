@@ -87,8 +87,8 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
         (entries) => {
           entries.forEach((entry) => {
             const el = entry.target as HTMLElement;
-            // Activate when at least 40% of item is visible
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+            // Activate when at least 70% of item is visible (centered in viewport)
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.7) {
               console.log('Activating item:', el, 'ratio:', entry.intersectionRatio);
               el.classList.add('in-view');
             } else {
@@ -97,7 +97,8 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
           });
         },
         { 
-          threshold: [0, 0.2, 0.4, 0.6, 0.8, 1]
+          threshold: [0, 0.3, 0.5, 0.7, 0.9, 1],
+          rootMargin: '0px 0px -100px 0px' // Attiva quando item è più centrato
         }
       );
 
@@ -137,7 +138,9 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
         initial="hidden"
         animate="show"
       >
-        {projects.map((project, i) => (
+        {projects.map((project, i) => {
+          const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+          return (
           <motion.div
             key={project._id}
             variants={itemVariants}
@@ -147,7 +150,7 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
             onMouseLeave={() => setHoverIndex(null)}
             onClick={() => openModal(i)}
             whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            {...(!isMobile && { whileTap: { scale: 0.98 } })}
           >
             <motion.img
               src={urlFor(project.mainImage)}
@@ -158,7 +161,7 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
 
             {/* labels removed from the grid — they'll be shown in the modal */}
           </motion.div>
-        ))}
+        );})}
       </motion.div>
 
       {/* IntersectionObserver logic to auto-highlight images that are fully in view on touch/mobile */}

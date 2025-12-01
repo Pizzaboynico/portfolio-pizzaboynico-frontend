@@ -175,8 +175,8 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
       io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const el = entry.target as HTMLElement;
-          // Activate when at least 40% of item is visible
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+          // Activate when at least 70% of item is visible
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.7) {
             console.log('Activating item:', el, 'ratio:', entry.intersectionRatio);
             el.classList.add('in-view');
           } else {
@@ -184,7 +184,8 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
           }
         });
       }, { 
-        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1]
+        threshold: [0, 0.3, 0.5, 0.7, 0.9, 1],
+        rootMargin: '0px 0px -100px 0px'
       });
 
       items.forEach(it => io?.observe(it));
