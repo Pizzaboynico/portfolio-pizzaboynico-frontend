@@ -13,7 +13,8 @@ body {
   height: 100%;
   /* Allow native scrolling — Smooth scroll (Lenis) will still work when mounted.
      overflow: hidden caused mobile scroll to be blocked. */
-  overflow: auto;
+  overflow: auto !important;
+  overflow-x: hidden;
   /* Let Lenis handle all scrolling */
   color: #ffffff;
   font-family: AeonikMono, monospace;
