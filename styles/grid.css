@@ -30,17 +30,16 @@
   transition: opacity 0.25s ease;
 }
 
-/* Desktop: show exactly 4 columns on wide screens */
+/* Desktop: align grid to right, auto-fill columns to cover full width */
 @media (min-width: 1100px) {
   .grid-wrapper {
-    /* Force exactly 4 columns on large desktops and center the grid content
-       so items are distributed evenly even when there are fewer than 4 items */
-    /* Fixed width columns on desktop: set to 320px so 4 columns fit common laptop widths (e.g. 1366) */
-    grid-template-columns: repeat(4, 320px);
-    gap: 10px;
-    max-width: 1500px; /* keep layout centered and avoid overflow */
-    margin: 0 auto;
-    justify-items: center; /* center items inside each cell */
+    /* Auto-fill columns based on viewport width to cover entire horizontal space */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: none;
+    margin: 0;
+    padding: 20px 20px 40px 20px; /* 20px from edges */
+    justify-items: start; /* align items to left of their cells */
   }
   .grid-item { width: 100%; }
 }
@@ -90,14 +89,17 @@ body.pizza-mode .grid-item::before {
   background-color: #FF2D2D;
 }
 
-.grid-item:hover::before {
-  opacity: 0;
-}
+/* Disable hover on touch devices - images should only activate via IntersectionObserver on mobile */
+@media (hover: hover) and (pointer: fine) {
+  .grid-item:hover::before {
+    opacity: 0;
+  }
 
-.grid-item:hover img {
-  filter: grayscale(0);
-  opacity: 1;
-  transform: scale(1.02);
+  .grid-item:hover img {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: scale(1.02);
+  }
 }
 
 /* Mobile: when the item is completely in the viewport we automatically 'activate' it
