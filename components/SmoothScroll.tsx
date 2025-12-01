@@ -18,8 +18,9 @@ export default function SmoothScroll() {
                 // Clear transform on the scrolling element in case Lenis left it set
                 try {
                     // lenis normally applies transforms to document.documentElement or body
-                    document.documentElement.style.transform = "none";
-                    document.scrollingElement && (document.scrollingElement.style.transform = "none");
+                    (document.documentElement as HTMLElement).style.transform = "none";
+                    const scrollingEl = document.scrollingElement as HTMLElement | null;
+                    if (scrollingEl) scrollingEl.style.transform = "none";
                 } catch (e) {
                     // noop — defensive
                 }
