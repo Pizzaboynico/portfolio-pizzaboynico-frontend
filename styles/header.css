@@ -45,7 +45,7 @@
 
     /* MOBILE: center the logo as a fixed overlay so it visually sits above the grid
        keeping interactions possible underneath (pointer-events: none) */
-    position: fixed;
+     position: fixed;
     top: 50vh; /* vertical reference for viewport center */
     left: 50%;
     transform: translate(-50%, -40%);
@@ -56,6 +56,25 @@
     z-index: 9500;
     margin-top: 0; /* remove margin when fixed */
     pointer-events: none; /* allow interactions for items underneath */
+  }
+
+  /* When pizza-mode is active on mobile we don't want fixed elements to 'follow'
+     while scrolling. Make header and the logo overlay scroll with page content. */
+  body.pizza-mode .site-header {
+    position: relative; /* allow header to scroll away with content */
+    z-index: 10; /* keep it above content but not fixed */
+  }
+
+  body.pizza-mode .logo-banner {
+    position: relative; /* logo will be inline/flow and will scroll */
+    left: auto;
+    top: auto;
+    transform: none;
+    max-width: calc(100% - 20px);
+    width: calc(100% - 20px);
+    margin-left: auto;
+    margin-right: auto;
+    pointer-events: auto; /* allow interaction if needed in pizza-mode */
   }
 
   .site-header {
