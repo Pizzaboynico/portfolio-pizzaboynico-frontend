@@ -5,7 +5,7 @@ import { useClock } from "@/hooks/useClock";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
-    const { togglePizzaMode } = usePizzaMode();
+    const { isPizzaMode, togglePizzaMode } = usePizzaMode();
     const time = useClock();
 
     return (
@@ -21,8 +21,12 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                     <span className="location">Bergamo</span>
                     <span className="clock">{time}</span>
 
-                    <button onClick={togglePizzaMode} className="pizza-btn">
-                        <img src="/pizza-texture.jpg" alt="Pizza Mode" />
+                    <button onClick={togglePizzaMode} className="pizza-button">
+                        {isPizzaMode ? (
+                            <div className="pizza-button-active" />
+                        ) : (
+                            <img src="/pizza-texture.jpg" alt="Pizza Mode" />
+                        )}
                     </button>
                 </div>
             </header>

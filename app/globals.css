@@ -10,7 +10,10 @@
 html,
 body {
   width: 100%;
-  height: 100%;
+  width: 100%;
+  /* Removed height: 100% to fix "layering" scroll issue on mobile. 
+     Letting the document flow naturally prevents the "double scroll" feeling. */
+  min-height: 100%;
   /* Allow native scrolling — Smooth scroll (Lenis) will still work when mounted.
      overflow: hidden caused mobile scroll to be blocked. */
   overflow: auto !important;
@@ -161,6 +164,16 @@ body.pizza-mode {
   background-size: 300px;
   background-position: top left;
   background-attachment: fixed;
+}
+
+/* Quando la pizza mode è attiva, il pulsante diventa blu solido */
+body.pizza-mode .pizza-btn {
+  background-color: #4B61D1;
+  border-color: white;
+}
+
+body.pizza-mode .pizza-btn img {
+  display: none;
 }
 
 /* -------------------------------------------------------

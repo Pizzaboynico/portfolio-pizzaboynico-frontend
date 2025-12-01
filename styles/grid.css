@@ -165,10 +165,13 @@ body.pizza-mode .grid-item::before {
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .grid-wrapper {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    /* Mobile: reduce grid item size to 56% of viewport width (80% of original 70vw) to allow more scrolling space */
+    grid-template-columns: 56vw;
     gap: 20px;
     /* doubled vertical spacing on mobile */
     padding: 40px 10px;
+    justify-content: center;
+    /* center the single column */
     justify-items: center;
     /* center cards horizontally on mobile */
   }
@@ -191,8 +194,7 @@ body.pizza-mode .grid-item::before {
 
 @media (max-width: 480px) {
   .grid-item img {
-    height: 420px;
-    /* larger posters on small phones */
+    height: 336px; /* 420px * 0.8 = 336px - larger posters on small phones */
   }
 
   /* center card contents and meta row on small screens */
