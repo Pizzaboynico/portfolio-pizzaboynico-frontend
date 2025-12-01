@@ -170,22 +170,18 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
     const init = () => {
       if (!media.matches) return;
       const items = document.querySelectorAll('.grid .grid-item');
-      console.log('InteractiveGrid observer init, found items:', items.length);
       
       io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const el = entry.target as HTMLElement;
-          // Activate when at least 70% of item is visible
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.7) {
-            console.log('Activating item:', el, 'ratio:', entry.intersectionRatio);
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
             el.classList.add('in-view');
           } else {
             el.classList.remove('in-view');
           }
         });
       }, { 
-        threshold: [0, 0.3, 0.5, 0.7, 0.9, 1],
-        rootMargin: '0px 0px -100px 0px'
+        threshold: [0.6, 1]
       });
 
       items.forEach(it => io?.observe(it));

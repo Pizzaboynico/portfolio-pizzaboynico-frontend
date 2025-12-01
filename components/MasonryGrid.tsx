@@ -81,15 +81,13 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
       if (!media.matches) return;
 
       const items = document.querySelectorAll('.grid-wrapper .grid-item');
-      console.log('MasonryGrid observer init, found items:', items.length);
       
       io = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             const el = entry.target as HTMLElement;
-            // Activate when at least 70% of item is visible (centered in viewport)
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.7) {
-              console.log('Activating item:', el, 'ratio:', entry.intersectionRatio);
+            // Activate when at least 60% of item is visible
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
               el.classList.add('in-view');
             } else {
               el.classList.remove('in-view');
@@ -97,8 +95,7 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
           });
         },
         { 
-          threshold: [0, 0.3, 0.5, 0.7, 0.9, 1],
-          rootMargin: '0px 0px -100px 0px' // Attiva quando item è più centrato
+          threshold: [0.6, 1] // Minimal thresholds for better performance
         }
       );
 
@@ -130,39 +127,58 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
     };
   }, []);
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
   return (
     <>
-      <motion.div
-        className="grid-wrapper"
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-      >
-        {projects.map((project, i) => {
-          const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-          return (
-          <motion.div
-            key={project._id}
-            variants={itemVariants}
-            className={`grid-item ${hoverIndex !== null && hoverIndex !== i ? "faded" : ""
-              }`}
-            onMouseEnter={() => setHoverIndex(i)}
-            onMouseLeave={() => setHoverIndex(null)}
-            onClick={() => openModal(i)}
-            whileHover={{ scale: 1.02 }}
-            {...(!isMobile && { whileTap: { scale: 0.98 } })}
-          >
-            <motion.img
-              src={urlFor(project.mainImage)}
-              alt={project.title}
-              className="masonry-img"
-              loading="lazy"
-            />
-
-            {/* labels removed from the grid — they'll be shown in the modal */}
-          </motion.div>
-        );})}
-      </motion.div>
+      {isMobile ? (
+        // Mobile: no animations for better scroll performance
+        <div className="grid-wrapper">
+          {projects.map((project, i) => (
+            <div
+              key={project._id}
+              className="grid-item"
+              onClick={() => openModal(i)}
+            >
+              <img
+                src={urlFor(project.mainImage)}
+                alt={project.title}
+                className="masonry-img"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        // Desktop: keep Framer Motion animations
+        <motion.div
+          className="grid-wrapper"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+        >
+          {projects.map((project, i) => (
+            <motion.div
+              key={project._id}
+              variants={itemVariants}
+              className={`grid-item ${hoverIndex !== null && hoverIndex !== i ? "faded" : ""
+                }`}
+              onMouseEnter={() => setHoverIndex(i)}
+              onMouseLeave={() => setHoverIndex(null)}
+              onClick={() => openModal(i)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <img
+                src={urlFor(project.mainImage)}
+                alt={project.title}
+                className="masonry-img"
+                loading="lazy"
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
 
       {/* IntersectionObserver logic to auto-highlight images that are fully in view on touch/mobile */}
       {/* Implemented via useEffect so it's properly cleaned up in React */}
