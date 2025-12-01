@@ -5,9 +5,11 @@
   display: grid;
   /* increase min column width a bit so cards stay larger */
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 10px; /* default gap */
+  gap: 10px;
+  /* default gap */
   justify-items: start;
 }
+
 /* ITEM */
 .grid-item {
   display: flex;
@@ -38,10 +40,15 @@
     gap: 20px;
     max-width: none;
     margin: 0;
-    padding: 20px 10px 40px 10px; /* 10px laterale per allinearsi con header/logo */
-    justify-items: start; /* align items to left of their cells */
+    padding: 20px 10px 40px 10px;
+    /* 10px laterale per allinearsi con header/logo */
+    justify-items: start;
+    /* align items to left of their cells */
   }
-  .grid-item { width: 100%; }
+
+  .grid-item {
+    width: 100%;
+  }
 }
 
 /* IMMAGINI */
@@ -51,9 +58,9 @@
 
 .grid-item img {
   width: 100%;
-    /* Images should keep their natural aspect ratio so items can have variable heights
+  /* Images should keep their natural aspect ratio so items can have variable heights
       (Pinterest-style). We set width:100% and let height auto scale. */
-    height: auto;
+  height: auto;
   object-fit: cover;
   display: block;
   filter: grayscale(1);
@@ -65,6 +72,9 @@
   touch-action: pan-y;
   -webkit-touch-callout: none;
   -webkit-user-drag: none;
+  /* Ensure the image itself doesn't capture pointer events, letting the click pass to the parent .grid-item
+     and the scroll pass to the document. */
+  pointer-events: none;
 }
 
 /* Blue tint overlay */
@@ -156,15 +166,18 @@ body.pizza-mode .grid-item::before {
 @media (max-width: 768px) {
   .grid-wrapper {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px; /* doubled vertical spacing on mobile */
+    gap: 20px;
+    /* doubled vertical spacing on mobile */
     padding: 40px 10px;
-    justify-items: center; /* center cards horizontally on mobile */
+    justify-items: center;
+    /* center cards horizontally on mobile */
   }
 
   /* Sposta la griglia verso il basso su mobile per non stare troppo sotto l'header fisso
      use the header CSS variable so the grid always starts 20px below the header */
   .grid-wrapper {
-    padding-top: calc(var(--site-header-height, 68px) + 20px); /* header height + 20px */
+    padding-top: calc(var(--site-header-height, 68px) + 20px);
+    /* header height + 20px */
   }
 
   .grid-title {
@@ -178,7 +191,8 @@ body.pizza-mode .grid-item::before {
 
 @media (max-width: 480px) {
   .grid-item img {
-    height: 420px; /* larger posters on small phones */
+    height: 420px;
+    /* larger posters on small phones */
   }
 
   /* center card contents and meta row on small screens */
