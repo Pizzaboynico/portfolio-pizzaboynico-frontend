@@ -105,6 +105,10 @@ body.pizza-mode .grid-item::before {
 /* Mobile: when the item is completely in the viewport we automatically 'activate' it
    so users don't need to touch the image (which blocks scroll). IntersectionObserver
    will toggle the .in-view class on grid-item when fully visible. */
+.grid-item.in-view::before {
+  opacity: 0;
+}
+
 .grid-item.in-view img {
   filter: grayscale(0);
   opacity: 1;

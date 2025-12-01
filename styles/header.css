@@ -58,29 +58,6 @@
     pointer-events: none; /* allow interactions for items underneath */
   }
 
-  /* Keep header and logo fixed in pizza-mode on mobile */
-  body.pizza-mode .site-header {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0;
-    right: 0;
-    z-index: 12000;
-    transform: none !important;
-    will-change: auto;
-  }
-
-  body.pizza-mode .logo-banner {
-    /* Keep logo centered in pizza-mode, same as normal mode */
-    position: fixed !important;
-    top: 50vh !important;
-    left: 50%;
-    transform: translate(-50%, -40%) !important;
-    max-width: 420px;
-    width: calc(100% - 20px);
-    z-index: 11999;
-    pointer-events: auto;
-  }
-
   .site-header {
     /* same padding on all sides on mobile so top/bottom match left/right */
     padding: 10px;

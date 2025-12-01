@@ -138,34 +138,14 @@ body {
 }
 
 /* -------------------------------------------------------
-   PIZZA MODE – ripetizione infinita
+   PIZZA MODE – SOLO cambia background texture, tutto il resto identico
 ------------------------------------------------------- */
 body.pizza-mode {
-  background-image: url("/pizza-texture.jpg") !important;
-  background-repeat: repeat !important;
-  background-size: 300px !important;
-  background-position: top left !important;
-  background-attachment: fixed !important;
-  /* Disable smooth scroll completely */
-  overflow: auto !important;
-}
-
-/* Force header and footer to stay fixed */
-body.pizza-mode .site-header,
-body.pizza-mode .site-footer {
-  position: fixed !important;
-  transform: none !important;
-  will-change: auto !important;
-}
-
-/* Force logo to stay fixed and centered on mobile */
-@media (max-width: 768px) {
-  body.pizza-mode .logo-banner {
-    position: fixed !important;
-    top: 50vh !important;
-    left: 50% !important;
-    transform: translate(-50%, -40%) !important;
-  }
+  background-image: url("/pizza-texture.jpg");
+  background-repeat: repeat;
+  background-size: 300px;
+  background-position: top left;
+  background-attachment: fixed;
 }
 
 /* -------------------------------------------------------
