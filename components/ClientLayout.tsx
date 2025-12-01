@@ -45,9 +45,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 </svg>
             </div>
 
-            <div id="main-content-wrapper">
-                {children}
-            </div>
+            {children}
 
             {/* Footer fixed at bottom */}
             <footer className="site-footer">

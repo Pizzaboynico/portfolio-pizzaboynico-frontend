@@ -139,19 +139,13 @@ body {
 
 /* -------------------------------------------------------
    PIZZA MODE – ripetizione infinita
-   Applied to content wrapper, not body, to avoid affecting fixed elements
 ------------------------------------------------------- */
-body.pizza-mode #main-content-wrapper {
-  background-image: url("/pizza-texture.jpg");
-  background-repeat: repeat;
-  background-size: 300px;
-  background-position: top left;
-  min-height: 100vh;
-}
-
-/* Ensure body background stays solid in pizza-mode */
 body.pizza-mode {
-  background: #4B61D1;
+  background-image: url("/pizza-texture.jpg") !important;
+  background-repeat: repeat !important;
+  background-size: 300px !important;
+  background-position: top left !important;
+  background-attachment: fixed !important;
 }
 
 /* -------------------------------------------------------

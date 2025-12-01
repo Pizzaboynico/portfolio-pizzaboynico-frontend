@@ -175,12 +175,17 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
       io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const el = entry.target as HTMLElement;
-          const rect = el.getBoundingClientRect();
-          const fullyVisible = rect.top >= headerHeight && rect.bottom <= window.innerHeight;
-          if (fullyVisible) el.classList.add('in-view');
-          else el.classList.remove('in-view');
+          // Activate when at least 60% of item is visible
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            el.classList.add('in-view');
+          } else {
+            el.classList.remove('in-view');
+          }
         });
-      }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+      }, { 
+        threshold: [0, 0.25, 0.5, 0.6, 0.75, 1],
+        rootMargin: `-${headerHeight}px 0px 0px 0px`
+      });
 
       items.forEach(it => io?.observe(it));
     };
