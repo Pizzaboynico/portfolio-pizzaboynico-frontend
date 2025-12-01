@@ -1,6 +1,6 @@
 "use client"; 
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SanityImageComponent from './SanityImage';
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/lib/sanity.client';
@@ -82,16 +82,27 @@ const ProjectModal = ({ project, onClose }: { project: Project | null, onClose: 
 
             if (isGif && imgUrl) {
               // use native <img> to preserve gif animation
-              return <img src={imgUrl} alt={project.title} className="modal-img" />;
+              return (
+                <img
+                  src={imgUrl}
+                  alt={project.title}
+                  className="modal-img"
+                  onClick={() => {
+                    if (typeof window !== 'undefined' && window.innerWidth <= 768) onClose();
+                  }}
+                />
+              );
             }
 
             return (
-              <SanityImageComponent
-                image={project.mainImage}
-                alt={project.title}
-                sizes="80vw"
-                className="object-contain"
-              />
+              <div onClick={() => { if (typeof window !== 'undefined' && window.innerWidth <= 768) onClose(); }}>
+                <SanityImageComponent
+                  image={project.mainImage}
+                  alt={project.title}
+                  sizes="80vw"
+                  className="object-contain"
+                />
+              </div>
             );
           })()}
         </div>
@@ -157,13 +168,51 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
           const isZoomed = hoveredProjectId === project._id;
 
           return (
-            <motion.div 
+              <motion.div
               key={project._id} 
                 variants={itemVariants}
-                className={`
-                  group cursor-pointer transition-all duration-300 ease-in-out 
-                  ${isDimmed ? 'faded' : ''}
-                `}
+                  className={`grid-item group cursor-pointer transition-all duration-300 ease-in-out ${isDimmed ? 'faded' : ''}`}
+                  data-project-id={project._id}
+                // Auto highlight via IntersectionObserver on small devices
+                useEffect(() => {
+                  if (typeof window === 'undefined') return;
+                  if (!('IntersectionObserver' in window)) return;
+
+                  const media = window.matchMedia('(max-width: 768px)');
+                  let io: IntersectionObserver | null = null;
+
+                  const init = () => {
+                    if (!media.matches) return;
+                    const items = document.querySelectorAll('.grid .grid-item');
+                    io = new IntersectionObserver((entries) => {
+                      entries.forEach((entry) => {
+                        const el = entry.target as HTMLElement;
+                        if (entry.intersectionRatio >= 1) el.classList.add('in-view');
+                        else el.classList.remove('in-view');
+                      });
+                    }, { threshold: [1] });
+
+                    items.forEach(it => io?.observe(it));
+                  };
+
+                  init();
+
+                  const onChange = () => {
+                    if (io) { io.disconnect(); io = null; }
+                    init();
+                  };
+
+                  if ((media as any).addEventListener) media.addEventListener('change', onChange);
+                  else (media as any).addListener(onChange);
+
+                  return () => {
+                    if (io) io.disconnect();
+                    if ((media as any).removeEventListener) media.removeEventListener('change', onChange);
+                    else (media as any).removeListener(onChange);
+                  };
+                }, []);
+
+                return (
               onMouseEnter={() => handleMouseEnter(project._id)}
               onMouseLeave={handleMouseLeave}
               onClick={() => handleProjectClick(project)}
@@ -203,3 +252,42 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
     </>
   );
 }
+
+// Auto highlight via IntersectionObserver on small devices
+useEffect(() => {
+  if (typeof window === 'undefined') return;
+  if (!('IntersectionObserver' in window)) return;
+
+  const media = window.matchMedia('(max-width: 768px)');
+  let io: IntersectionObserver | null = null;
+
+  const init = () => {
+    if (!media.matches) return;
+    const items = document.querySelectorAll('.grid .grid-item');
+    io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const el = entry.target as HTMLElement;
+        if (entry.intersectionRatio >= 1) el.classList.add('in-view');
+        else el.classList.remove('in-view');
+      });
+    }, { threshold: [1] });
+
+    items.forEach(it => io?.observe(it));
+  };
+
+  init();
+
+  const onChange = () => {
+    if (io) { io.disconnect(); io = null; }
+    init();
+  };
+
+  if ((media as any).addEventListener) media.addEventListener('change', onChange);
+  else (media as any).addListener(onChange);
+
+  return () => {
+    if (io) io.disconnect();
+    if ((media as any).removeEventListener) media.removeEventListener('change', onChange);
+    else (media as any).removeListener(onChange);
+  };
+}, []);

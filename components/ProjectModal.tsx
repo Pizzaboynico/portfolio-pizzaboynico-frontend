@@ -76,6 +76,10 @@ export default function ProjectModal({
               alt={project.title}
               className="modal-img"
               loading="lazy"
+              onClick={() => {
+                // on mobile, allow tapping the image to close the modal (no X)
+                if (typeof window !== 'undefined' && window.innerWidth <= 768) onClose();
+              }}
             />
           )}
         </div>

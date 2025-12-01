@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/lib/sanity.client";
 import ProjectModal from "./ProjectModal";
@@ -57,6 +57,56 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
     );
   };
 
+  // Automatically light up (activate) images that are fully visible on small screens
+  // so users don't need to tap (which blocks scroll). We use an IntersectionObserver
+  // with threshold 1.0 to only mark fully visible items.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!('IntersectionObserver' in window)) return;
+
+    const media = window.matchMedia('(max-width: 768px)');
+    let io: IntersectionObserver | null = null;
+
+    const init = () => {
+      // only run the observer on small screens
+      if (!media.matches) return;
+
+      const items = document.querySelectorAll('.grid-wrapper .grid-item');
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const el = entry.target as HTMLElement;
+            if (entry.intersectionRatio >= 1) el.classList.add('in-view');
+            else el.classList.remove('in-view');
+          });
+        },
+        { threshold: [1] }
+      );
+
+      items.forEach((it) => io?.observe(it));
+    };
+
+    init();
+
+    const onChange = () => {
+      if (io) {
+        io.disconnect();
+        io = null;
+      }
+      init();
+    };
+
+    // MediaQueryList supports both addEventListener or addListener depending on browser
+    if ((media as any).addEventListener) media.addEventListener('change', onChange);
+    else (media as any).addListener(onChange);
+
+    return () => {
+      if (io) io.disconnect();
+      if ((media as any).removeEventListener) media.removeEventListener('change', onChange);
+      else (media as any).removeListener(onChange);
+    };
+  }, []);
+
   return (
     <>
       <motion.div
@@ -88,6 +138,12 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
           </motion.div>
         ))}
       </motion.div>
+
+      {/* IntersectionObserver logic to auto-highlight images that are fully in view on touch/mobile */}
+      {/* Implemented via useEffect so it's properly cleaned up in React */}
+      <>
+        {/* empty fragment placeholder; observer created in useEffect */}
+      </>
 
       <AnimatePresence>
         {selectedProject && (
