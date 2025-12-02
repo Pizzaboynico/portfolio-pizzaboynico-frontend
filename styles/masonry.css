@@ -84,15 +84,12 @@
     column-count: 1;
     padding: 25px 10px;
     column-gap: 10px; /* smaller gap on mobile */
-  }
-  
-  /* Scale down masonry items to 90% maintaining aspect ratio */
-  .masonry-item {
-    transform: scale(0.9);
-    transform-origin: center top;
+    /* Reduce overall wrapper width to 90% */
+    width: 90%;
+    margin: 0 auto;
   }
   
   .masonry-img {
-    height: 420px; /* mobile-only larger posters */
+    height: auto; /* maintain aspect ratio */
   }
 }
