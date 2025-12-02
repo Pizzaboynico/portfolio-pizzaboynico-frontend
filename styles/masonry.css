@@ -85,7 +85,14 @@
     padding: 25px 10px;
     column-gap: 10px; /* smaller gap on mobile */
   }
+  
+  /* Scale down masonry items to 90% maintaining aspect ratio */
+  .masonry-item {
+    transform: scale(0.9);
+    transform-origin: center top;
+  }
+  
   .masonry-img {
-    height: 336px; /* 420px * 0.8 = 336px - mobile-only larger posters */
+    height: 420px; /* mobile-only larger posters */
   }
 }

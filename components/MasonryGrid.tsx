@@ -86,8 +86,8 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
         (entries) => {
           entries.forEach((entry) => {
             const el = entry.target as HTMLElement;
-            // Activate when at least 60% of item is visible
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            // Activate when at least 85% of item is visible
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.85) {
               el.classList.add('in-view');
             } else {
               el.classList.remove('in-view');
@@ -95,7 +95,7 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
           });
         },
         { 
-          threshold: [0.6, 1] // Minimal thresholds for better performance
+          threshold: [0.85, 1] // Stricter threshold for better control
         }
       );
 

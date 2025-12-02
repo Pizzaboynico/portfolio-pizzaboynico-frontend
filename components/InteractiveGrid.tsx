@@ -174,14 +174,14 @@ export default function InteractiveGrid({ projects }: InteractiveGridProps) {
       io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const el = entry.target as HTMLElement;
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.85) {
             el.classList.add('in-view');
           } else {
             el.classList.remove('in-view');
           }
         });
       }, { 
-        threshold: [0.6, 1]
+        threshold: [0.85, 1]
       });
 
       items.forEach(it => io?.observe(it));
