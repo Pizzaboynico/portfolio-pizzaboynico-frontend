@@ -7,23 +7,20 @@
   box-sizing: border-box;
 }
 
-html,
+html {
+  min-height: 100vh;
+  background-color: #4B61D1;
+}
+
 body {
   width: 100%;
-  width: 100%;
-  /* Removed height: 100% to fix "layering" scroll issue on mobile. 
-     Letting the document flow naturally prevents the "double scroll" feeling. */
-  min-height: 100%;
-  /* Allow native scrolling — Smooth scroll (Lenis) will still work when mounted.
-     overflow: hidden caused mobile scroll to be blocked. */
+  min-height: 100vh;
+  /* Allow native scrolling */
   overflow: auto !important;
   overflow-x: hidden;
-  /* Let Lenis handle all scrolling */
   color: #ffffff;
   font-family: AeonikMono, monospace;
-  background: #4B61D1;
   font-size: 13px;
-  /* 🔥 TUTTO IL SITO BASE 13PX */
 }
 
 /* Hide scrollbar but keep scroll functionality */

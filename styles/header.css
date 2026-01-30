@@ -6,17 +6,24 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 10000;
+  /* Increased z-index to be above overlay if needed, or overlay above? Overlay should be top */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
   /* expose a header height variable so the grid can position relative to it */
-  --site-header-height: 68px; /* reasonable default used to calculate spacing on mobile */
+  --site-header-height: 68px;
+  /* reasonable default used to calculate spacing on mobile */
   /* 🔥 Ridotto a 10px come richiesto */
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+
+  /* Make header container tall enough to house the submenu if needed, 
+     or just let submenu flow. */
+  align-items: center;
+  /* Align top so "Menu" stays put */
 }
 
 /* -------------------------------------------------------
@@ -25,10 +32,23 @@
 .logo-banner {
   /* Keep the logo constrained to match the header horizontal padding
      so it aligns with header items on both desktop and mobile. */
-  width: calc(100% - 20px); /* leaves 10px on both sides */
+  width: calc(100% - 20px);
+  /* leaves 10px on both sides */
   max-width: none;
-  padding: 10px 0; /* vertical padding only */
-  margin: -10px auto 0; /* preserve visual offset and center horizontally */
+  padding: 10px 0;
+  /* vertical padding only */
+  margin: -10px auto 0;
+  /* preserve visual offset and center horizontally */
+
+  /* Enable transition for transform */
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* When menu is hovered, push the logo down */
+.logo-banner-pushed {
+  transform: translateY(80px);
+  /* Increased to accommodate submenu */
 }
 
 .logo-banner svg {
@@ -45,23 +65,33 @@
 
     /* MOBILE: center the logo as a fixed overlay so it visually sits above the grid
        keeping interactions possible underneath (pointer-events: none) */
-     position: fixed;
-    top: 50vh; /* vertical reference for viewport center */
+    position: fixed;
+    top: 50vh;
+    /* vertical reference for viewport center */
     left: 50%;
     transform: translate(-50%, -40%);
     max-width: 420px;
     /* leave 10px margin both sides to match header spacing */
-    width: calc(100% - 20px); /* keeps 10px on each side (same as header) */
+    width: calc(100% - 20px);
+    /* keeps 10px on each side (same as header) */
     /* place logo above images/grid but below the modal overlay (modal uses z-index: 9999) */
     z-index: 9500;
-    margin-top: 0; /* remove margin when fixed */
-    pointer-events: none; /* allow interactions for items underneath */
+    margin-top: 0;
+    /* remove margin when fixed */
+    pointer-events: none;
+    /* allow interactions for items underneath */
+  }
+
+  /* Disable push effect on mobile if desired, or adjust */
+  .logo-banner-pushed {
+    transform: translate(-50%, -40%) translateY(20px);
   }
 
   .site-header {
     /* same padding on all sides on mobile so top/bottom match left/right */
     padding: 10px;
-    /* 🔥 Padding ridotto per mobile */
+    /* 🔥 Increased font size for mobile as requested */
+    font-size: 13px;
   }
 }
 
@@ -73,10 +103,52 @@
   gap: 20px;
 }
 
+.header-left {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  /* Space between "Menu" and submenu items */
+}
+
+/* Menu Toggle Link */
+.menu-trigger {
+  cursor: pointer;
+  z-index: 10001;
+  /* Above mobile overlay */
+  display: inline-block;
+  padding-bottom: 2px;
+  /* slight hit area buffer */
+}
+
+/* Submenu container */
+.submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease, height 0.3s ease, transform 0.3s ease;
+  transform: translateY(-5px);
+  pointer-events: none;
+}
+
+/* Active submenu state */
+.submenu-visible {
+  height: auto;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  padding-top: 4px;
+  /* Space from triggers */
+}
+
 .header-link {
   color: white;
   text-decoration: none;
   transition: opacity 0.3s;
+  display: block;
+  /* ensure block for vertical stacking */
 }
 
 .header-link:hover {
@@ -90,9 +162,10 @@
 .location,
 .clock {
   opacity: 0.9;
-  margin-right: 8px;
   font-size: 13px;
   text-transform: capitalize;
+  display: flex;
+  align-items: center;
 }
 
 /* pulsante pizza - design a toggle switch */
@@ -110,6 +183,8 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  z-index: 10001;
+  /* Ensure visible over overlay if needed */
 }
 
 .pizza-button img {
@@ -129,7 +204,8 @@
 .pizza-button-active {
   width: 100%;
   height: 100%;
-  background: #0033ff;
+  background: #4B61D1;
+  /* Corrected to palette blue */
   border-radius: 50%;
   transition: all 0.3s ease;
 }
@@ -138,4 +214,64 @@
 body.pizza-mode .pizza-button {
   border-color: rgba(255, 255, 255, 0.8);
   background: rgba(255, 255, 255, 0.05);
+}
+
+/* -------------------------------------------------------
+   MOBILE MENU OVERLAY
+------------------------------------------------------- */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(75, 97, 209, 0.95);
+  /* Palette blue #4B61D1 with opacity */
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  /* Below header links (z:10001) but above everything else */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-menu-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-menu-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.mobile-menu-link {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  /* Larger font size as requested */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Stagger animations can be added via JS or simpler CSS delay if fixed items */
+.mobile-menu-overlay.open .mobile-menu-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu-link.disabled {
+  opacity: 0.5;
+  cursor: default;
 }

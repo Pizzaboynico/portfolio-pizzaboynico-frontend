@@ -3,18 +3,57 @@
 import { usePizzaMode } from "@/hooks/usePizzaMode";
 import { useClock } from "@/hooks/useClock";
 import SmoothScroll from "@/components/SmoothScroll";
+import { useState, useEffect } from "react";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
     const { isPizzaMode, togglePizzaMode } = usePizzaMode();
     const time = useClock();
+    const [isMenuHovered, setIsMenuHovered] = useState(false);
+
+    // Mobile menu state
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Toggle for mobile menu
+    const toggleMobileMenu = () => {
+        if (isMobile) {
+            setIsMobileMenuOpen(!isMobileMenuOpen);
+        }
+    };
+
+    // Close mobile menu when clicking a link
+    const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
     return (
         <>
             <SmoothScroll />
 
             <header className="site-header">
-                <div className="header-left">
-                    <a href="https://www.instagram.com/pizzaboynico/" target="_blank" rel="noopener noreferrer" className="header-link underline">Instagram</a>
+                <div
+                    className="header-left"
+                    onMouseEnter={() => !isMobile && setIsMenuHovered(true)}
+                    onMouseLeave={() => !isMobile && setIsMenuHovered(false)}
+                >
+                    <span
+                        className="header-link underline menu-trigger"
+                        onClick={toggleMobileMenu}
+                    >
+                        Menu
+                    </span>
+
+                    {/* Desktop Submenu - only visible if NOT mobile */}
+                    <div className={`submenu ${isMenuHovered && !isMobile ? 'submenu-visible' : ''}`}>
+                        <a href="https://www.instagram.com/pizzaboynico/" target="_blank" rel="noopener noreferrer" className="header-link underline">Instagram</a>
+                        <span className="header-link header-disabled">Shop</span>
+                        <a href="mailto:nicola@pizzaboynico.it" className="header-link underline">Contatti</a>
+                    </div>
                 </div>
 
                 <div className="header-right">
@@ -31,8 +70,21 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 </div>
             </header>
 
+            {isMobile && (
+                <div
+                    className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}
+                    onClick={closeMobileMenu}
+                >
+                    <div className="mobile-menu-content">
+                        <a href="https://www.instagram.com/pizzaboynico/" target="_blank" rel="noopener noreferrer" className="mobile-menu-link" onClick={closeMobileMenu}>Instagram</a>
+                        <span className="mobile-menu-link disabled">Shop</span>
+                        <a href="mailto:nicola@pizzaboynico.it" className="mobile-menu-link" onClick={closeMobileMenu}>Contatti</a>
+                    </div>
+                </div>
+            )}
+
             {/* Large logo banner */}
-            <div className="logo-banner">
+            <div className={`logo-banner ${isMenuHovered && !isMobile ? 'logo-banner-pushed' : ''}`}>
                 <svg width="100%" height="100%" viewBox="0 0 1492 317" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                     <path d="M135.133 96.3901C146.743 103.455 155.773 113.088 162.224 125.933C168.674 138.778 172.222 153.871 172.222 170.569C172.222 187.588 168.674 202.36 162.224 214.884C155.773 227.728 146.743 237.362 135.133 244.427C123.522 251.491 110.299 254.703 95.4637 254.703C74.1778 254.703 57.4072 247.317 45.4742 231.903V317H0V87.7198H39.669L44.1842 110.519C49.6669 103.134 56.7622 97.0323 65.47 92.5367C74.1778 88.041 84.1757 85.7931 95.7862 85.7931C110.622 85.7931 123.522 89.3254 135.133 96.3901ZM114.814 204.608C122.232 195.616 126.102 184.056 126.102 169.927C126.102 155.797 122.232 144.558 114.814 135.888C107.074 127.218 97.3987 122.722 85.1433 122.722C72.8878 122.722 62.8899 127.218 55.7946 135.888C48.3769 144.558 44.8292 155.797 44.8292 169.927C44.8292 184.377 48.3769 195.938 55.7946 204.608C62.8899 213.599 72.8878 217.774 85.1433 217.774C97.3987 217.774 107.074 213.599 114.814 204.608Z" fill="white" />
                     <path d="M197.153 26.3858C201.991 31.2026 204.571 37.3039 204.571 44.3685C204.571 51.7543 201.991 57.8556 197.153 62.6724C191.993 67.8103 185.865 70.0582 178.448 70.0582C170.707 70.0582 164.58 67.8103 159.419 62.6724C154.259 57.8556 152.002 51.7543 152.002 44.3685C152.002 37.3039 154.259 31.2026 159.419 26.3858C164.58 21.569 170.707 19 178.448 19C185.865 19 191.993 21.569 197.153 26.3858ZM155.549 87.7198H201.023V252.776H155.549V87.7198Z" fill="white" />
@@ -50,16 +102,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             </div>
 
             {children}
-
-            {/* Footer fixed at bottom */}
-            <footer className="site-footer">
-                <div className="footer-left">
-                    <a href="mailto:nicola@pizzaboynico.it" className="footer-link underline">Contact Me</a>
-                </div>
-                <div className="footer-right">
-                    <a href="#" className="footer-link underline">Seizō</a>
-                </div>
-            </footer>
         </>
     );
 }
