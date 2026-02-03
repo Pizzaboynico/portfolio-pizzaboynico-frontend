@@ -122,10 +122,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         .project-page-container {
             width: 100%;
             min-height: 100vh;
-            padding-top: 120px; /* Reduced for mobile */
+            padding-top: 120px; /* Base for mobile */
             padding-bottom: 100px;
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-left: 10px; /* Matched to header padding */
+            padding-right: 10px; /* Matched to header padding */
             
             position: relative;
             z-index: 1;
@@ -139,7 +139,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         @media (min-width: 1024px) {
             .project-page-container {
-                padding-top: 30vh; /* Restore 30vh for desktop */
+                padding-top: 20vh; /* Raised from 30vh */
             }
 
             .project-layout {
