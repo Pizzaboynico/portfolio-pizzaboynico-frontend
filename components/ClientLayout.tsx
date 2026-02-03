@@ -51,6 +51,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
                     {/* Desktop Submenu - only visible if NOT mobile */}
                     <div className={`submenu ${isMenuHovered && !isMobile ? 'submenu-visible' : ''}`}>
+                        <Link href="/chi-sono" className="header-link underline">Chi Sono</Link>
                         <a href="https://www.instagram.com/pizzaboynico/" target="_blank" rel="noopener noreferrer" className="header-link underline">Instagram</a>
                         <span className="header-link header-disabled">Shop (Soon)</span>
                         <a href="mailto:nicola@pizzaboynico.it" className="header-link underline">Contatti</a>
@@ -77,6 +78,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                     onClick={closeMobileMenu}
                 >
                     <div className="mobile-menu-content">
+                        <Link href="/chi-sono" className="mobile-menu-link" onClick={closeMobileMenu}>Chi Sono</Link>
                         <a href="https://www.instagram.com/pizzaboynico/" target="_blank" rel="noopener noreferrer" className="mobile-menu-link" onClick={closeMobileMenu}>Instagram</a>
                         <span className="mobile-menu-link disabled">Shop (Soon)</span>
                         <a href="mailto:nicola@pizzaboynico.it" className="mobile-menu-link" onClick={closeMobileMenu}>Contatti</a>
