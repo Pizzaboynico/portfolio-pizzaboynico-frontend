@@ -122,14 +122,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         .project-page-container {
             width: 100%;
             min-height: 100vh;
-            /* Padding top accounts for the specific design request: image scrolling under header/svg. 
-               We simply add enough spacing so content starts below the initial header view. */
-            padding-top: 30vh; 
+            padding-top: 120px; /* Reduced for mobile */
             padding-bottom: 100px;
             padding-left: 20px;
             padding-right: 20px;
             
-            /* Ensure this container is behind the header (header is z-index 1000/9000) */
             position: relative;
             z-index: 1;
         }
@@ -141,9 +138,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         }
 
         @media (min-width: 1024px) {
+            .project-page-container {
+                padding-top: 30vh; /* Restore 30vh for desktop */
+            }
+
             .project-layout {
                 flex-direction: row;
-                gap: 60px; /* Gap between left and right */
+                gap: 60px;
             }
 
             .project-info-col {
@@ -157,7 +158,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
             .project-info-sticky {
                 position: sticky;
-                top: 15vh; /* Adjust based on header height */
+                top: 15vh;
             }
         }
 
