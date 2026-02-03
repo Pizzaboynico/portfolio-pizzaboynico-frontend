@@ -42,6 +42,10 @@
   /* Enable transition for transform */
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: transform;
+
+  /* Ensure logo is above page content (z-index 1) but below mobile overlay (z-index 9999) */
+  position: relative;
+  z-index: 50;
 }
 
 /* When menu is hovered, push the logo down */
