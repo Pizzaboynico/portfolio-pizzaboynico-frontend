@@ -10,7 +10,8 @@
   /* Increased z-index to be above overlay if needed, or overlay above? Overlay should be top */
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  /* Changed from center to keep top fixed */
   padding: 10px;
   /* expose a header height variable so the grid can position relative to it */
   --site-header-height: 68px;
@@ -22,8 +23,6 @@
 
   /* Make header container tall enough to house the submenu if needed, 
      or just let submenu flow. */
-  align-items: center;
-  /* Align top so "Menu" stays put */
 }
 
 /* -------------------------------------------------------
@@ -166,6 +165,8 @@
   text-transform: capitalize;
   display: flex;
   align-items: center;
+  margin-top: 2px;
+  /* Small adjustment to align with 'Menu' text baseline */
 }
 
 /* pulsante pizza - design a toggle switch */
@@ -184,6 +185,8 @@
   justify-content: center;
   position: relative;
   z-index: 10001;
+  margin-top: -3px;
+  /* Align circle visually with font-size 11px text */
   /* Ensure visible over overlay if needed */
 }
 
