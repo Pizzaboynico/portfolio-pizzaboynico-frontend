@@ -22,6 +22,8 @@ const PROJECT_QUERY = `
     client,
     year,
     technologies,
+    service,
+    extraInfo,
     mainImage,
     mainVideo,
     gallery,
@@ -37,7 +39,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     notFound();
   }
 
-  const { title, description, studio, client: clientName, year, technologies, gallery, customLabel } = project;
+  const { title, description, service, year, extraInfo, gallery, customLabel } = project;
 
   return (
     <div className="project-page-container">
@@ -54,42 +56,37 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="project-info-col">
           <div className="project-info-sticky">
 
-            <div className="info-row-main">
-              <div className="info-label">{customLabel || "Nome Progetto"}</div>
-              <div className="info-value text-description">
-                <div className="project-title-large">{title}</div>
-                <div className="project-description-text">{description}</div>
-              </div>
-            </div>
-
             <div className="info-meta-group">
-              {studio && (
+              <div className="info-row">
+                <div className="info-label">{customLabel || "Nome Progetto"}</div>
+                <div className="info-value text-bold uppercase">{title}</div>
+              </div>
+
+              {description && (
                 <div className="info-row">
-                  <div className="info-label">Studio</div>
-                  <div className="info-value">{studio}</div>
+                  <div className="info-label">Descrizione</div>
+                  <div className="info-value text-description">{description}</div>
                 </div>
               )}
 
-              {clientName && (
+              {service && (
                 <div className="info-row">
-                  <div className="info-label">Client</div>
-                  <div className="info-value">{clientName}</div>
+                  <div className="info-label">Servizio</div>
+                  <div className="info-value">{service}</div>
                 </div>
               )}
 
               {year && (
                 <div className="info-row">
-                  <div className="info-label">Year</div>
+                  <div className="info-label">Anno</div>
                   <div className="info-value">{year}</div>
                 </div>
               )}
 
-              {technologies && technologies.length > 0 && (
+              {extraInfo && (
                 <div className="info-row">
-                  <div className="info-label">Technology</div>
-                  <div className="info-value">
-                    {technologies.map((t: string) => t).join(', ')}
-                  </div>
+                  <div className="info-label">Info</div>
+                  <div className="info-value text-description">{extraInfo}</div>
                 </div>
               )}
             </div>
@@ -118,7 +115,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           )}
         </div>
 
-      </div>
+      </div >
 
       <style>{
         `
@@ -193,14 +190,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             font-size: 13px;
         }
 
-        .project-title-large {
-            font-size: 13px;
-            text-transform: uppercase;
+        .text-bold {
             font-weight: bold;
-            margin-bottom: 8px;
         }
 
-        .project-description-text {
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .text-description {
             line-height: 1.4;
             max-width: 50ch;
         }
@@ -216,6 +214,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         }
         `
       }</style>
-    </div>
+    </div >
   );
 }
