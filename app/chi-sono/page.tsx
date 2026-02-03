@@ -10,6 +10,7 @@ const BIO_QUERY = `
   *[_type == "bio"][0] {
     title,
     description,
+    email,
     gallery
   }
 `;
@@ -45,6 +46,17 @@ export default async function BioPage() {
                                 <div className="info-row">
                                     <div className="info-label">Bio</div>
                                     <div className="info-value text-description" style={{ whiteSpace: 'pre-wrap' }}>{description}</div>
+                                </div>
+                            )}
+
+                            {email && (
+                                <div className="info-row">
+                                    <div className="info-label">Contatti</div>
+                                    <div className="info-value">
+                                        <a href={`mailto:${email}`} className="underline hover:opacity-70 transition-opacity">
+                                            {email}
+                                        </a>
+                                    </div>
                                 </div>
                             )}
                         </div>
