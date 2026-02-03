@@ -104,7 +104,11 @@
 
   .menu-trigger {
     padding-bottom: 0;
-    /* Remove padding that shifts text on mobile */
+  }
+
+  .header-left {
+    align-items: center;
+    /* Force center alignment on mobile */
   }
 }
 
@@ -288,7 +292,8 @@ body.pizza-mode .pizza-button {
   transform: translateY(0);
 }
 
-.mobile-menu-link.disabled {
+.mobile-menu-link.disabled,
+.mobile-menu-content .disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
