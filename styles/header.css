@@ -91,6 +91,15 @@
     padding: 10px;
     /* 🔥 Increased font size for mobile as requested */
     font-size: 13px;
+    align-items: center;
+    /* Center items vertically on mobile */
+  }
+
+  .location,
+  .clock,
+  .pizza-button {
+    margin-top: 0;
+    /* Remove manual offsets on mobile */
   }
 }
 

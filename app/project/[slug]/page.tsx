@@ -139,7 +139,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         @media (min-width: 1024px) {
             .project-page-container {
-                padding-top: 20vh; /* Raised from 30vh */
+                padding-top: 10vh; /* Raised from 30vh */
             }
 
             .project-layout {
