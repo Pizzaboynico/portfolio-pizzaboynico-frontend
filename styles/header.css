@@ -104,11 +104,18 @@
 
   .menu-trigger {
     padding-bottom: 0;
+    text-decoration: none !important;
+    /* Remove underline on mobile */
+  }
+
+  .menu-trigger::after {
+    display: none;
+    /* Remove any pseudo-element underline */
   }
 
   .header-left {
-    align-items: center;
-    /* Force center alignment on mobile */
+    align-items: baseline;
+    /* Baseline alignment for proper text alignment */
   }
 }
 
@@ -292,8 +299,9 @@ body.pizza-mode .pizza-button {
   transform: translateY(0);
 }
 
-.mobile-menu-link.disabled,
-.mobile-menu-content .disabled {
-  opacity: 0.3;
+/* Important: disabled state must override the open state */
+.mobile-menu-overlay.open .mobile-menu-link.disabled,
+.mobile-menu-overlay.open .mobile-menu-content .disabled {
+  opacity: 0.3 !important;
   cursor: not-allowed;
 }
