@@ -69,10 +69,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 </div>
               )}
 
-              {service && (
+              {service && service.length > 0 && (
                 <div className="info-row">
-                  <div className="info-label">Servizio</div>
-                  <div className="info-value">{service}</div>
+                  <div className="info-label">Servizi</div>
+                  <div className="info-value">
+                    {service.join(', ')}
+                  </div>
                 </div>
               )}
 
