@@ -24,7 +24,8 @@ const PROJECT_QUERY = `
     technologies,
     mainImage,
     mainVideo,
-    gallery
+    gallery,
+    customLabel
   }
 `;
 
@@ -36,7 +37,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     notFound();
   }
 
-  const { title, description, studio, client: clientName, year, technologies, gallery } = project;
+  const { title, description, studio, client: clientName, year, technologies, gallery, customLabel } = project;
 
   return (
     <div className="project-page-container">
@@ -53,15 +54,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="project-info-col">
           <div className="project-info-sticky">
 
-            {(title || description) && (
-              <div className="info-row-main">
-                <div className="info-label">Nome Progetto</div>
-                <div className="info-value text-description">
-                  {/* If title is important here, add: <div className="mb-2 font-bold">{title}</div> */}
-                  {description}
-                </div>
+            <div className="info-row-main">
+              <div className="info-label">{customLabel || "Nome Progetto"}</div>
+              <div className="info-value text-description">
+                <div className="project-title-large">{title}</div>
+                <div className="project-description-text">{description}</div>
               </div>
-            )}
+            </div>
 
             <div className="info-meta-group">
               {studio && (
@@ -194,7 +193,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             font-size: 13px;
         }
 
-        .text-description {
+        .project-title-large {
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .project-description-text {
             line-height: 1.4;
             max-width: 50ch;
         }
