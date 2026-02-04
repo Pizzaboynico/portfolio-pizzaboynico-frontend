@@ -27,7 +27,7 @@ export default async function BioPage() {
         );
     }
 
-    const { title, description, gallery } = bio;
+    const { title, description, email, gallery } = bio;
 
     return (
         <div className="project-page-container">
