@@ -116,25 +116,17 @@ export default async function BioPage() {
 
             .project-layout {
                 flex-direction: row;
-                align-items: flex-start;
-                gap: 0;
+                gap: 60px;
             }
 
             .project-info-col {
-                width: 33.333%;
-                padding-right: 40px;
-                position: relative;
-            }
-
-            .project-info-sticky {
-                position: sticky;
-                top: 15vh; 
+                width: 40%;
+                flex-shrink: 0;
             }
 
             .project-gallery-col {
-                width: 66.666%;
+                width: 60%;
             }
-        }
 
         .info-meta-group {
             display: flex;
@@ -144,11 +136,8 @@ export default async function BioPage() {
 
         .info-row {
             display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 20px;
-            font-size: 11px;
-            text-transform: uppercase;
-            line-height: 1.4;
+            grid-template-columns: 140px 1fr;
+            align-items: baseline;
         }
 
         .info-label {
@@ -180,10 +169,7 @@ export default async function BioPage() {
         }
 
         @media (max-width: 768px) {
-            .info-row {
-               grid-template-columns: 80px 1fr;
-               gap: 10px;
-            }
+            /* Mobile adjustments if needed */
         }
       `}</style>
         </div>
