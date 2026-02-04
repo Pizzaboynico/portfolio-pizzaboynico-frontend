@@ -37,14 +37,10 @@ export default async function BioPage() {
                 <div className="project-info-col">
                     <div className="project-info-sticky">
                         <div className="info-meta-group">
-                            <div className="info-row">
-                                <div className="info-label">Pagina</div>
-                                <div className="info-value text-bold uppercase">{title || "Chi Sono"}</div>
-                            </div>
-
+                            {/* Merged Title/Bio Section */}
                             {description && (
                                 <div className="info-row">
-                                    <div className="info-label">Bio</div>
+                                    <div className="info-label text-bold uppercase md:w-[140px]">Chi Sono</div>
                                     <div className="info-value text-description" style={{ whiteSpace: 'pre-wrap' }}>{description}</div>
                                 </div>
                             )}
@@ -53,7 +49,7 @@ export default async function BioPage() {
                                 <div className="info-row">
                                     <div className="info-label">Contatti</div>
                                     <div className="info-value">
-                                        <a href={`mailto:${email}`} className="underline hover:opacity-70 transition-opacity">
+                                        <a href={`mailto:${email}`} className="email-link">
                                             {email}
                                         </a>
                                     </div>
@@ -142,8 +138,20 @@ export default async function BioPage() {
 
         .info-row {
             display: grid;
-            grid-template-columns: 140px 1fr;
+            grid-template-columns: 80px 1fr;
             align-items: baseline;
+            gap: 10px;
+        }
+        
+        .email-link {
+            color: white;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            transition: opacity 0.3s;
+        }
+        
+        .email-link:hover {
+            opacity: 0.7;
         }
 
         .info-label {
