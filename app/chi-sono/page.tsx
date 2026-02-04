@@ -128,6 +128,12 @@ export default async function BioPage() {
                 width: 60%;
             }
 
+            .project-info-sticky {
+                position: sticky;
+                top: 15vh;
+            }
+        }
+
         .info-meta-group {
             display: flex;
             flex-direction: column;
