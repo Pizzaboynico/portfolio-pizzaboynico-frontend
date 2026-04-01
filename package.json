@@ -20,7 +20,9 @@
     "next-sanity-image": "^6.2.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "styled-components": "^6.1.19"
+    "stripe": "^21.0.1",
+    "styled-components": "^6.1.19",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@types/node": "^20",

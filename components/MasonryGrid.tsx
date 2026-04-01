@@ -34,7 +34,7 @@ const itemVariants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] } },
 };
 
-export default function MasonryGrid({ projects }: { projects: Project[] }) {
+export default function MasonryGrid({ projects, basePath = '/project' }: { projects: Project[], basePath?: string }) {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
         <div className="grid-wrapper">
           {projects.map((project, i) => (
             <Link
-              href={project.slug ? '/project/' + project.slug.current : '#'}
+              href={project.slug ? `${basePath}/` + project.slug.current : '#'}
               key={project._id}
               style={{ textDecoration: 'none' }}
             >
@@ -127,7 +127,7 @@ export default function MasonryGrid({ projects }: { projects: Project[] }) {
         >
           {projects.map((project, i) => (
             <Link
-              href={project.slug ? '/project/' + project.slug.current : '#'}
+              href={project.slug ? `${basePath}/` + project.slug.current : '#'}
               key={project._id}
               className="grid-link-desktop"
               style={{ textDecoration: 'none' }}

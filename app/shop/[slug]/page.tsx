@@ -1,8 +1,9 @@
 import { client } from "@/lib/sanity.client";
 import imageUrlBuilder from "@sanity/image-url";
-import { PortableText } from "@portabletext/react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import BuyButton from "@/components/BuyButton";
+import TShirtBuilder from "@/components/TShirtBuilder";
+import { PortableText } from "@portabletext/react";
 
 const builder = imageUrlBuilder(client);
 function urlFor(src: any) {
@@ -11,10 +12,7 @@ function urlFor(src: any) {
 
 // Funzione helper per calcolare il contrasto del testo
 function getContrastColor(hexColor: string) {
-  // Rimuovi eventuale hash o gestisci rgba/rgb nel caso (Sanity ritorna hex)
   const hex = hexColor.replace('#', '');
-  
-  // Se non è hex valido, torna bianco
   if (hex.length !== 6 && hex.length !== 3) return '#ffffff';
 
   let r = 0, g = 0, b = 0;
@@ -28,45 +26,36 @@ function getContrastColor(hexColor: string) {
     b = parseInt(hex.substring(4, 6), 16);
   }
   
-  // Calcola la luminanza YIQ
   const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-  
-  // Ritorna nero se il colore di sfondo è chiaro, bianco se è scuro
   return yiq >= 128 ? '#000000' : '#ffffff';
 }
 
-// Revalidate every 60 seconds (or 0 for on-request)
 export const revalidate = 60;
 
-const PROJECT_QUERY = `
-  *[_type == "project" && slug.current == $slug][0] {
+const PRODUCT_QUERY = `
+  *[_type == "product" && slug.current == $slug][0] {
     _id,
     title,
-    projectNumber,
+    slug,
+    price,
     description,
-    studio,
-    client,
-    year,
-    technologies,
-    service,
     extraInfo,
+    isCustomizable,
     mainImage,
     "imagePalette": mainImage.asset->metadata.palette,
-    mainVideo,
-    gallery,
-    customLabel
+    gallery
   }
 `;
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = await client.fetch(PROJECT_QUERY, { slug });
+  const product = await client.fetch(PRODUCT_QUERY, { slug });
 
-  if (!project) {
+  if (!product) {
     notFound();
   }
 
-  const { title, description, service, year, extraInfo, gallery, customLabel, imagePalette } = project;
+  const { title, description, price, extraInfo, gallery, imagePalette } = product;
 
   // Estrai il colore dalla palette dell'immagine (vibrant o dominant come fallback)
   const palette = imagePalette?.vibrant || imagePalette?.dominant;
@@ -78,13 +67,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <div className="project-page-container">
 
-      {/* 
-        Layout: 
-        We use a flex/grid layout. 
-        On Desktop: Left col (Sticky), Right col (Scrollable) 
-        On Mobile: Stacked
-      */}
       <div className="project-layout">
+        {product.isCustomizable ? (
+          <TShirtBuilder product={product} textColor={textColor} />
+        ) : (
+          <>
 
         {/* LEFT COLUMN - STICKY */}
         <div className="project-info-col">
@@ -92,8 +79,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
             <div className="info-meta-group">
               <div className="info-row">
-                <div className="info-label">{customLabel || "Nome Progetto"}</div>
+                <div className="info-label">Prodotto</div>
                 <div className="info-value text-bold uppercase">{title}</div>
+              </div>
+
+              <div className="info-row">
+                 <div className="info-label">Prezzo</div>
+                 <div className="info-value text-bold">€ {price.toFixed(2)}</div>
               </div>
 
               {description && (
@@ -103,28 +95,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 </div>
               )}
 
-              {service && service.length > 0 && (
+              {extraInfo && (
                 <div className="info-row">
-                  <div className="info-label">Servizi</div>
-                  <div className="info-value">
-                    {service.join(', ')}
+                  <div className="info-label">Dettagli</div>
+                  <div className="info-value text-description">
+                     <PortableText value={extraInfo} />
                   </div>
                 </div>
               )}
-
-              {year && (
-                <div className="info-row">
-                  <div className="info-label">Anno</div>
-                  <div className="info-value">{year}</div>
-                </div>
-              )}
-
-              {extraInfo && (
-                <div className="info-row">
-                  <div className="info-label">Info</div>
-                  <div className="info-value text-description">{extraInfo}</div>
-                </div>
-              )}
+              
+              <BuyButton product={{
+                  _id: product._id,
+                  title: product.title,
+                  price: product.price,
+                  mainImage: urlFor(product.mainImage).width(800).url(),
+                  slug: product.slug
+              }} textColor={textColor} />
             </div>
 
           </div>
@@ -132,7 +118,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         {/* RIGHT COLUMN - SCROLLABLE GALLERY */}
         <div className="project-gallery-col">
-          {/* If there's a gallery, render it. If not, maybe show main image? */}
           {gallery && gallery.length > 0 ? (
             gallery.map((img: any, i: number) => (
               <div key={i} className="gallery-item">
@@ -140,17 +125,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               </div>
             ))
           ) : (
-            /* Fallback if no gallery: show main image/video */
             <div className="gallery-item">
-              {project.mainVideo ? (
-                <video src={project.mainVideo.asset?.url} controls className="gallery-video" />
-              ) : (
-                <img src={urlFor(project.mainImage).width(1200).url()} alt={title} />
-              )}
+              <img src={urlFor(product.mainImage).width(1200).url()} alt={title} />
             </div>
           )}
         </div>
 
+          </>
+        )}
       </div >
 
       <style>{

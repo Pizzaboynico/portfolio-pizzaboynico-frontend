@@ -58,6 +58,7 @@
   display: block;
   width: 100%;
   height: auto;
+  color: white;
 }
 
 @media (max-width: 768px) {
