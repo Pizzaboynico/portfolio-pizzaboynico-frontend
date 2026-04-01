@@ -4,7 +4,6 @@ import Stripe from "stripe";
 // Inizializzeremo Stripe dentro la funzione POST
 // per evitare che mandi in errore la build se la variabile non è settata 
 
-
 export async function POST(req: Request) {
   try {
     const stripeKey = process.env.STRIPE_SECRET_KEY;
@@ -14,29 +13,45 @@ export async function POST(req: Request) {
     const stripe = new Stripe(stripeKey, {
       apiVersion: "2023-10-16" as any,
     });
+    
+    // Ora ci aspettiamo un array di { items } dal Carrello Drawer
     const body = await req.json();
-    const { productId, title, price, imageUrl, slug } = body;
+    const { items } = body;
 
-    // Calcolo in centesimi richiesto da Stripe per EUR
-    const unitAmount = Math.round(price * 100);
+    if (!items || items.length === 0) {
+      return NextResponse.json({ error: "Carrello vuoto" }, { status: 400 });
+    }
 
-    // Header per localizzare l'origine della richiesta e far ritornare l'utente al sito
     const origin = req.headers.get("origin") || "https://www.pizzaboynico.it";
 
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price_data: {
-            currency: "eur",
-            product_data: {
-              name: title,
-              images: imageUrl ? [imageUrl] : [],
-            },
-            unit_amount: unitAmount,
+    // Mappiamo gli item del frontend nel formato richiesto da Stripe per i line_items
+    const stripeLineItems = items.map((item: any) => {
+      
+      // Costruiamo una stringa di descrizione per far vedere varianti e personalizzazioni
+      const specs = [];
+      if (item.size) specs.push(`Taglia: ${item.size}`);
+      if (item.customization?.cuore) specs.push(`Cuore: ${item.customization.cuore}`);
+      if (item.customization?.destro) specs.push(`Destra: ${item.customization.destro}`);
+      if (item.customization?.retro) specs.push(`Retro: ${item.customization.retro}`);
+      
+      const description = specs.length > 0 ? specs.join(" | ") : "Standard";
+
+      return {
+        price_data: {
+          currency: "eur",
+          product_data: {
+            name: item.title,
+            description: description,
+            images: item.imageUrl ? [item.imageUrl] : [],
           },
-          quantity: 1,
+          unit_amount: Math.round(item.price * 100), // Stripe lavora in centesimi
         },
-      ],
+        quantity: item.quantity,
+      };
+    });
+
+    const session = await stripe.checkout.sessions.create({
+      line_items: stripeLineItems,
       mode: "payment",
       // Richiediamo l'indirizzo di spedizione (visto che sono prodotti fisici)
       shipping_address_collection: {
@@ -49,11 +64,7 @@ export async function POST(req: Request) {
       // Torna al form con successo
       success_url: `${origin}/shop?success=true`,
       // Torna alla pagina del prodotto se cancella
-      cancel_url: `${origin}/shop/${slug}?canceled=true`,
-      metadata: {
-        productId,
-        slug,
-      },
+      cancel_url: `${origin}/shop?canceled=true`,
     });
 
     return NextResponse.json({ url: session.url });

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { useCartStore } from "@/lib/store";
+
 interface BuyButtonProps {
   product: {
     _id: string;
@@ -14,42 +16,20 @@ interface BuyButtonProps {
 }
 
 export default function BuyButton({ product, textColor }: BuyButtonProps) {
-  const [loading, setLoading] = useState(false);
+  const { addItem } = useCartStore();
 
-  const handleCheckout = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          productId: product._id,
-          title: product.title,
-          price: product.price,
-          imageUrl: product.mainImage, // Potrebbe dover essere risolta
-          slug: product.slug?.current,
-        }),
-      });
-      const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        console.error("No checkout URL returned", data);
-        alert("Si è verificato un errore, riprova.");
-      }
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-    } finally {
-      setLoading(false);
-    }
+  const handleAddToCart = () => {
+    addItem({
+      productId: product._id,
+      title: product.title,
+      price: product.price,
+      imageUrl: product.mainImage,
+    });
   };
 
   return (
     <button
-      onClick={handleCheckout}
-      disabled={loading}
+      onClick={handleAddToCart}
       className="buy-button uppercase"
       style={{
         marginTop: "20px",
@@ -57,8 +37,7 @@ export default function BuyButton({ product, textColor }: BuyButtonProps) {
         backgroundColor: "transparent",
         color: textColor,
         border: `1px solid ${textColor}`,
-        cursor: loading ? "not-allowed" : "pointer",
-        opacity: loading ? 0.7 : 1,
+        cursor: "pointer",
         transition: "all 0.3s ease",
         borderRadius: "4px",
         fontSize: "13px",
@@ -73,7 +52,7 @@ export default function BuyButton({ product, textColor }: BuyButtonProps) {
         e.currentTarget.style.color = textColor;
       }}
     >
-      {loading ? "Caricamento..." : "Acquista ora"}
+      Aggiungi al Carrello
     </button>
   );
 }

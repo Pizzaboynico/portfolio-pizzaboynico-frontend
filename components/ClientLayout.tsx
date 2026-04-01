@@ -5,6 +5,8 @@ import { useClock } from "@/hooks/useClock";
 import SmoothScroll from "@/components/SmoothScroll";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useCartStore } from "@/lib/store";
+import CartDrawer from "./CartDrawer";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
     const { isPizzaMode, togglePizzaMode } = usePizzaMode();
@@ -14,6 +16,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     // Mobile menu state
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    
+    // Contatore elementi carrello
+    const { items, toggleDrawer } = useCartStore();
+    const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -58,7 +64,14 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                     </div>
                 </div>
 
-                <div className="header-right">
+                <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                    <span 
+                      className="header-link underline" 
+                      onClick={toggleDrawer}
+                      style={{ cursor: 'pointer', whiteSpace: 'nowrap' }}
+                    >
+                      Carrello ({cartCount})
+                    </span>
                     <span className="location">Bergamo</span>
                     <span className="clock">{time}</span>
 
@@ -107,6 +120,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             </div>
 
             {children}
+            
+            {/* Overlay e Modale Carrello Interattivo */}
+            <CartDrawer />
         </>
     );
 }

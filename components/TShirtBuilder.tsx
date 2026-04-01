@@ -5,6 +5,8 @@ import { PortableText } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/lib/sanity.client";
 
+import { useCartStore } from "@/lib/store";
+
 const builder = imageUrlBuilder(client);
 function urlFor(src: any) {
   return builder.image(src);
@@ -16,6 +18,7 @@ interface TShirtBuilderProps {
 }
 
 export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps) {
+  const { addItem } = useCartStore();
   const [size, setSize] = useState<string>("L");
   const [viewMode, setViewMode] = useState<"front" | "back">("front");
   
@@ -30,15 +33,19 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
   const optionsDestro = [{ value: null, label: "Nessun Logo" }, { value: "destro-1.svg", label: "Logo Destro 1" }];
   const optionsRetro = [{ value: null, label: "Nessun Logo" }, { value: "retro-1.svg", label: "Maxi Retro 1" }];
 
-  const handleCheckoutMock = () => {
-    console.log("=== CONFIGURAZIONE T-SHIRT AGGIUNTA AL CARRELLO ===");
-    console.table({
-      Taglia: size,
-      Logo_Cuore: logoCuore || "Nessuno",
-      Logo_Destro: logoDestro || "Nessuno",
-      Logo_Retro: logoRetro || "Nessuno",
+  const handleAddToCart = () => {
+    addItem({
+      productId: product._id,
+      title: `${product.title}`,
+      price: product.price,
+      imageUrl: urlFor(product.mainImage).width(500).url(),
+      size: size,
+      customization: {
+        cuore: logoCuore,
+        destro: logoDestro,
+        retro: logoRetro
+      }
     });
-    alert(`Configurazione salvata in console!\nTaglia: ${size}\nCuore: ${logoCuore||'-'}\nDestro: ${logoDestro||'-'}\nRetro: ${logoRetro||'-'}`);
   };
 
   const selectStyle = {
@@ -131,7 +138,7 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
               </select>
 
               <button
-                onClick={handleCheckoutMock}
+                onClick={handleAddToCart}
                 className="buy-button uppercase"
                 style={{
                   marginTop: "10px", width: "100%", padding: "12px", background: "transparent", color: textColor,
