@@ -15,9 +15,10 @@ function urlFor(src: any) {
 interface TShirtBuilderProps {
   product: any;
   textColor: string;
+  gallery: any[];
 }
 
-export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps) {
+export default function TShirtBuilder({ product, textColor, gallery }: TShirtBuilderProps) {
   const { addItem } = useCartStore();
   const [size, setSize] = useState<string>("L");
   const [viewMode, setViewMode] = useState<"fronte" | "retro">("fronte");
@@ -244,6 +245,17 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
           )}
 
         </div>
+
+        {/* GALLERIA IMMAGINI AGGIUNTIVE (Sotto il builder) */}
+        {gallery && gallery.length > 0 && (
+          <div style={{ marginTop: '80px' }}>
+            {gallery.map((img: any, i: number) => (
+              <div key={i} style={{ marginBottom: "20px" }}>
+                <img src={urlFor(img).width(1200).url()} alt={`Gallery ${i}`} style={{ width: '100%', height: 'auto', display: 'block' }} loading="lazy" />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

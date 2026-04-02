@@ -69,7 +69,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       <div className="project-layout">
         {product.isCustomizable ? (
-          <TShirtBuilder product={product} textColor={textColor} />
+          <TShirtBuilder product={product} textColor={textColor} gallery={gallery || []} />
         ) : (
           <>
 
