@@ -3,6 +3,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import { notFound } from "next/navigation";
 import BuyButton from "@/components/BuyButton";
 import TShirtBuilder from "@/components/TShirtBuilder";
+import VinylBuilder from "@/components/VinylBuilder";
 import { PortableText } from "@portabletext/react";
 
 const builder = imageUrlBuilder(client);
@@ -41,6 +42,7 @@ const PRODUCT_QUERY = `
     description,
     extraInfo,
     isCustomizable,
+    isVinylSlipmat,
     mainImage,
     "imagePalette": mainImage.asset->metadata.palette,
     gallery
@@ -68,7 +70,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <div className="project-page-container">
 
       <div className="project-layout">
-        {product.isCustomizable ? (
+        {product.isVinylSlipmat ? (
+          <VinylBuilder product={product} textColor={textColor} gallery={gallery || []} />
+        ) : product.isCustomizable ? (
           <TShirtBuilder product={product} textColor={textColor} gallery={gallery || []} />
         ) : (
           <>

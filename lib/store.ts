@@ -9,6 +9,7 @@ export interface CartItem {
     cuore?: string | null;
     destro?: string | null;
     retro?: string | null;
+    vinylModel?: string | null;
   };
   quantity: number;
 }
@@ -38,7 +39,7 @@ export const useCartStore = create<CartStore>()(
         set((state) => {
           // Creazione di un ID unico basato sul prodotto e le config scelte
           const customStr = newItem.customization
-            ? `${newItem.customization.cuore || ''}-${newItem.customization.destro || ''}-${newItem.customization.retro || ''}`
+            ? `${newItem.customization.cuore || ''}-${newItem.customization.destro || ''}-${newItem.customization.retro || ''}-${newItem.customization.vinylModel || ''}`
             : '';
           const uniqueId = `${newItem.productId}-${newItem.size || 'base'}-${customStr}`;
 

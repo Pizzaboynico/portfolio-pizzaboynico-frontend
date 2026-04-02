@@ -27,12 +27,12 @@ export async function POST(req: Request) {
     // Mappiamo gli item del frontend nel formato richiesto da Stripe per i line_items
     const stripeLineItems = items.map((item: any) => {
       
-      // Costruiamo una stringa di descrizione per far vedere varianti e personalizzazioni
       const specs = [];
-      if (item.size) specs.push(`Taglia: ${item.size}`);
+      if (item.size) specs.push(`Taglia/Misura: ${item.size}`);
       if (item.customization?.cuore) specs.push(`Cuore: ${item.customization.cuore}`);
       if (item.customization?.destro) specs.push(`Destra: ${item.customization.destro}`);
       if (item.customization?.retro) specs.push(`Retro: ${item.customization.retro}`);
+      if (item.customization?.vinylModel) specs.push(`Modello: ${item.customization.vinylModel}`);
       
       const description = specs.length > 0 ? specs.join(" | ") : "Standard";
 

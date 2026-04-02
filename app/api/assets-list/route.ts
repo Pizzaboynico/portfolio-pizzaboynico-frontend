@@ -16,6 +16,7 @@ export async function GET() {
       cuore: getFiles('lato-cuore'),
       destro: getFiles('lato-destro'),
       retro: getFiles('retro'),
+      vinyl: getFiles('vinyl'),
     };
 
     return NextResponse.json(data);
