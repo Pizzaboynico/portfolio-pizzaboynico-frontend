@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PortableText } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/lib/sanity.client";
@@ -22,34 +22,37 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
   const [size, setSize] = useState<string>("L");
   const [viewMode, setViewMode] = useState<"fronte" | "retro">("fronte");
   
-  // Nomi dei file selezionati (in futuro potrebbero essere ID dinamicamente ricaricati)
   const [logoCuore, setLogoCuore] = useState<string | null>(null);
   const [logoDestro, setLogoDestro] = useState<string | null>(null);
   const [logoRetro, setLogoRetro] = useState<string | null>(null);
 
-  // MOCK DATA per le dropdown
+  const [optionsCuore, setOptionsCuore] = useState<any[]>([]);
+  const [optionsDestro, setOptionsDestro] = useState<any[]>([]);
+  const [optionsRetro, setOptionsRetro] = useState<any[]>([]);
+
   const sizes = ["S", "M", "L", "XL", "XXL"];
-  const optionsCuore = [
-    { value: null, label: "Nessun Logo" }, 
-    { value: "Cuore-Aeroplano.svg", label: "Aeroplano" },
-    { value: "Cuore-Maschera.svg", label: "Maschera Tengu" },
-    { value: "Cuore-Rana.svg", label: "Rana" },
-    { value: "cuore-5.svg", label: "Logo 5" },
-    { value: "Cuore-.svg", label: "Logo Standard" }
-  ];
-  const optionsDestro = [
-    { value: null, label: "Nessun Logo" }, 
-    { value: "destro-Kanji.svg", label: "Kanji" },
-    { value: "destro-Seizō.svg", label: "Seizō Text" }
-  ];
-  const optionsRetro = [
-    { value: null, label: "Nessun Logo" }, 
-    { value: "Retro-Ape.svg", label: "Ape" },
-    { value: "Retro-Cavallo.svg", label: "Cavallo" },
-    { value: "Retro-Dinosauro.svg", label: "Dinosauro" },
-    { value: "Retro-Rana.svg", label: "Rana SD" },
-    { value: "Retro-Tetto.svg", label: "Tetto" }
-  ];
+
+  // Caricamento dinamico asset per accettare qualsiasi nomenclatura
+  useEffect(() => {
+    async function loadAssets() {
+      try {
+        const res = await fetch('/api/assets-list');
+        const data = await res.json();
+        
+        const formatOptions = (files: string[]) => [
+          { value: null, label: "Nessun Logo" },
+          ...files.map(f => ({ value: f, label: f.replace('.svg', '').replace('Cuore-', '').replace('destro-', '').replace('Retro-', '') }))
+        ];
+
+        setOptionsCuore(formatOptions(data.cuore || []));
+        setOptionsDestro(formatOptions(data.destro || []));
+        setOptionsRetro(formatOptions(data.retro || []));
+      } catch (err) {
+        console.error("Errore caricamento asset builder:", err);
+      }
+    }
+    loadAssets();
+  }, []);
 
   const handleAddToCart = () => {
     addItem({
