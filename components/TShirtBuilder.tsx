@@ -29,9 +29,27 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
 
   // MOCK DATA per le dropdown
   const sizes = ["S", "M", "L", "XL", "XXL"];
-  const optionsCuore = [{ value: null, label: "Nessun Logo" }, { value: "cuore-1.svg", label: "Logo Cuore 1" }];
-  const optionsDestro = [{ value: null, label: "Nessun Logo" }, { value: "destro-1.svg", label: "Logo Destro 1" }];
-  const optionsRetro = [{ value: null, label: "Nessun Logo" }, { value: "retro-1.svg", label: "Maxi Retro 1" }];
+  const optionsCuore = [
+    { value: null, label: "Nessun Logo" }, 
+    { value: "Cuore-Aeroplano.svg", label: "Aeroplano" },
+    { value: "Cuore-Maschera.svg", label: "Maschera Tengu" },
+    { value: "Cuore-Rana.svg", label: "Rana" },
+    { value: "cuore-5.svg", label: "Logo 5" },
+    { value: "Cuore-.svg", label: "Logo Standard" }
+  ];
+  const optionsDestro = [
+    { value: null, label: "Nessun Logo" }, 
+    { value: "destro-Kanji.svg", label: "Kanji" },
+    { value: "destro-Seizō.svg", label: "Seizō Text" }
+  ];
+  const optionsRetro = [
+    { value: null, label: "Nessun Logo" }, 
+    { value: "Retro-Ape.svg", label: "Ape" },
+    { value: "Retro-Cavallo.svg", label: "Cavallo" },
+    { value: "Retro-Dinosauro.svg", label: "Dinosauro" },
+    { value: "Retro-Rana.svg", label: "Rana SD" },
+    { value: "Retro-Tetto.svg", label: "Tetto" }
+  ];
 
   const handleAddToCart = () => {
     addItem({
@@ -189,20 +207,20 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
           {/* LAYER FRONTE */}
           {viewMode === "fronte" && (
             <>
-              {/* LATO CUORE - Posizione stimata: 30% da sinistra, 30% dall'alto */}
+              {/* LATO CUORE - Spostato più in EN ALTO e rimpicciolito (Viewer Left) */}
               {logoCuore && (
                 <img 
                   src={`/assets/lato-cuore/${logoCuore}`} 
                   alt="Lato Cuore" 
-                  style={{ position: 'absolute', width: '15%', left: '25%', top: '25%', zIndex: 10, pointerEvents: 'none' }}
+                  style={{ position: 'absolute', width: '12%', left: '22%', top: '18%', zIndex: 10, pointerEvents: 'none' }}
                 />
               )}
-              {/* LATO DESTRO - Posizione stimata: 60% da sinistra, 30% dall'alto */}
+              {/* LATO DESTRO - Spostato più in ALTO e rimpicciolito (Viewer Right) */}
               {logoDestro && (
                 <img 
                   src={`/assets/lato-destro/${logoDestro}`} 
                   alt="Lato Destro" 
-                  style={{ position: 'absolute', width: '15%', left: '60%', top: '25%', zIndex: 10, pointerEvents: 'none' }}
+                  style={{ position: 'absolute', width: '13%', left: '60%', top: '20%', zIndex: 10, pointerEvents: 'none' }}
                 />
               )}
             </>
@@ -211,11 +229,12 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
           {/* LAYER RETRO */}
           {viewMode === "retro" && (
             <>
+               {/* Logo RETRO - Molto più in alto come da feedback */}
                {logoRetro && (
                 <img 
                   src={`/assets/retro/${logoRetro}`} 
                   alt="Schiena" 
-                  style={{ position: 'absolute', width: '50%', left: '25%', top: '30%', zIndex: 10, pointerEvents: 'none' }}
+                  style={{ position: 'absolute', width: '42%', left: '29%', top: '12%', zIndex: 10, pointerEvents: 'none' }}
                 />
               )}
             </>
