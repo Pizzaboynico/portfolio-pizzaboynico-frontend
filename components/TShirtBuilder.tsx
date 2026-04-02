@@ -215,7 +215,7 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
                 <img 
                   src={`/assets/lato-destro/${logoDestro}`} 
                   alt="Lato Destro" 
-                  style={{ position: 'absolute', width: '13%', left: '22%', top: '20%', zIndex: 10, pointerEvents: 'none' }}
+                  style={{ position: 'absolute', width: '13%', left: '22%', top: '18%', zIndex: 10, pointerEvents: 'none' }}
                 />
               )}
               {/* LATO CUORE - Heart Side (Viewer Right) */}
