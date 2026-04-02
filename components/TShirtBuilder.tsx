@@ -143,14 +143,14 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
                 ))}
               </div>
 
-              <div className="info-label" style={{marginBottom: "5px"}}>Logo Lato Cuore</div>
-              <select style={selectStyle} value={logoCuore || ""} onChange={(e) => changeCuore(e.target.value || null)}>
-                {optionsCuore.map(opt => <option key={opt.label} value={opt.value || ""} style={{color: 'black'}}>{opt.label}</option>)}
-              </select>
-
-              <div className="info-label" style={{marginBottom: "5px"}}>Logo Lato Destro</div>
+              <div className="info-label" style={{marginBottom: "5px"}}>Logo Lato Destro (Sinistra schermo)</div>
               <select style={selectStyle} value={logoDestro || ""} onChange={(e) => changeDestro(e.target.value || null)}>
                 {optionsDestro.map(opt => <option key={opt.label} value={opt.value || ""} style={{color: 'black'}}>{opt.label}</option>)}
+              </select>
+
+              <div className="info-label" style={{marginBottom: "5px"}}>Logo Lato Cuore (Destra schermo)</div>
+              <select style={selectStyle} value={logoCuore || ""} onChange={(e) => changeCuore(e.target.value || null)}>
+                {optionsCuore.map(opt => <option key={opt.label} value={opt.value || ""} style={{color: 'black'}}>{opt.label}</option>)}
               </select>
 
               <div className="info-label" style={{marginBottom: "5px"}}>Maxi Stampa Retro</div>
@@ -210,20 +210,20 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
           {/* LAYER FRONTE */}
           {viewMode === "fronte" && (
             <>
-              {/* LATO CUORE - Posizione visiva (Viewer Left) per accogliere Kanji/Seizo */}
-              {logoCuore && (
-                <img 
-                  src={`/assets/lato-cuore/${logoCuore}`} 
-                  alt="Lato Cuore" 
-                  style={{ position: 'absolute', width: '12%', left: '22%', top: '18%', zIndex: 10, pointerEvents: 'none' }}
-                />
-              )}
-              {/* LATO DESTRO - Posizione visiva (Viewer Right) per gli altri loghi */}
+              {/* LATO DESTRO - Wearer Right (Viewer Left) */}
               {logoDestro && (
                 <img 
                   src={`/assets/lato-destro/${logoDestro}`} 
                   alt="Lato Destro" 
-                  style={{ position: 'absolute', width: '13%', left: '60%', top: '20%', zIndex: 10, pointerEvents: 'none' }}
+                  style={{ position: 'absolute', width: '13%', left: '22%', top: '20%', zIndex: 10, pointerEvents: 'none' }}
+                />
+              )}
+              {/* LATO CUORE - Heart Side (Viewer Right) */}
+              {logoCuore && (
+                <img 
+                  src={`/assets/lato-cuore/${logoCuore}`} 
+                  alt="Lato Cuore" 
+                  style={{ position: 'absolute', width: '12%', left: '60%', top: '18%', zIndex: 10, pointerEvents: 'none' }}
                 />
               )}
             </>
