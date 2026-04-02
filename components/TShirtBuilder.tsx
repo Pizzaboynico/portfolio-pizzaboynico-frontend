@@ -210,20 +210,20 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
           {/* LAYER FRONTE */}
           {viewMode === "fronte" && (
             <>
-              {/* LATO CUORE - Spostato più in EN ALTO e rimpicciolito (Viewer Left) */}
+              {/* LATO CUORE - Posizione anatomica corretta (Viewer Right) */}
               {logoCuore && (
                 <img 
                   src={`/assets/lato-cuore/${logoCuore}`} 
                   alt="Lato Cuore" 
-                  style={{ position: 'absolute', width: '12%', left: '22%', top: '18%', zIndex: 10, pointerEvents: 'none' }}
+                  style={{ position: 'absolute', width: '12%', left: '60%', top: '18%', zIndex: 10, pointerEvents: 'none' }}
                 />
               )}
-              {/* LATO DESTRO - Spostato più in ALTO e rimpicciolito (Viewer Right) */}
+              {/* LATO DESTRO - Posizione anatomica corretta (Viewer Left) */}
               {logoDestro && (
                 <img 
                   src={`/assets/lato-destro/${logoDestro}`} 
                   alt="Lato Destro" 
-                  style={{ position: 'absolute', width: '13%', left: '60%', top: '20%', zIndex: 10, pointerEvents: 'none' }}
+                  style={{ position: 'absolute', width: '13%', left: '22%', top: '20%', zIndex: 10, pointerEvents: 'none' }}
                 />
               )}
             </>
