@@ -20,7 +20,7 @@ interface TShirtBuilderProps {
 export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps) {
   const { addItem } = useCartStore();
   const [size, setSize] = useState<string>("L");
-  const [viewMode, setViewMode] = useState<"front" | "back">("front");
+  const [viewMode, setViewMode] = useState<"fronte" | "retro">("fronte");
   
   // Nomi dei file selezionati (in futuro potrebbero essere ID dinamicamente ricaricati)
   const [logoCuore, setLogoCuore] = useState<string | null>(null);
@@ -61,9 +61,9 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
   };
 
   // Funzioni che cambiano lato automaticamente
-  const changeCuore = (val: string | null) => { setLogoCuore(val); setViewMode("front"); };
-  const changeDestro = (val: string | null) => { setLogoDestro(val); setViewMode("front"); };
-  const changeRetro = (val: string | null) => { setLogoRetro(val); setViewMode("back"); };
+  const changeCuore = (val: string | null) => { setLogoCuore(val); setViewMode("fronte"); };
+  const changeDestro = (val: string | null) => { setLogoDestro(val); setViewMode("fronte"); };
+  const changeRetro = (val: string | null) => { setLogoRetro(val); setViewMode("retro"); };
 
   return (
     <>
@@ -160,19 +160,19 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
         {/* Toggle Vista manuale */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '20px' }}>
           <button 
-            onClick={() => setViewMode('front')}
+            onClick={() => setViewMode('fronte')}
             style={{ 
               padding: "8px 16px", cursor: "pointer", fontSize: "12px", border: `1px solid ${textColor}`,
-              background: viewMode === 'front' ? textColor : "transparent",
-              color: viewMode === 'front' ? (textColor === "#ffffff" ? "#000000" : "#ffffff") : textColor 
+              background: viewMode === 'fronte' ? textColor : "transparent",
+              color: viewMode === 'fronte' ? (textColor === "#ffffff" ? "#000000" : "#ffffff") : textColor 
             }}
           >Vista Fronte</button>
           <button 
-            onClick={() => setViewMode('back')}
+            onClick={() => setViewMode('retro')}
             style={{ 
               padding: "8px 16px", cursor: "pointer", fontSize: "12px", border: `1px solid ${textColor}`,
-              background: viewMode === 'back' ? textColor : "transparent",
-              color: viewMode === 'back' ? (textColor === "#ffffff" ? "#000000" : "#ffffff") : textColor 
+              background: viewMode === 'retro' ? textColor : "transparent",
+              color: viewMode === 'retro' ? (textColor === "#ffffff" ? "#000000" : "#ffffff") : textColor 
             }}
           >Vista Retro</button>
         </div>
@@ -187,7 +187,7 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
           />
 
           {/* LAYER FRONTE */}
-          {viewMode === "front" && (
+          {viewMode === "fronte" && (
             <>
               {/* LATO CUORE - Posizione stimata: 30% da sinistra, 30% dall'alto */}
               {logoCuore && (
@@ -209,7 +209,7 @@ export default function TShirtBuilder({ product, textColor }: TShirtBuilderProps
           )}
 
           {/* LAYER RETRO */}
-          {viewMode === "back" && (
+          {viewMode === "retro" && (
             <>
                {logoRetro && (
                 <img 
